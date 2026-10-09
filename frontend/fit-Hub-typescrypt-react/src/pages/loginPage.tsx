@@ -1,54 +1,103 @@
-function loginPage() {
-  return (
-    <section className="text-black font-mono flex justify-center items-center h-screen w-full">
-      <div className="mx-auto max-w-md mt-30 p-10 h-170 overflow-hidden rounded-xl md:max-w-2xl shadow-2xl gap-5 h-full flex flex-col justify-center items-center">
-        <div className="flex justify-center items-center flex-col">
-          <img
-            className="h-auto w-full object-cover"
-            src="/img/primary-logo.svg"
-            alt="FitHub logo"
-          />
-          <h1 className="text-2xl text-center">
-            Bem-vindo ao FitHub!
-          </h1>
-          <p className="text-gray-600 mt-2 text-center">
-            Faça login para continuar
-          </p>
-        </div>
+import type { FormEvent } from "react";
+import { Link } from "react-router-dom";
+import logo from "../../img/Primary-logo.svg";
 
-        <div>
-          <form className="mt-8 p-5 display: flex flex-col items-center justify-center gap-1 w-full">
-            <div className="mb-4">
-              <input
-                type="email"
-                required
-                placeholder="Seu email ou CPF"
-                className="rounded-lg border placeholder:text-gray-500 border-gray-300 w-100 py-2 px-4 focus:outline-none focus:ring-2 focus:ring-green-500 disabled:border-gray-200 disabled:bg-gray-100 disabled:text-gray-400"
-              />
+const eyebrow =
+  "inline-flex items-center gap-2 text-[11px] font-bold tracking-[.16em] text-[#598c1c]";
+
+function LoginPage() {
+  function handleLogin(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    console.log("Login button clicked");
+  }
+
+  return (
+    <section className="mx-auto grid min-h-[calc(100vh_-_150px)] max-w-[1040px] place-items-center px-5 py-8 md:px-10 md:py-[54px]">
+      <div className="grid min-h-[510px] w-full max-w-[930px] overflow-hidden rounded-[14px] border border-[#e2e7de] bg-white shadow-[0_24px_70px_#1c2b1012] md:grid-cols-[0.95fr_1.05fr]">
+        <div className="flex min-h-[235px] flex-col justify-between bg-linear-to-r from-amber-50 to-white p-[25px] md:p-[38px]">
+          <Link
+            to="/home"
+            className="inline-flex"
+            aria-label="Voltar para a página inicial"
+          >
+            <img className="block h-auto w-[120px]" src={logo} alt="FitHub" />
+          </Link>
+          <div className="my-5 md:my-10">
+            <span className={eyebrow}>SUA JORNADA COMEÇA AQUI</span>
+            <h1 className="my-3 max-w-[340px] text-[34px] font-extrabold leading-[1.04] tracking-[-.055em] md:text-[clamp(34px,4vw,48px)]">
+              O seu melhor está em{" "}
+              <span className="text-[#598c1c]">movimento.</span>
+            </h1>
+            <p className="max-w-[320px] text-sm leading-[1.8] text-[#687064] md:text-base">
+              Entre para acompanhar sua evolução e continuar construindo uma
+              rotina que faz bem.
+            </p>
+          </div>
+          <span className="hidden text-[9px] tracking-[.15em] text-[#737f69] md:block">
+            FOCO • FORÇA • EVOLUÇÃO
+          </span>
+        </div>
+        <div className="self-center px-[25px] py-9 md:px-[clamp(28px,6vw,70px)] md:py-16">
+          <div>
+            <span className={eyebrow}>BEM-VINDO DE VOLTA</span>
+            <h2 className="mt-3 mb-1 text-[30px] font-bold tracking-[-.04em]">
+              Acesse sua conta
+            </h2>
+            <p className="text-base text-[#687064]">
+              Que bom ter você por aqui.
+            </p>
+          </div>
+          <form className="mt-[34px] flex flex-col" onSubmit={handleLogin}>
+            <label
+              className="mb-[9px] text-sm font-semibold text-[#30372d]"
+              htmlFor="cpf"
+            >
+              CPF
+            </label>
+            <input
+              className="mb-[22px] h-12 w-full rounded-[7px] border border-[#d9dfd5] bg-white px-[14px] text-sm text-[#20251e] outline-none transition placeholder:text-[#8a9185] focus:border-[#83b943] focus:ring-[3px] focus:ring-[#79b82d]/20"
+              id="cpf"
+              name="cpf"
+              type="text"
+              size={11}
+              required
+              pattern="\d{11}"
+              title="Digite o CPF com 11 dígitos numéricos, sem pontos ou traço."
+              placeholder="Digite seu CPF"
+            />
+            <div className="mb-[9px] flex items-center justify-between text-sm font-semibold text-[#30372d]">
+              <label htmlFor="password">Senha</label>
+              <a className="text-xs font-medium text-[#598c1c]" href="#ajuda">
+                Esqueceu a senha?
+              </a>
             </div>
-            <div className="mb-4 display: flex flex-row items-center justify-center">
-              <input
-                type="password"
-                required
-                placeholder="Sua senha"
-                className="rounded-lg border placeholder:text-gray-500 border-gray-300 w-100 py-2 px-4 focus:outline-none focus:ring-2 focus:ring-green-500 disabled:border-gray-200 disabled:bg-gray-100 disabled:text-gray-400"
-              />
-            </div>
-            <div className="mb-4 flex justify-center items-center w-full">
-              <button id="login-btn" onClick={handleLogin} className="transition-transform duration-300 ease-in-out hover:scale-101 hover:bg-green-600 bg-green-500 text-white py-2 px-4 rounded-lg cursor-pointer w-100" type="submit">
-                Entrar
-              </button>
-            </div>
+            <input
+              className="mb-[22px] h-12 w-full rounded-[7px] border border-[#d9dfd5] bg-white px-[14px] text-sm text-[#20251e] outline-none transition placeholder:text-[#8a9185] focus:border-[#83b943] focus:ring-[3px] focus:ring-[#79b82d]/20"
+              id="password"
+              name="password"
+              type="password"
+              title="Digite sua senha"
+              autoComplete="current-password"
+              required
+              placeholder="Digite sua senha"
+            />
+            <button
+              className="inline-flex min-h-[50px] cursor-pointer w-full items-center justify-center gap-6 rounded-lg bg-[#c5ff62] px-[21px] text-[15px] font-bold text-[#17200f] transition hover:-translate-y-0.5 hover:bg-[#b3ee4f]"
+              type="submit"
+            >
+              Entrar na conta <span>↗</span>
+            </button>
           </form>
+          <p className="mt-[25px] text-center text-sm text-[#687064]">
+            Ainda não tem uma conta?{" "}
+            <Link className="font-bold text-[#598c1c]" to="/home">
+              Conheça o FitHub
+            </Link>
+          </p>
         </div>
       </div>
     </section>
   );
-
-  function handleLogin(event: React.MouseEvent<HTMLButtonElement>) {
-    event.preventDefault();
-    console.log("Login button clicked");
-  }
 }
 
-export default loginPage;
+export default LoginPage;
