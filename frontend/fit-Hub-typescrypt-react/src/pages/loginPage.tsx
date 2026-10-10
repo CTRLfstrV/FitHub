@@ -1,15 +1,27 @@
-import type { FormEvent } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../img/Primary-logo.svg";
+import type { PessoaLoginDTO } from "../types/PessoaLoginDTO";
+import { LoginService } from "../services/LoginService";
 
 const eyebrow =
   "inline-flex items-center gap-2 text-[11px] font-bold tracking-[.16em] text-[#598c1c]";
 
+const loginService: LoginService = new LoginService();
+
 function LoginPage() {
-  function handleLogin(event: FormEvent<HTMLFormElement>) {
+  const [cpf, setCpf] = useState<string>("");
+  const [senha, setSenha] = useState<string>("");
+
+  const handleLogin = (event: React.SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log("Login button clicked");
-  }
+    const pessoaLogin: PessoaLoginDTO = {
+      cpf,
+      senha
+    };
+
+    loginService.login(pessoaLogin);
+  };
 
   return (
     <section className="mx-auto grid min-h-[calc(100vh_-_150px)] max-w-[1040px] place-items-center px-5 py-8 md:px-10 md:py-[54px]">
@@ -47,7 +59,7 @@ function LoginPage() {
               Que bom ter você por aqui.
             </p>
           </div>
-          <form className="mt-[34px] flex flex-col" onSubmit={handleLogin}>
+          <form className="mt-[34px] flex flex-col" onSubmit={(event) => handleLogin(event)}>
             <label
               className="mb-[9px] text-sm font-semibold text-[#30372d]"
               htmlFor="cpf"
@@ -64,6 +76,8 @@ function LoginPage() {
               pattern="\d{11}"
               title="Digite o CPF com 11 dígitos numéricos, sem pontos ou traço."
               placeholder="Digite seu CPF"
+              value={cpf}
+              onChange={(e) => setCpf(e.target.value)}
             />
             <div className="mb-[9px] flex items-center justify-between text-sm font-semibold text-[#30372d]">
               <label htmlFor="password">Senha</label>
@@ -80,6 +94,8 @@ function LoginPage() {
               autoComplete="current-password"
               required
               placeholder="Digite sua senha"
+              value={senha}
+              onChange={(e) => setSenha(e.target.value)}
             />
             <button
               className="inline-flex min-h-[50px] cursor-pointer w-full items-center justify-center gap-6 rounded-lg bg-[#c5ff62] px-[21px] text-[15px] font-bold text-[#17200f] transition hover:-translate-y-0.5 hover:bg-[#b3ee4f]"
