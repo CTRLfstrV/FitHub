@@ -26,6 +26,15 @@ namespace PorjetoBackend_FITHUB
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("PermiteRequisicoes", policy =>
+                {
+                    policy.AllowAnyOrigin()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod();
+                });
+            });
 
             services.AddControllers();
 
@@ -49,6 +58,8 @@ namespace PorjetoBackend_FITHUB
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors("PermiteRequisicoes");
 
             app.UseAuthorization();
 
