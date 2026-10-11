@@ -3,10 +3,11 @@
     "ProjetoBackend-FITHUB": {
       "commandName": "Project",
       "launchBrowser": true,
+      "launchUrl": "swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "https://localhost:63366;http://localhost:63367"
+      "applicationUrl": "http://0.0.0.0:63367"
     },
     "IIS Express": {
       "commandName": "IISExpress",
