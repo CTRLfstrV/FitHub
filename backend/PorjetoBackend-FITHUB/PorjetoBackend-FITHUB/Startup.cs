@@ -28,6 +28,7 @@ namespace PorjetoBackend_FITHUB
         {
 
             services.AddControllers();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "PorjetoBackend_FITHUB", Version = "v1" });
