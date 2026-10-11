@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PorjetoBackend_FITHUB.Models.DTO_s;
 
 namespace PorjetoBackend_FITHUB.Controllers
 {
@@ -7,9 +8,9 @@ namespace PorjetoBackend_FITHUB.Controllers
     public class UsuarioController : ControllerBase
     {
         [HttpPost("login")]
-        public IActionResult Login()
+        public IActionResult Login([FromBody] UsuarioLoginDTO usuario)
         {
-            return Ok("Tudo certo");
+            return Ok(usuario.Cpf);
         }
     }
 }
