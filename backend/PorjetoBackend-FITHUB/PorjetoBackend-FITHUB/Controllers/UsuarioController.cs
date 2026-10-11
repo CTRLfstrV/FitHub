@@ -6,7 +6,7 @@ namespace PorjetoBackend_FITHUB.Controllers
     [Route("api/[controller]")]
     public class UsuarioController : ControllerBase
     {
-        [HttpGet("login")]
+        [HttpPost("login")]
         public IActionResult Login()
         {
             return Ok("Tudo certo");
