@@ -7,6 +7,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using PorjetoBackend_FITHUB.BLL.Interfaces;
+using PorjetoBackend_FITHUB.BLL.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +28,8 @@ namespace PorjetoBackend_FITHUB
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<ILoginBLL, LoginServiceBLL>();
+
             services.AddCors(options =>
             {
                 options.AddPolicy("PermiteRequisicoes", policy =>
