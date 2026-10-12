@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,6 +10,7 @@ using PorjetoBackend_FITHUB.Data;
 using PorjetoBackend_FITHUB.Services.Implementations;
 using PorjetoBackend_FITHUB.Services.Interfaces;
 using System;
+using System.Linq;
 
 namespace PorjetoBackend_FITHUB
 {
@@ -53,7 +55,31 @@ namespace PorjetoBackend_FITHUB
                 options.Cookie.IsEssential = true;
             });
 
-            services.AddControllers();
+            services.AddControllers()
+                .ConfigureApiBehaviorOptions(options =>
+                {
+                    options.InvalidModelStateResponseFactory = context =>
+                    {
+                        var erros = context.ModelState
+                            .Where(model => model.Value.Errors.Count > 0)
+                            .SelectMany(model => model.Value.Errors.Select(erro =>
+                                new
+                                {
+                                    campo = model.Key,
+                                    mensagem = string.IsNullOrEmpty(erro.ErrorMessage)
+                                        ? "Valor inválido."
+                                        : erro.ErrorMessage
+                                }))
+                            .ToList();
+
+                        return new BadRequestObjectResult(new
+                        {
+                            status = 400,
+                            mensagem = "Existem erros de validação.",
+                            erros
+                        });
+                    };
+                });
 
             services.AddSwaggerGen(c =>
             {

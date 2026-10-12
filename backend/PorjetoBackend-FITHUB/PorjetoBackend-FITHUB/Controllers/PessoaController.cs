@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PorjetoBackend_FITHUB.Exceptions;
 using PorjetoBackend_FITHUB.Models.DTO_s;
 using PorjetoBackend_FITHUB.Services.Interfaces;
+using System;
 
 namespace PorjetoBackend_FITHUB.Controllers
 {
@@ -18,12 +20,27 @@ namespace PorjetoBackend_FITHUB.Controllers
         [HttpPost("login")]
         public IActionResult Login([FromBody] PessoaLoginDTO usuario)
         {
-            PessoaResponseLoginDTO pessoaResponse = _loginService.Login(usuario);
+            try
+            {
+                PessoaResponseLoginDTO pessoaResponse = _loginService.Login(usuario);
 
-            HttpContext.Session.SetInt32("IdPessoa", pessoaResponse.Id);
-            HttpContext.Session.SetInt32("TipoPessoa", (int)pessoaResponse.TipoPessoa);
+                HttpContext.Session.SetInt32("IdPessoa", pessoaResponse.Id);
+                HttpContext.Session.SetInt32("TipoPessoa", (int)pessoaResponse.TipoPessoa);
 
-            return Ok(pessoaResponse);
+                return Ok(pessoaResponse);
+            }
+            catch (PessoaNaoEncontradaException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (SenhaInvalidaException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, new { message = "Ocorreu erro interno de servidor" });
+            }
         }
     }
 }
