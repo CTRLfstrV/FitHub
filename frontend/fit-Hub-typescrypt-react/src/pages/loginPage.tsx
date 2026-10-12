@@ -16,7 +16,7 @@ function LoginPage() {
   const [senha, setSenha] = useState<string>("");
   const [mensagemErro, setMensagemErro] = useState<string>("");
 
-  const handleLogin = (event: React.SubmitEvent<HTMLFormElement>) => {
+  const handleLogin = async (event: React.SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const pessoaLogin: PessoaLoginDTO = {
@@ -25,7 +25,7 @@ function LoginPage() {
     };
 
     try {
-      loginService.login(pessoaLogin);
+      await loginService.login(pessoaLogin);
       setMensagemErro("");
     } catch (erro: unknown) {
       if (erro instanceof Error) {
