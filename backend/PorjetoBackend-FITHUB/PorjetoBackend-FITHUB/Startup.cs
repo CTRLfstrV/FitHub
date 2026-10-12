@@ -8,6 +8,7 @@ using Microsoft.OpenApi.Models;
 using PorjetoBackend_FITHUB.Data;
 using PorjetoBackend_FITHUB.Services.Implementations;
 using PorjetoBackend_FITHUB.Services.Interfaces;
+using System;
 
 namespace PorjetoBackend_FITHUB
 {
@@ -41,6 +42,13 @@ namespace PorjetoBackend_FITHUB
                 });
             });
 
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
+
             services.AddControllers();
 
             services.AddSwaggerGen(c =>
@@ -63,6 +71,8 @@ namespace PorjetoBackend_FITHUB
             //app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseSession();
 
             app.UseCors("PermiteRequisicoes");
 
