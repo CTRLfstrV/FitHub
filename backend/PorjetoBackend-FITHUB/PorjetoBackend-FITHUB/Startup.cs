@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using PorjetoBackend_FITHUB.Data;
 using PorjetoBackend_FITHUB.Services.Implementations;
 using PorjetoBackend_FITHUB.Services.Interfaces;
 
@@ -22,6 +24,12 @@ namespace PorjetoBackend_FITHUB
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<ILogin, Login>();
+
+            services.AddDbContext<FitHubDbContext>(option =>
+                option.UseSqlServer(
+                    Configuration.GetConnectionString("FitHub")
+                    )
+                );
 
             services.AddCors(options =>
             {
