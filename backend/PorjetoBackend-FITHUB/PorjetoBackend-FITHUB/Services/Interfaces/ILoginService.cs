@@ -2,7 +2,7 @@
 
 namespace PorjetoBackend_FITHUB.Services.Interfaces
 {
-    public interface ILogin
+    public interface ILoginService
     {
         void Login(PessoaLoginDTO usuario);
     }

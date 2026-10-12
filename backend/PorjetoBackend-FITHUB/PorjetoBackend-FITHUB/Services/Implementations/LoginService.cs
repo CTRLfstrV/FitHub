@@ -1,10 +1,12 @@
 ﻿using PorjetoBackend_FITHUB.Data;
 using PorjetoBackend_FITHUB.Models.DTO_s;
+using PorjetoBackend_FITHUB.Models.Entities.Usuarios;
 using PorjetoBackend_FITHUB.Services.Interfaces;
+using System.Linq;
 
 namespace PorjetoBackend_FITHUB.Services.Implementations
 {
-    public class LoginService : ILogin
+    public class LoginService : ILoginService
     {
         private readonly FitHubDbContext _fitHub;
 
@@ -13,9 +15,9 @@ namespace PorjetoBackend_FITHUB.Services.Implementations
             _fitHub = fitHub;
         }
 
-        void ILogin.Login(PessoaLoginDTO usuario)
+        public void Login(PessoaLoginDTO usuario)
         {
-            //Implementar lógica de acesso
+            Pessoa pessoa = _fitHub.TbPessoa.FirstOrDefault(p => p.Cpf == usuario.Cpf);
         }
     }
 }

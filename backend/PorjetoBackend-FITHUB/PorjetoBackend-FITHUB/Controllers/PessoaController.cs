@@ -8,8 +8,8 @@ namespace PorjetoBackend_FITHUB.Controllers
     [Route("api/[controller]")]
     public class PessoaController : ControllerBase
     {
-        private readonly ILogin _loginService;
-        public PessoaController(ILogin loginService) 
+        private readonly ILoginService _loginService;
+        public PessoaController(ILoginService loginService) 
         {
             _loginService = loginService;
         }
