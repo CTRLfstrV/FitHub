@@ -24,7 +24,7 @@ export class LoginService {
     });
 
     if (!resposta.ok) {
-      let mensagem = `Erro HTTP: ${resposta.status}`;
+      let mensagem = resposta.status === 404 ? "A requisição falhou" : "Falha inesperada";
 
       try {
         const erro = await resposta.json();
