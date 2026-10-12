@@ -7,7 +7,7 @@
             return BCrypt.Net.BCrypt.HashPassword(senhaBase);
         }
 
-        public static bool VerificarHash(string senhaSalva, string senhaDigitada)
+        public static bool VerificarHash(string senhaDigitada, string senhaSalva)
         {
             return BCrypt.Net.BCrypt.Verify(senhaDigitada, senhaSalva);
         }

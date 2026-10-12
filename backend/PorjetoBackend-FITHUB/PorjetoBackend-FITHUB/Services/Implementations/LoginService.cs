@@ -1,4 +1,6 @@
 ﻿using PorjetoBackend_FITHUB.Data;
+using PorjetoBackend_FITHUB.Exceptions;
+using PorjetoBackend_FITHUB.Helpers;
 using PorjetoBackend_FITHUB.Models.DTO_s;
 using PorjetoBackend_FITHUB.Models.Entities.Usuarios;
 using PorjetoBackend_FITHUB.Services.Interfaces;
@@ -15,9 +17,15 @@ namespace PorjetoBackend_FITHUB.Services.Implementations
             _fitHub = fitHub;
         }
 
-        public void Login(PessoaLoginDTO usuario)
+        public PessoaResponseLoginDTO Login(PessoaLoginDTO usuario)
         {
             Pessoa pessoa = _fitHub.TbPessoa.FirstOrDefault(p => p.Cpf == usuario.Cpf);
+            if (pessoa == null)
+                throw new PessoaNaoEncontradaException("Não existe nenhum usuário com essas informações cadastrais");
+            if (!PasswordHelper.VerificarHash(usuario.Senha, pessoa.Senha))
+                throw new SenhaInvalidaException("A senha digitada está inválida");
+
+            return new (pessoa);
         }
     }
 }

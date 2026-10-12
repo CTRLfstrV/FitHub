@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using PorjetoBackend_FITHUB.Models.DTO_s;
 using PorjetoBackend_FITHUB.Services.Interfaces;
 
@@ -17,7 +18,12 @@ namespace PorjetoBackend_FITHUB.Controllers
         [HttpPost("login")]
         public IActionResult Login([FromBody] PessoaLoginDTO usuario)
         {
-            return Ok();
+            PessoaResponseLoginDTO pessoaResponse = _loginService.Login(usuario);
+
+            HttpContext.Session.SetInt32("IdPessoa", pessoaResponse.Id);
+            HttpContext.Session.SetInt32("TipoPessoa", (int)pessoaResponse.TipoPessoa);
+
+            return Ok(pessoaResponse);
         }
     }
 }
