@@ -33,7 +33,9 @@ function LoginPage() {
       setMensagemErro("");
       console.log(resposta.nome);
     } catch (erro: unknown) {
-      if (erro instanceof Error) {
+      if (erro instanceof TypeError) {
+        setMensagemErro("Falha ao comunicar com o servidor");
+      } else if (erro instanceof Error) {
         setMensagemErro(erro.message);
       }
     }
@@ -98,6 +100,12 @@ function LoginPage() {
               value={cpf}
               onChange={(e) => setCpf(e.target.value)}
             />
+            <label
+              className="mb-[9px] text-sm font-semibold text-[#30372d]"
+              htmlFor="cpf"
+            >
+              Senha
+            </label>
             <input
               className="mb-[22px] h-12 w-full rounded-[7px] border border-[#d9dfd5] bg-white px-[14px] text-sm text-[#20251e] outline-none transition placeholder:text-[#8a9185] focus:border-[#83b943] focus:ring-[3px] focus:ring-[#79b82d]/20"
               id="password"
