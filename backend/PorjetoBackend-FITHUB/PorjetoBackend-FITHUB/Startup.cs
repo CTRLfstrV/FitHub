@@ -36,9 +36,11 @@ namespace PorjetoBackend_FITHUB
             {
                 options.AddPolicy("PermiteRequisicoes", policy =>
                 {
-                    policy.AllowAnyOrigin()
+                    policy
+                    .SetIsOriginAllowed(_=> true)
                     .AllowAnyHeader()
-                    .AllowAnyMethod();
+                    .AllowAnyMethod()
+                    .AllowCredentials();
                 });
             });
 
