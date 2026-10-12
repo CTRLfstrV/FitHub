@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PorjetoBackend_FITHUB.BLL.Interfaces;
 using PorjetoBackend_FITHUB.Models.DTO_s;
+using PorjetoBackend_FITHUB.Services.Interfaces;
 
 namespace PorjetoBackend_FITHUB.Controllers
 {
@@ -8,16 +8,16 @@ namespace PorjetoBackend_FITHUB.Controllers
     [Route("api/[controller]")]
     public class UsuarioController : ControllerBase
     {
-        private readonly ILoginBLL _loginService;
-        public UsuarioController(ILoginBLL loginService) 
+        private readonly ILogin _loginService;
+        public UsuarioController(ILogin loginService) 
         {
             _loginService = loginService;
         }
 
         [HttpPost("login")]
-        public IActionResult Login([FromBody] UsuarioLoginDTO usuario)
+        public IActionResult Login([FromBody] PessoaLoginDTO usuario)
         {
-            return Ok(_loginService.Login(usuario));
+            return Ok();
         }
     }
 }

@@ -4,7 +4,7 @@ using System;
 
 namespace PorjetoBackend_FITHUB.Models.Entities.Usuarios
 {
-    public class Usuario
+    public class Pessoa
     {
         public int Id { get; set; }
         public string Nome { get; set; }
@@ -20,9 +20,9 @@ namespace PorjetoBackend_FITHUB.Models.Entities.Usuarios
         public TipoPessoa TipoPessoa { get; set; }
         public string Email { get; set; }
 
-        public Usuario() { }
+        public Pessoa() { }
 
-        public Usuario(UsuarioLoginDTO usuarioLogin)
+        public Pessoa(PessoaLoginDTO usuarioLogin)
         {
             Cpf = usuarioLogin.Cpf;
             Senha = usuarioLogin.Senha;

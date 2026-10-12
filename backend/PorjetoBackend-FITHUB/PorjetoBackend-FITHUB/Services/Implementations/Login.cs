@@ -5,7 +5,7 @@ namespace PorjetoBackend_FITHUB.Services.Implementations
 {
     public class Login : ILogin
     {
-        void ILogin.Login(UsuarioLoginDTO usuario)
+        void ILogin.Login(PessoaLoginDTO usuario)
         {
             //Implementar lógica de acesso
         }

@@ -1,18 +1,11 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using PorjetoBackend_FITHUB.BLL.Interfaces;
-using PorjetoBackend_FITHUB.BLL.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using PorjetoBackend_FITHUB.Services.Implementations;
+using PorjetoBackend_FITHUB.Services.Interfaces;
 
 namespace PorjetoBackend_FITHUB
 {
@@ -28,7 +21,7 @@ namespace PorjetoBackend_FITHUB
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<ILoginBLL, LoginServiceBLL>();
+            services.AddScoped<ILogin, Login>();
 
             services.AddCors(options =>
             {

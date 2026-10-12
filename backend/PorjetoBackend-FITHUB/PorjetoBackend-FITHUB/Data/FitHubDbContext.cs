@@ -1,6 +1,8 @@
-﻿namespace PorjetoBackend_FITHUB.Data
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace PorjetoBackend_FITHUB.Data
 {
-    public class FitHubDbContext
+    public class FitHubDbContext : DbContext
     {
     }
 }
