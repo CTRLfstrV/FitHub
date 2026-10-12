@@ -27,39 +27,13 @@ export class LoginService {
       let mensagem = `Erro HTTP: ${resposta.status}`;
 
       try {
-        const erro: unknown = await resposta.json();
+        const erro = await resposta.json();
 
-        if (
-          typeof erro === "object" &&
-          erro !== null &&
-          "message" in erro &&
-          typeof erro.message === "string"
-        ) {
+        if (typeof erro.message === "string") {
           mensagem = erro.message;
-        } else if (
-          typeof erro === "object" &&
-          erro !== null &&
-          "detail" in erro &&
-          typeof erro.detail === "string"
-        ) {
-          mensagem = erro.detail;
-        } else if (
-          typeof erro === "object" &&
-          erro !== null &&
-          "mensagem" in erro &&
-          typeof erro.mensagem === "string"
-        ) {
-          mensagem = erro.mensagem;
-        } else if (
-          typeof erro === "object" &&
-          erro !== null &&
-          "title" in erro &&
-          typeof erro.title === "string"
-        ) {
-          mensagem = erro.title;
         }
       } catch {
-        // A resposta não continha um JSON válido.
+        // Mantém a mensagem padrão se o corpo não for JSON válido.
       }
 
       throw new Error(mensagem);
