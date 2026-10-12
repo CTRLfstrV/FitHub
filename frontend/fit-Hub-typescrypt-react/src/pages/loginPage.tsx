@@ -5,6 +5,7 @@ import type { PessoaLoginDTO } from "../types/PessoaLoginDTO";
 import { LoginService } from "../services/LoginService";
 import { LoginValidation } from "../validations/loginValidation";
 import { CpfValidation } from "../validations/cpfValidation";
+import type { PessoaResponseLoginDTO } from "../types/PessoaResponseLoginDTO";
 
 const eyebrow =
   "inline-flex items-center gap-2 text-[11px] font-bold tracking-[.16em] text-[#598c1c]";
@@ -25,7 +26,7 @@ function LoginPage() {
     };
 
     try {
-      await loginService.login(pessoaLogin);
+      const resposta: Promise<PessoaResponseLoginDTO> = loginService.login(pessoaLogin);
       setMensagemErro("");
     } catch (erro: unknown) {
       if (erro instanceof Error) {

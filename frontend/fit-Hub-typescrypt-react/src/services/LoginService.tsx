@@ -9,7 +9,7 @@ export class LoginService {
     this.validacaoLogin = validacaoLogin;
   }
 
-  async login(pessoa: PessoaLoginDTO) {
+  async login(pessoa: PessoaLoginDTO) : Promise<PessoaResponseLoginDTO> {
     this.validacaoLogin.validacaoLogin(pessoa.cpf, pessoa.senha);
 
     const resposta = await fetch(this.url, {
@@ -39,6 +39,7 @@ export class LoginService {
       throw new Error(mensagem);
     }
 
-    const pessoaRetorno: PessoaResponseLoginDTO = await resposta.json();
+    const pessoaRetorno: Promise<PessoaResponseLoginDTO> = await resposta.json();
+    return pessoaRetorno;
   }
 }
