@@ -22,6 +22,7 @@ function App() {
           <Route path="/home" element={<HomePage />} />
         </Route>
         <Route path="/" element={<Navigate to="/home" />} />
+        <Route path="*" element={<Navigate to={"/"}/>}/>
       </Routes>
     </BrowserRouter>
   );
