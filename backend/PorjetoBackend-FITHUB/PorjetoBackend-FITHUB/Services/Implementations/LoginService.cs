@@ -4,11 +4,11 @@ using PorjetoBackend_FITHUB.Services.Interfaces;
 
 namespace PorjetoBackend_FITHUB.Services.Implementations
 {
-    public class Login : ILogin
+    public class LoginService : ILogin
     {
         private readonly FitHubDbContext _fitHub;
 
-        public Login(FitHubDbContext fitHub)
+        public LoginService(FitHubDbContext fitHub)
         {
             _fitHub = fitHub;
         }

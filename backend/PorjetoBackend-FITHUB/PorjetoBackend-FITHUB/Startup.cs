@@ -24,7 +24,7 @@ namespace PorjetoBackend_FITHUB
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<ILogin, Login>();
+            services.AddScoped<ILogin, LoginService>();
 
             services.AddDbContext<FitHubDbContext>(option =>
                 option.UseSqlServer(
@@ -41,6 +41,8 @@ namespace PorjetoBackend_FITHUB
                     .AllowAnyMethod();
                 });
             });
+
+            services.AddDistributedMemoryCache();
 
             services.AddSession(options =>
             {

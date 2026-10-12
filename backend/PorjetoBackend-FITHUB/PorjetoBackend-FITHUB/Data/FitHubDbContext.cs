@@ -7,13 +7,12 @@ namespace PorjetoBackend_FITHUB.Data
     {
         public FitHubDbContext(DbContextOptions<FitHubDbContext> options) : base(options) { }
 
-        public DbSet<Pessoa> TbPessoa {  get; set; }
+        public DbSet<Pessoa> TbPessoa { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(
                 typeof(FitHubDbContext).Assembly);
-
             base.OnModelCreating(modelBuilder);
         }
     }
