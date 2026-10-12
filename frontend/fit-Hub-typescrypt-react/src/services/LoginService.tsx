@@ -1,14 +1,25 @@
 import type { PessoaLoginDTO } from "../types/PessoaLoginDTO";
 import { LoginValidation } from "../validations/loginValidation";
 export class LoginService {
-  validacaoLogin: LoginValidation;
+  private readonly url: string = "http://192.168.2.110:63367/api/Pessoa/login";
+  private validacaoLogin: LoginValidation;
 
-  constructor(validacaoLogin: LoginValidation){
+  constructor(validacaoLogin: LoginValidation) {
     this.validacaoLogin = validacaoLogin;
   }
 
-  login(pessoa: PessoaLoginDTO) {
+  async login(pessoa: PessoaLoginDTO) {
     this.validacaoLogin.validacaoLogin(pessoa.cpf, pessoa.senha);
-    //Implementar a requisição da API
+
+    const resposta = await fetch(this.url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        cpf: pessoa.cpf,
+        senha: pessoa.senha,
+      }),
+    });
   }
 }
