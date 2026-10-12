@@ -45,7 +45,7 @@ function HomePage() {
         </div>
         <div className="relative min-w-0">
           <div
-            className="relative grid h-[min(68vw,390px)] min-h-[280px] place-items-center overflow-hidden rounded-md border border-[#e5ecd9] bg-[#f1f6eb] md:h-[clamp(340px,38vw,450px)]"
+            className="home-visual-pulse relative grid h-[min(68vw,390px)] min-h-[280px] place-items-center overflow-hidden rounded-md border border-[#e5ecd9] bg-[#f1f6eb] md:h-[clamp(340px,38vw,450px)]"
             aria-label="Movimento, foco e evolução"
           >
             <div className="absolute h-[34%] w-[72%] rotate-[-28deg] rounded-[50%] border border-[#b7d695]" />
