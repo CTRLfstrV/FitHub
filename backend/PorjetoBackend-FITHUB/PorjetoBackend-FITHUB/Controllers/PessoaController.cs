@@ -6,10 +6,10 @@ namespace PorjetoBackend_FITHUB.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class UsuarioController : ControllerBase
+    public class PessoaController : ControllerBase
     {
         private readonly ILogin _loginService;
-        public UsuarioController(ILogin loginService) 
+        public PessoaController(ILogin loginService) 
         {
             _loginService = loginService;
         }
