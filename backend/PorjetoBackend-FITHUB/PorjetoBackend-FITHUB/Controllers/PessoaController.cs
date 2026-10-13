@@ -27,7 +27,7 @@ namespace PorjetoBackend_FITHUB.Controllers
                 HttpContext.Session.SetInt32("IdPessoa", pessoaResponse.Id);
                 HttpContext.Session.SetInt32("TipoPessoa", (int)pessoaResponse.TipoPessoa);
 
-                return Ok(pessoaResponse);
+                return Ok(pessoaResponse.TipoPessoa);
             }
             catch (PessoaNaoEncontradaException ex)
             {
@@ -41,6 +41,17 @@ namespace PorjetoBackend_FITHUB.Controllers
             {
                 return StatusCode(500, new { message = "Ocorreu erro interno de servidor" });
             }
+        }
+
+        [HttpGet("sessao")]
+        public IActionResult VerificaSessao()
+        {
+            int? idPessoa = HttpContext.Session.GetInt32("IdPessoa");
+
+            if (idPessoa == null)
+                return StatusCode(401);
+
+            return Ok(HttpContext.Session.GetInt32("TipoPessoa"));
         }
     }
 }
