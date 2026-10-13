@@ -31,7 +31,7 @@ function LoginPage() {
       const resposta: PessoaResponseLoginDTO =
         await loginService.login(pessoaLogin);
       setMensagemErro("");
-      console.log(resposta.nome);
+
     } catch (erro: unknown) {
       if (erro instanceof TypeError) {
         setMensagemErro("Falha ao comunicar com o servidor");
