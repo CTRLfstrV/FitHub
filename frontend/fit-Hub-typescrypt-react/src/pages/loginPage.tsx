@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import logo from "../../img/Primary-logo.svg";
 import type { PessoaLoginDTO } from "../types/PessoaLoginDTO";
@@ -18,6 +19,7 @@ function LoginPage() {
   const [cpf, setCpf] = useState<string>("");
   const [senha, setSenha] = useState<string>("");
   const [mensagemErro, setMensagemErro] = useState<string>("");
+  const navigate = useNavigate();
 
   const handleLogin = async (event: React.SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -32,6 +34,8 @@ function LoginPage() {
         await loginService.login(pessoaLogin);
       setMensagemErro("");
 
+      if (resposta.tipoPessoa === 0)
+          navigate("/recepcionista/dashboard");
     } catch (erro: unknown) {
       if (erro instanceof TypeError) {
         setMensagemErro("Falha ao comunicar com o servidor");
