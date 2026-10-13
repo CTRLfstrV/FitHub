@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "wkgx5ZmRBiU=",
+  "dgSpecHash": "Mkcwqp3G56E=",
   "success": true,
-  "projectFilePath": "D:\\ds\\Projeto-Emerson\\Projeto\\FitHub\\backend\\PorjetoBackend-FITHUB\\PorjetoBackend-FITHUB\\ProjetoBackend-FITHUB.csproj",
+  "projectFilePath": "C:\\Users\\Pichau\\OneDrive\\Documentos\\Projeto-Emerson\\FitHub\\backend\\PorjetoBackend-FITHUB\\PorjetoBackend-FITHUB\\ProjetoBackend-FITHUB.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Pichau\\.nuget\\packages\\bcrypt.net-next\\4.2.0\\bcrypt.net-next.4.2.0.nupkg.sha512",
     "C:\\Users\\Pichau\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",

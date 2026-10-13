@@ -21,9 +21,9 @@ namespace PorjetoBackend_FITHUB.Services.Implementations
         {
             Pessoa pessoa = _fitHub.TbPessoa.FirstOrDefault(p => p.Cpf == usuario.Cpf);
             if (pessoa == null)
-                throw new PessoaNaoEncontradaException("Não existe nenhum usuário com essas informações cadastrais");
+                throw new PessoaNaoEncontradaException("Não existe nenhum usuário cadastrado com esse CPF");
             if (!PasswordHelper.VerificarHash(usuario.Senha, pessoa.Senha))
-                throw new SenhaInvalidaException("A senha digitada está inválida");
+                throw new SenhaInvalidaException("A senha digitada está incorreta");
 
             return new (pessoa);
         }

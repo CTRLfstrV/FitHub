@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\ds\\Projeto-Emerson\\Projeto\\FitHub\\backend\\PorjetoBackend-FITHUB\\PorjetoBackend-FITHUB\\ProjetoBackend-FITHUB.csproj": {}
+    "C:\\Users\\Pichau\\OneDrive\\Documentos\\Projeto-Emerson\\FitHub\\backend\\PorjetoBackend-FITHUB\\PorjetoBackend-FITHUB\\ProjetoBackend-FITHUB.csproj": {}
   },
   "projects": {
-    "D:\\ds\\Projeto-Emerson\\Projeto\\FitHub\\backend\\PorjetoBackend-FITHUB\\PorjetoBackend-FITHUB\\ProjetoBackend-FITHUB.csproj": {
+    "C:\\Users\\Pichau\\OneDrive\\Documentos\\Projeto-Emerson\\FitHub\\backend\\PorjetoBackend-FITHUB\\PorjetoBackend-FITHUB\\ProjetoBackend-FITHUB.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\ds\\Projeto-Emerson\\Projeto\\FitHub\\backend\\PorjetoBackend-FITHUB\\PorjetoBackend-FITHUB\\ProjetoBackend-FITHUB.csproj",
+        "projectUniqueName": "C:\\Users\\Pichau\\OneDrive\\Documentos\\Projeto-Emerson\\FitHub\\backend\\PorjetoBackend-FITHUB\\PorjetoBackend-FITHUB\\ProjetoBackend-FITHUB.csproj",
         "projectName": "ProjetoBackend-FITHUB",
-        "projectPath": "D:\\ds\\Projeto-Emerson\\Projeto\\FitHub\\backend\\PorjetoBackend-FITHUB\\PorjetoBackend-FITHUB\\ProjetoBackend-FITHUB.csproj",
+        "projectPath": "C:\\Users\\Pichau\\OneDrive\\Documentos\\Projeto-Emerson\\FitHub\\backend\\PorjetoBackend-FITHUB\\PorjetoBackend-FITHUB\\ProjetoBackend-FITHUB.csproj",
         "packagesPath": "C:\\Users\\Pichau\\.nuget\\packages\\",
-        "outputPath": "D:\\ds\\Projeto-Emerson\\Projeto\\FitHub\\backend\\PorjetoBackend-FITHUB\\PorjetoBackend-FITHUB\\obj\\",
+        "outputPath": "C:\\Users\\Pichau\\OneDrive\\Documentos\\Projeto-Emerson\\FitHub\\backend\\PorjetoBackend-FITHUB\\PorjetoBackend-FITHUB\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
