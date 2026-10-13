@@ -12,7 +12,7 @@ namespace PorjetoBackend_FITHUB.Controllers
     public class PessoaController : ControllerBase
     {
         private readonly ILoginService _loginService;
-        public PessoaController(ILoginService loginService) 
+        public PessoaController(ILoginService loginService)
         {
             _loginService = loginService;
         }
@@ -31,11 +31,11 @@ namespace PorjetoBackend_FITHUB.Controllers
             }
             catch (PessoaNaoEncontradaException ex)
             {
-                return NotFound(ex.Message);
+                return StatusCode(404, new { message = ex.Message });
             }
             catch (SenhaInvalidaException ex)
             {
-                return BadRequest(ex.Message);
+                return StatusCode(400, new { message = ex.Message });
             }
             catch (Exception)
             {
