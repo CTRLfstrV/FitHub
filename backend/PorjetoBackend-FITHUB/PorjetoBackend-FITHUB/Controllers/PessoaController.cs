@@ -49,9 +49,9 @@ namespace PorjetoBackend_FITHUB.Controllers
             int? idPessoa = HttpContext.Session.GetInt32("IdPessoa");
 
             if (idPessoa == null)
-                return StatusCode(401);
+                return Unauthorized();
 
-            return Ok(HttpContext.Session.GetInt32("TipoPessoa"));
+            return Ok();
         }
     }
 }

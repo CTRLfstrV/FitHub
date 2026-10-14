@@ -39,7 +39,9 @@ namespace PorjetoBackend_FITHUB
                 options.AddPolicy("PermiteRequisicoes", policy =>
                 {
                     policy
-                    .SetIsOriginAllowed(_=> true)
+                    .WithOrigins(
+                        "http://localhost:4173",
+                        "http://192.168.2.110:4173")
                     .AllowAnyHeader()
                     .AllowAnyMethod()
                     .AllowCredentials();
@@ -106,6 +108,7 @@ namespace PorjetoBackend_FITHUB
 
             app.UseCors("PermiteRequisicoes");
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
