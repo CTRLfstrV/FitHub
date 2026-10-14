@@ -4,7 +4,7 @@ import { VerificacaoSessaoService } from "../services/VerificacaoSessaoService";
 
 function RecepcionistaDashBoardPage() {
   const redirecionadorService: RedirecionadorService = new RedirecionadorService(new VerificacaoSessaoService());
-  redirecionadorService.RedirecionaPorSessao("/recepcionista/dashboard", useNavigate());
+  redirecionadorService.RedirecionaPorSessao(useNavigate());
 
   return <h1>Ola</h1>;
 }
