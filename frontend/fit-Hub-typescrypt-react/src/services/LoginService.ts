@@ -39,7 +39,10 @@ export class LoginService {
       throw new Error(mensagem);
     }
 
-    const pessoaRetorno: Promise<PessoaResponseLoginDTO> = await resposta.json();
-    return pessoaRetorno;
+    const pessoaRetorno: number = await resposta.json();
+    console.log(pessoaRetorno)
+    return {
+      tipoPessoa: pessoaRetorno
+    };
   }
 }

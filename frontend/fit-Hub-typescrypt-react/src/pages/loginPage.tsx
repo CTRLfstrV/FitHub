@@ -34,8 +34,9 @@ function LoginPage() {
         await loginService.login(pessoaLogin);
       setMensagemErro("");
 
-      if (resposta.tipoPessoa === 0)
-          navigate("/recepcionista/dashboard");
+      if (resposta.tipoPessoa == 0)
+        navigate("/recepcionista/dashboard", { replace: true });
+
     } catch (erro: unknown) {
       if (erro instanceof TypeError) {
         setMensagemErro("Falha ao comunicar com o servidor");
