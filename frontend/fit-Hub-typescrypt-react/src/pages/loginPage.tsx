@@ -34,7 +34,7 @@ function LoginPage() {
         await loginService.login(pessoaLogin);
       setMensagemErro("");
 
-      if (resposta.tipoPessoa == 0)
+      if (resposta.tipoPessoa === 0)
         navigate("/recepcionista/dashboard", { replace: true });
 
     } catch (erro: unknown) {

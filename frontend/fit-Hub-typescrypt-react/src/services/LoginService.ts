@@ -9,11 +9,12 @@ export class LoginService {
     this.validacaoLogin = validacaoLogin;
   }
 
-  async login(pessoa: PessoaLoginDTO) : Promise<PessoaResponseLoginDTO> {
+  async login(pessoa: PessoaLoginDTO): Promise<PessoaResponseLoginDTO> {
     this.validacaoLogin.validacaoLogin(pessoa.cpf, pessoa.senha);
 
     const resposta = await fetch(this.url, {
       method: "POST",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
@@ -24,7 +25,8 @@ export class LoginService {
     });
 
     if (!resposta.ok) {
-      let mensagem = resposta.status === 404 ? "A requisição falhou" : "Falha inesperada";
+      let mensagem =
+        resposta.status === 404 ? "A requisição falhou" : "Falha inesperada";
 
       try {
         const erro = await resposta.json();
@@ -40,9 +42,9 @@ export class LoginService {
     }
 
     const pessoaRetorno: number = await resposta.json();
-    console.log(pessoaRetorno)
+    console.log(pessoaRetorno);
     return {
-      tipoPessoa: pessoaRetorno
+      tipoPessoa: pessoaRetorno,
     };
   }
 }
