@@ -14,15 +14,15 @@ function UsersHeader() {
         </Link>
 
         <div className="min-w-0 flex-1 text-center text-[20px] leading-tight text-white sm:text-sm">
-          <span className="block text-white/75">Olá,</span>
-          <strong className="block truncate font-bold">Nome do usuário</strong>
+          <span className="block text-white/75 text-[20px]">Olá,</span>
+          <strong className="block truncate font-bold text-[20px]">Nome do usuário</strong>
         </div>
 
         <button
           type="button"
           className="ml-auto cursor-pointer inline-flex w-auto shrink-0 items-center justify-center gap-2 rounded-lg border border-white bg-white px-3 py-2.5 text-xs font-semibold text-green-700 transition hover:bg-green-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:px-4 sm:text-sm md:px-[17px] md:py-3 md:text-base"
         >
-          <span>Sair</span>
+          <span className="text-[20px]">Sair</span>
           <span className="text-lg leading-none" aria-hidden="true">
             ⇥
           </span>
