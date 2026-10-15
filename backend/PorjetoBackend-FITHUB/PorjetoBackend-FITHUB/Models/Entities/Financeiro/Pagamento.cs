@@ -5,7 +5,7 @@ namespace PorjetoBackend_FITHUB.Models.Entities.Financeiro
 {
     public class Pagamento
     {
-        public int Id { get;private set; }
+        public int Id { get; private set; }
         public Contrato Contrato { get; set; }
         public int NumeroDaParcela { get; set; }
         public decimal ValorParcela { get; set; }

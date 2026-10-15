@@ -6,7 +6,7 @@ namespace PorjetoBackend_FITHUB.Models.Entities.Usuarios
 {
     public abstract class Pessoa
     {
-        public int Id { get; set; }
+        public int Id { get; private set; }
         public string Nome { get; set; }
         public string Senha { get; set; }
         public string Cpf { get; set; }
