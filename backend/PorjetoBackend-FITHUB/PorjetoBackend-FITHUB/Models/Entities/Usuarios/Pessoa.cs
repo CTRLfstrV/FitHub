@@ -4,7 +4,7 @@ using System;
 
 namespace PorjetoBackend_FITHUB.Models.Entities.Usuarios
 {
-    public class Pessoa
+    public abstract class Pessoa
     {
         public int Id { get; set; }
         public string Nome { get; set; }
