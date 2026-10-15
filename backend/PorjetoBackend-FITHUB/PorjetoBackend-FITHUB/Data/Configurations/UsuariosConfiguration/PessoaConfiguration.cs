@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using PorjetoBackend_FITHUB.Models.Entities.Usuarios;
 
-namespace PorjetoBackend_FITHUB.Data.Configurations
+namespace PorjetoBackend_FITHUB.Data.Configurations.UsuariosConfiguration
 {
     public class PessoaConfiguration : IEntityTypeConfiguration<Pessoa>
     {
