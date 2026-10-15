@@ -3,7 +3,7 @@
     public class ExercicioTreino
     {
         public int Id { get; private set; }
-        public Treino Treino { get; set; }
+        public Treino Treino { get; private set; }
         public Equipamento Equipamento { get; set; }
         public string Nome { get; set; }
         public int Ordem { get; set; }
