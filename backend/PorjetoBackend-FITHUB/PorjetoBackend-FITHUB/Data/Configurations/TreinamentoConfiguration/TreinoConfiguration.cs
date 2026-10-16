@@ -25,6 +25,10 @@ namespace PorjetoBackend_FITHUB.Data.Configurations.TreinamentoConfiguration
                 .WithOne(et => et.Treino)
                 .HasForeignKey("fk_id_treino");
 
+            builder.HasMany(t => t.Sessoes)
+                .WithOne(s => s.Treino)
+                .HasForeignKey("fk_id_treino");
+
             builder.Property(t => t.Nome).HasColumnName("nome_treino");
             builder.Property(t => t.DataCriacao).HasColumnName("dt_criacao_treino");
         }
