@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PorjetoBackend_FITHUB.Models.DTO_s.Financeiro;
-using PorjetoBackend_FITHUB.Models.Entities.Financeiro;
 using PorjetoBackend_FITHUB.Services.Interfaces.Financeiro;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace PorjetoBackend_FITHUB.Controllers.Financeiro

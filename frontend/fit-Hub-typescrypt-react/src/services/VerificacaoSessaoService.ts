@@ -2,7 +2,7 @@ export class VerificacaoSessaoService {
   private readonly url: string;
 
   constructor() {
-    this.url = "http://192.168.2.110:63367/api/Pessoa/sessao";
+    this.url = "http://192.168.2.110:63367/api/pessoa/sessao";
   }
 
   async VerificaSessao(): Promise<boolean> {
