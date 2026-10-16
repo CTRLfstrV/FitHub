@@ -12,6 +12,7 @@ namespace PorjetoBackend_FITHUB.Models.Entities.Treinamento
         public string Nome { get; set; }
         public DateTime DataCriacao { get; private set; }
         public List<ExercicioTreino> Exercicios { get; set; } = new List<ExercicioTreino>();
+        public List<Sessao> Sessoes { get; set; } = new List<Sessao>();
 
         public Treino() { }
     }
