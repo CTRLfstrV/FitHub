@@ -8,7 +8,7 @@ using System;
 namespace PorjetoBackend_FITHUB.Controllers.Usuarios
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/pessoa")]
     public class PessoaController : ControllerBase
     {
         private readonly ILoginService _loginService;

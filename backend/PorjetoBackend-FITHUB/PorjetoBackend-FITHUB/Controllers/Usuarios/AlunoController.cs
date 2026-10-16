@@ -4,7 +4,7 @@ using PorjetoBackend_FITHUB.Services.Interfaces.Usuarios;
 namespace PorjetoBackend_FITHUB.Controllers.Usuarios
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/aluno")]
     public class AlunoController : ControllerBase
     {
         private readonly IAlunoService _alunoService;
