@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PorjetoBackend_FITHUB.Services.Interfaces.Usuarios;
+using System;
 
 namespace PorjetoBackend_FITHUB.Controllers.Usuarios
 {
@@ -17,7 +18,14 @@ namespace PorjetoBackend_FITHUB.Controllers.Usuarios
         [HttpGet("quantidade-alunos")]
         public IActionResult QuantidadeAlunos()
         {
-            return Ok(_alunoService.QuantidadeAlunos());
+            try
+            {
+                return Ok(_alunoService.QuantidadeAlunos());
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, new { message = "Ocorru um erro interno de servidor" });
+            }
         }
     }
 }
