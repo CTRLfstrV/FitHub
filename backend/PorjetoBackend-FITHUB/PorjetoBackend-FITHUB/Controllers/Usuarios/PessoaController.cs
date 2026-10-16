@@ -5,7 +5,7 @@ using PorjetoBackend_FITHUB.Models.DTO_s;
 using PorjetoBackend_FITHUB.Services.Interfaces;
 using System;
 
-namespace PorjetoBackend_FITHUB.Controllers
+namespace PorjetoBackend_FITHUB.Controllers.Usuarios
 {
     [ApiController]
     [Route("api/[controller]")]

@@ -1,8 +1,8 @@
 ﻿using PorjetoBackend_FITHUB.Data;
-using PorjetoBackend_FITHUB.Services.Interfaces.Aluno;
+using PorjetoBackend_FITHUB.Services.Interfaces.Usuarios;
 using System.Linq;
 
-namespace PorjetoBackend_FITHUB.Services.Implementations.Aluno
+namespace PorjetoBackend_FITHUB.Services.Implementations.Usuarios
 {
     public class AlunoService : IAlunoService
     {

@@ -1,4 +1,4 @@
-﻿namespace PorjetoBackend_FITHUB.Services.Interfaces.Aluno
+﻿namespace PorjetoBackend_FITHUB.Services.Interfaces.Usuarios
 {
     public interface IAlunoService
     {
