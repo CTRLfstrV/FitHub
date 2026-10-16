@@ -8,8 +8,10 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using PorjetoBackend_FITHUB.Data;
 using PorjetoBackend_FITHUB.Services.Implementations;
+using PorjetoBackend_FITHUB.Services.Implementations.Financeiro;
 using PorjetoBackend_FITHUB.Services.Implementations.Usuarios;
 using PorjetoBackend_FITHUB.Services.Interfaces;
+using PorjetoBackend_FITHUB.Services.Interfaces.Financeiro;
 using PorjetoBackend_FITHUB.Services.Interfaces.Usuarios;
 using System;
 using System.Linq;
@@ -30,6 +32,7 @@ namespace PorjetoBackend_FITHUB
         {
             services.AddScoped<ILoginService, LoginService>();
             services.AddScoped<IAlunoService, AlunoService>();
+            services.AddScoped<IContratoService, ContratoService>();
 
             services.AddDbContext<FitHubDbContext>(option =>
                 option.UseSqlServer(
