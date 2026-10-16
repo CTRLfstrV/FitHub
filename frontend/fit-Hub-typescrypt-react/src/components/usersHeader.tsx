@@ -1,10 +1,26 @@
 import { Link } from "react-router-dom";
 import logo from "../../img/Primary-logo.svg";
+import { useRecepcionistaMenu } from "../contexts/RecepcionistaMenuContext";
 
 function UsersHeader() {
+  const { isOpen, toggleMenu } = useRecepcionistaMenu();
   return (
     <header className="relative z-10 border-b border-black/10 bg-green-600 font-mono">
       <div className="mx-auto flex min-h-[82px] max-w-[1240px] items-center justify-between gap-3 px-4 sm:px-[22px] md:px-10">
+        <button
+          type="button"
+          className="inline-flex shrink-0 items-center justify-center rounded-md p-1 text-white md:hidden"
+          aria-label={isOpen ? "Fechar menu" : "Abrir menu"}
+          aria-expanded={isOpen}
+          aria-controls="recepcionista-sidebar-menu"
+          onClick={toggleMenu}
+        >
+          <span className="flex w-6 flex-col gap-1" aria-hidden="true">
+            <span className="h-0.5 w-6 rounded bg-white" />
+            <span className="h-0.5 w-6 rounded bg-white" />
+            <span className="h-0.5 w-6 rounded bg-white" />
+          </span>
+        </button>
         <Link
           to="/home"
           className="inline-flex shrink-0 items-center"

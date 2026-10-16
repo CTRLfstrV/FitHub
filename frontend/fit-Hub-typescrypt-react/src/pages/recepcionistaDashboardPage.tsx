@@ -2,10 +2,10 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { RedirecionadorService } from "../services/RedirecionadorService";
 import { VerificacaoSessaoService } from "../services/VerificacaoSessaoService";
-import RecepcionistaSideBar from "../components/recepcionistaSideBar";
 
 function RecepcionistaDashBoardPage() {
   const [buttonsInverted, setButtonsInverted] = useState(false);
+
   const redirecionadorService: RedirecionadorService =
     new RedirecionadorService(new VerificacaoSessaoService());
   redirecionadorService.RedirecionaPorSessao(useNavigate());
@@ -16,10 +16,9 @@ function RecepcionistaDashBoardPage() {
     "inline-flex min-h-11 cursor-pointer items-center justify-center rounded-lg border border-green-700 bg-white px-5 py-3 text-sm font-semibold text-green-800 transition-colors hover:bg-green-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-700 sm:text-base";
 
   return (
-    <div className="flex min-h-full flex-col md:flex-row">
-      <RecepcionistaSideBar />
+    <div className="min-h-full">
       <section className="min-w-0 flex-1 bg-[#fbfcfa] p-5 sm:p-7 md:p-10">
-        <div className="mx-auto w-full max-w-[1080px]">
+        <div className="w-full max-w-[1080px]">
           <div className="mb-6 sm:mb-8">
             <p className="mb-2 text-xs font-semibold uppercase tracking-[0.16em] text-green-700 sm:text-sm">
               Painel da recepção

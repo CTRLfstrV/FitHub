@@ -17,11 +17,11 @@ function App() {
         <Route element={<HomeLayout />}>
           <Route path="/home" element={<HomePage />} />
         </Route>
-        <Route element={<RecepcionistaLayout />}>
-          <Route
-            path="/recepcionista/dashboard"
-            element={<RecepcionistaDashBoardPage />}
-          />
+          <Route element={<RecepcionistaLayout />}>
+            <Route
+              path="/recepcionista/dashboard"
+              element={<RecepcionistaDashBoardPage />}
+            />
         </Route>
         <Route path="/" element={<Navigate to="/home" />} />
         <Route path="*" element={<Navigate to={"/"} />} />
