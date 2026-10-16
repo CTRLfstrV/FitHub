@@ -17,5 +17,10 @@ namespace PorjetoBackend_FITHUB.Services.Implementations.Usuarios
         {
             return _fitHub.TbAluno.Count();
         }
+
+        public int QuantidadeAlunosAtivos()
+        {
+            return _fitHub.TbAluno.Where(a => a.Status).Count();
+        }
     }
 }

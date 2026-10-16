@@ -24,7 +24,20 @@ namespace PorjetoBackend_FITHUB.Controllers.Usuarios
             }
             catch (Exception)
             {
-                return StatusCode(500, new { message = "Ocorru um erro interno de servidor" });
+                return StatusCode(500, new { message = "Ocorreu um erro interno de servidor" });
+            }
+        }
+
+        [HttpGet("quantidade-alunos-ativo")]
+        public IActionResult QuantidadeAlunosAtivos()
+        {
+            try
+            {
+                return Ok(_alunoService.QuantidadeAlunosAtivos());
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, new { message = "Ocorreu um erro interno de servidor" });
             }
         }
     }

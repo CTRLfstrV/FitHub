@@ -3,5 +3,6 @@
     public interface IAlunoService
     {
         int QuantidadeAlunos();
+        int QuantidadeAlunosAtivos();
     }
 }
