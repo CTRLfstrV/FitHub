@@ -20,13 +20,12 @@ namespace PorjetoBackend_FITHUB.Controllers.Financeiro
             _contratoService = contratoService;
         }
 
-        [HttpGet("contratos-proximos-fim")]
+        [HttpGet("vencimento-proximo")]
         public async Task<IActionResult> ContratosProximosFim()
         {
             try
             {
-                List<Contrato> contratosProximoFim = await _contratoService.ContratosProximosFim();
-                IEnumerable<ContratoProximoFimDTO> contratosProximoFimDto = contratosProximoFim.Select(c => new ContratoProximoFimDTO(c));
+                IEnumerable<ContratoProximoFimDTO> contratosProximoFimDto = await _contratoService.ContratosProximosFim();
 
                 return Ok(contratosProximoFimDto);
             }

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PorjetoBackend_FITHUB.Data;
-using PorjetoBackend_FITHUB.Models.Entities.Financeiro;
+using PorjetoBackend_FITHUB.Models.DTO_s.Financeiro;
 using PorjetoBackend_FITHUB.Services.Interfaces.Financeiro;
 using System;
 using System.Collections.Generic;
@@ -18,20 +18,19 @@ namespace PorjetoBackend_FITHUB.Services.Implementations.Financeiro
             _fitHub = fitHub;
         }
 
-        public async Task<List<Contrato>> ContratosProximosFim()
+        public async Task<List<ContratoProximoFimDTO>> ContratosProximosFim()
         {
             DateTime hoje = DateTime.Today;
             DateTime limite = hoje.AddDays(15);
 
-            List<Contrato> contratosProximosFim = await _fitHub.TbContrato
+            List<ContratoProximoFimDTO> contratosProximosFim = await _fitHub.TbContrato
                 .Where(
                     c =>
                     c.StatusContrato == Models.Enums.StatusContrato.ATIVO &&
                     c.Termino >= hoje && c.Termino < limite.AddDays(1)
                  )
-                .Include(c => c.Aluno)
-                .Include(c => c.Plano)
-                .ToListAsync<Contrato>();
+                .Select(c => new ContratoProximoFimDTO(c.Aluno.Nome, c.Plano.Nome, c.Termino))
+                .ToListAsync<ContratoProximoFimDTO>();
 
             return contratosProximosFim;
         }

@@ -11,11 +11,11 @@ namespace PorjetoBackend_FITHUB.Models.DTO_s.Financeiro
 
         public ContratoProximoFimDTO() { }
 
-        public ContratoProximoFimDTO(Contrato contrato)
+        public ContratoProximoFimDTO(string nomeAluno, string nomePlano, DateTime dataTermino)
         {
-            NomeAluno = contrato.Aluno.Nome;
-            NomePlano = contrato.Plano.Nome;
-            DataTermino = contrato.Termino;
+            NomeAluno = nomeAluno;
+            NomePlano = nomePlano;
+            DataTermino = dataTermino;
         }
     }
 }
