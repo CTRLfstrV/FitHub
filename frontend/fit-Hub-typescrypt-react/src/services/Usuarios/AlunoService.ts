@@ -1,5 +1,5 @@
 export class AlunoService {
-  private urlBase: string = "http://192.168.2.110:63367/api/aluno/";
+  private readonly urlBase: string = "http://192.168.2.110:63367/api/aluno/";
 
   async QuantidadeAlunos(): Promise<number> {
     const url: string = this.urlBase + "quantidade-alunos";
