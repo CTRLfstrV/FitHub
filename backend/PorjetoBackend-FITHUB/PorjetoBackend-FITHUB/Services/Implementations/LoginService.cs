@@ -1,7 +1,7 @@
 ﻿using PorjetoBackend_FITHUB.Data;
 using PorjetoBackend_FITHUB.Exceptions;
 using PorjetoBackend_FITHUB.Helpers;
-using PorjetoBackend_FITHUB.Models.DTO_s;
+using PorjetoBackend_FITHUB.Models.DTO_s.Usuarios;
 using PorjetoBackend_FITHUB.Models.Entities.Usuarios;
 using PorjetoBackend_FITHUB.Services.Interfaces;
 using System.Linq;

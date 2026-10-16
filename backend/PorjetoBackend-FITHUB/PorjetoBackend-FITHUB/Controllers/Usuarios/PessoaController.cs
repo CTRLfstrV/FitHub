@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PorjetoBackend_FITHUB.Exceptions;
-using PorjetoBackend_FITHUB.Models.DTO_s;
+using PorjetoBackend_FITHUB.Models.DTO_s.Usuarios;
 using PorjetoBackend_FITHUB.Services.Interfaces;
 using System;
 

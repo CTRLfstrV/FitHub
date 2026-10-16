@@ -18,7 +18,7 @@ namespace PorjetoBackend_FITHUB.Services.Implementations.Financeiro
             _fitHub = fitHub;
         }
 
-        public async Task<IEnumerable<Contrato>> ContratosProximosFim()
+        public async Task<List<Contrato>> ContratosProximosFim()
         {
             DateTime hoje = DateTime.Today;
             DateTime limite = hoje.AddDays(15);
@@ -28,7 +28,10 @@ namespace PorjetoBackend_FITHUB.Services.Implementations.Financeiro
                     c =>
                     c.StatusContrato == Models.Enums.StatusContrato.ATIVO &&
                     c.Termino >= hoje && c.Termino < limite.AddDays(1)
-                 ).ToListAsync<Contrato>();
+                 )
+                .Include(c => c.Aluno)
+                .Include(c => c.Plano)
+                .ToListAsync<Contrato>();
 
             return contratosProximosFim;
         }

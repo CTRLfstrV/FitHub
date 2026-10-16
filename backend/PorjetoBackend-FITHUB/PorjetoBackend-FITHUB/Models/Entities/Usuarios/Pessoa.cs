@@ -1,4 +1,4 @@
-﻿using PorjetoBackend_FITHUB.Models.DTO_s;
+﻿using PorjetoBackend_FITHUB.Models.DTO_s.Usuarios;
 using PorjetoBackend_FITHUB.Models.Enums;
 using System;
 
