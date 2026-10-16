@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { RedirecionadorService } from "../services/RedirecionadorService";
-import { VerificacaoSessaoService } from "../services/Usuarios/VerificacaoSessaoService";
-import { AlunoService } from "../services/Usuarios/AlunoService";
+import { VerificacaoSessaoService } from "../services/usuarios/VerificacaoSessaoService";
+import { AlunoService } from "../services/usuarios/AlunoService";
 
 const alunoService: AlunoService = new AlunoService();
 let mensagemErro: string = "Erro";
