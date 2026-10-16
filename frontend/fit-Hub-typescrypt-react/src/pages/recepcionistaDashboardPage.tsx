@@ -2,6 +2,20 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { RedirecionadorService } from "../services/RedirecionadorService";
 import { VerificacaoSessaoService } from "../services/Usuarios/VerificacaoSessaoService";
+import { AlunoService } from "../services/Usuarios/AlunoService";
+
+const alunoService: AlunoService = new AlunoService();
+let mensagemErro: string = "Erro";
+let quantidadeAlunos: number | null;
+let quantidadeAlunosAtivos: number | null;
+try {
+  quantidadeAlunos = await alunoService.QuantidadeAlunos();
+  quantidadeAlunosAtivos = await alunoService.QuantidadeAlunosAtivos();
+} catch (erro) {
+  if (erro instanceof Error) {
+    mensagemErro = erro.message;
+  }
+}
 
 function RecepcionistaDashBoardPage() {
   const [buttonsInverted, setButtonsInverted] = useState(false);
@@ -39,7 +53,7 @@ function RecepcionistaDashBoardPage() {
                     Total de alunos
                   </h2>
                   <p className="mt-2 text-3xl font-bold leading-none text-[#20251e] sm:text-4xl">
-                    352
+                    {quantidadeAlunos ?? mensagemErro}
                   </p>
                 </div>
                 <div
@@ -68,7 +82,7 @@ function RecepcionistaDashBoardPage() {
                     Alunos ativos
                   </h2>
                   <p className="mt-2 text-3xl font-bold leading-none text-[#20251e] sm:text-4xl">
-                    298
+                    {quantidadeAlunosAtivos ?? mensagemErro}
                   </p>
                 </div>
                 <div
