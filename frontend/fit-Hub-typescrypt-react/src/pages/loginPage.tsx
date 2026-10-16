@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import logo from "../../img/Primary-logo.svg";
 import type { PessoaLoginDTO } from "../types/PessoaLoginDTO";
-import { LoginService } from "../services/LoginService";
+import { LoginService } from "../services/Usuarios/LoginService";
 import { LoginValidation } from "../validations/loginValidation";
 import { CpfValidation } from "../validations/cpfValidation";
 import type { PessoaResponseLoginDTO } from "../types/PessoaResponseLoginDTO";

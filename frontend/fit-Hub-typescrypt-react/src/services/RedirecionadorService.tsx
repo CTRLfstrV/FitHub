@@ -1,4 +1,4 @@
-import { VerificacaoSessaoService } from "./VerificacaoSessaoService";
+import { VerificacaoSessaoService } from "./Usuarios/VerificacaoSessaoService";
 import { type NavigateFunction } from "react-router-dom";
 
 export class RedirecionadorService {

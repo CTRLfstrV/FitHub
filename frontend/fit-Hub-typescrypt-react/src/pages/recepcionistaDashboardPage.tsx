@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { RedirecionadorService } from "../services/RedirecionadorService";
-import { VerificacaoSessaoService } from "../services/VerificacaoSessaoService";
+import { VerificacaoSessaoService } from "../services/Usuarios/VerificacaoSessaoService";
 
 function RecepcionistaDashBoardPage() {
   const [buttonsInverted, setButtonsInverted] = useState(false);
