@@ -1,5 +1,5 @@
-import type { PessoaLoginDTO } from "../../types/PessoaLoginDTO";
-import type { PessoaResponseLoginDTO } from "../../types/PessoaResponseLoginDTO";
+import type { PessoaLoginDTO } from "../../types/usuarios/PessoaLoginDTO";
+import type { PessoaResponseLoginDTO } from "../../types/usuarios/PessoaResponseLoginDTO";
 import { LoginValidation } from "../../validations/loginValidation";
 export class LoginService {
   private readonly url: string = "http://192.168.2.110:63367/api/pessoa/login";

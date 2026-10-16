@@ -2,11 +2,11 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import logo from "../../img/Primary-logo.svg";
-import type { PessoaLoginDTO } from "../types/PessoaLoginDTO";
+import type { PessoaLoginDTO } from "../types/usuarios/PessoaLoginDTO";
 import { LoginService } from "../services/usuarios/LoginService";
 import { LoginValidation } from "../validations/loginValidation";
 import { CpfValidation } from "../validations/cpfValidation";
-import type { PessoaResponseLoginDTO } from "../types/PessoaResponseLoginDTO";
+import type { PessoaResponseLoginDTO } from "../types/usuarios/PessoaResponseLoginDTO";
 
 const eyebrow =
   "inline-flex items-center gap-2 text-[11px] font-bold tracking-[.16em] text-[#598c1c]";
