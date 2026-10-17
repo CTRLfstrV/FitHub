@@ -25,6 +25,7 @@ namespace PorjetoBackend_FITHUB.Controllers.Usuarios
                 PessoaResponseLoginDTO pessoaResponse = _loginService.Login(usuario);
 
                 HttpContext.Session.SetInt32("IdPessoa", pessoaResponse.Id);
+                HttpContext.Session.SetString("NomePessoa", pessoaResponse.Nome);
                 HttpContext.Session.SetInt32("TipoPessoa", (int)pessoaResponse.TipoPessoa);
 
                 return Ok(pessoaResponse.TipoPessoa);
