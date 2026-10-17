@@ -29,7 +29,7 @@ namespace PorjetoBackend_FITHUB.Services.Implementations.Financeiro
                     c.StatusContrato == Models.Enums.StatusContrato.ATIVO &&
                     c.Termino >= hoje && c.Termino < limite.AddDays(1)
                  )
-                .Select(c => new ContratoProximoFimDTO(c.Aluno.Nome, c.Plano.Nome, c.Termino))
+                .Select(c => new ContratoProximoFimDTO(c.Id, c.Aluno.Nome, c.Plano.Nome, c.Termino))
                 .ToListAsync<ContratoProximoFimDTO>();
 
             return contratosProximosFim;
