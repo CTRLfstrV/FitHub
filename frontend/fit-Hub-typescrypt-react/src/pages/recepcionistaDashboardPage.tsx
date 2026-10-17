@@ -3,13 +3,29 @@ import { useNavigate } from "react-router-dom";
 import { RedirecionadorService } from "../services/RedirecionadorService";
 import { VerificacaoSessaoService } from "../services/usuarios/VerificacaoSessaoService";
 import { AlunoService } from "../services/usuarios/AlunoService";
+import { ContratoService } from "../services/financeiro/ContratoService";
 
 const alunoService: AlunoService = new AlunoService();
+const contratoService: ContratoService = new ContratoService();
 let mensagemErro: string = "Erro";
 let quantidadeAlunos: number | null;
+let quantidadeContratosAtivos: number | null;
 let quantidadeAlunosAtivos: number | null;
 try {
   quantidadeAlunos = await alunoService.QuantidadeAlunos();
+} catch (erro) {
+  if (erro instanceof Error) {
+    mensagemErro = erro.message;
+  }
+}
+try {
+  quantidadeContratosAtivos = await contratoService.ContratosAtivos();
+} catch (erro) {
+  if (erro instanceof Error) {
+    mensagemErro = erro.message;
+  }
+}
+try {
   quantidadeAlunosAtivos = await alunoService.QuantidadeAlunosAtivos();
 } catch (erro) {
   if (erro instanceof Error) {
@@ -82,7 +98,7 @@ function RecepcionistaDashBoardPage() {
                     Alunos com contrato ativo
                   </h2>
                   <p className="mt-2 text-3xl font-bold leading-none text-[#20251e] sm:text-4xl">
-                    0
+                    {quantidadeContratosAtivos ?? mensagemErro}
                   </p>
                 </div>
                 <div
