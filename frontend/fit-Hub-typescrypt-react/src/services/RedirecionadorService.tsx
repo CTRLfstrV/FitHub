@@ -1,14 +1,14 @@
-import { VerificacaoSessaoService } from "./usuarios/VerificacaoSessaoService";
+import { SessaoService } from "./usuarios/SessaoService";
 import { type NavigateFunction } from "react-router-dom";
 
 export class RedirecionadorService {
-  private readonly sessaoService?: VerificacaoSessaoService;
+  private readonly sessaoService?: SessaoService;
 
   constructor();
-  constructor(verificaSessao: VerificacaoSessaoService);
+  constructor(verificaSessao: SessaoService);
 
   
-  constructor(verificaSessao?: VerificacaoSessaoService) {
+  constructor(verificaSessao?: SessaoService) {
     this.sessaoService = verificaSessao;
   }
 

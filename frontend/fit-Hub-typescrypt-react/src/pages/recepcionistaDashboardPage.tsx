@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { RedirecionadorService } from "../services/RedirecionadorService";
-import { VerificacaoSessaoService } from "../services/usuarios/VerificacaoSessaoService";
+import { SessaoService } from "../services/usuarios/SessaoService";
 import { AlunoService } from "../services/usuarios/AlunoService";
 import { ContratoService } from "../services/financeiro/ContratoService";
 import type { ContratoProximoVencimentoResponseDTO } from "../types/financeiro/ContratoProximoVencimentoResponseDTO";
 
 const alunoService: AlunoService = new AlunoService();
 const contratoService: ContratoService = new ContratoService();
+const sessaoService: SessaoService = new SessaoService();
 let mensagemErro: string = "Erro";
 let quantidadeAlunos: number | null;
 let quantidadeContratosAtivos: number | null;
@@ -47,7 +48,7 @@ function RecepcionistaDashBoardPage() {
   const [buttonsInverted, setButtonsInverted] = useState(false);
 
   const redirecionadorService: RedirecionadorService =
-    new RedirecionadorService(new VerificacaoSessaoService());
+    new RedirecionadorService(sessaoService);
   redirecionadorService.RedirecionaPorSessao(useNavigate());
 
   const primaryButtonClass =
@@ -164,7 +165,7 @@ function RecepcionistaDashBoardPage() {
 
           <section className="mt-6 overflow-hidden rounded-xl border border-[#dfe5da] bg-white shadow-[0_4px_16px_rgba(32,37,30,0.04)] sm:mt-8">
             <h2 className="border-b border-[#e7ebe3] px-4 py-3 text-base font-semibold text-[#20251e] sm:px-5 sm:text-lg">
-              Alunos próximos do fim do contrato
+              Alunos com contrato próximo à expiração
             </h2>
             <div className="overflow-x-auto">
               <table className="w-full min-w-[560px] border-collapse text-left text-sm">
