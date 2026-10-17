@@ -45,7 +45,7 @@ function RecepcionistaDashBoardPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 xl:grid-cols-3">
             <article className="rounded-xl border border-[#dfe5da] bg-white p-4 shadow-[0_4px_16px_rgba(32,37,30,0.04)] sm:p-5">
               <div className="flex items-start justify-between gap-4">
                 <div>
@@ -70,6 +70,36 @@ function RecepcionistaDashBoardPage() {
                     <circle cx="9" cy="8" r="3" />
                     <path d="M3.5 19v-1.5A4.5 4.5 0 0 1 8 13h2a4.5 4.5 0 0 1 4.5 4.5V19h-11Z" />
                     <path d="M16 5.3a3 3 0 0 1 0 5.8M17 13a4.5 4.5 0 0 1 3.5 4.4V19h-3" />
+                  </svg>
+                </div>
+              </div>
+            </article>
+
+            <article className="rounded-xl border border-[#dfe5da] bg-white p-4 shadow-[0_4px_16px_rgba(32,37,30,0.04)] sm:p-5">
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <h2 className="text-sm font-medium text-[#535b4e] sm:text-base">
+                    Alunos com contrato ativo
+                  </h2>
+                  <p className="mt-2 text-3xl font-bold leading-none text-[#20251e] sm:text-4xl">
+                    0
+                  </p>
+                </div>
+                <div
+                  className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-green-50 text-green-700"
+                  aria-hidden="true"
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    className="h-6 w-6"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.7"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M7 3.75h7l4 4V20a1.25 1.25 0 0 1-1.25 1.25h-9.5A1.25 1.25 0 0 1 6 20V5a1.25 1.25 0 0 1 1-1.25Z" />
+                    <path d="M14 4v4h4M9 13l2 2 4-4" />
                   </svg>
                 </div>
               </div>
