@@ -7,5 +7,6 @@ namespace PorjetoBackend_FITHUB.Services.Interfaces.Financeiro
     public interface IContratoService
     {
         Task<List<ContratoProximoFimDTO>> ContratosProximosFim();
+        int QuantidadeContratosAtivos();
     }
 }

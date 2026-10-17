@@ -34,5 +34,10 @@ namespace PorjetoBackend_FITHUB.Services.Implementations.Financeiro
 
             return contratosProximosFim;
         }
+
+        public int QuantidadeContratosAtivos()
+        {
+            return _fitHub.TbContrato.Where(c => c.StatusContrato == Models.Enums.StatusContrato.ATIVO).Count();
+        }
     }
 }

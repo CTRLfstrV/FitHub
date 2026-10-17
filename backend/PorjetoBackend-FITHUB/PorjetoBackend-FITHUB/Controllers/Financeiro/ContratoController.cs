@@ -18,6 +18,19 @@ namespace PorjetoBackend_FITHUB.Controllers.Financeiro
             _contratoService = contratoService;
         }
 
+        [HttpGet("quantidade-ativos")]
+        public IActionResult QuantidadeContratosAtivos()
+        {
+            try
+            {
+                return Ok(_contratoService.QuantidadeContratosAtivos());
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, new { message = "Ocorreu um erro interno de servidor" });
+            }
+        }
+
         [HttpGet("vencimento-proximo")]
         public async Task<IActionResult> ContratosProximosFim()
         {
@@ -29,7 +42,7 @@ namespace PorjetoBackend_FITHUB.Controllers.Financeiro
             }
             catch (Exception)
             {
-                return StatusCode(500, new { message = "Ocorru um erro interno de servidor" });
+                return StatusCode(500, new { message = "Ocorreu um erro interno de servidor" });
             }
         }
     }
