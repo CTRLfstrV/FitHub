@@ -4,6 +4,7 @@ import { RedirecionadorService } from "../services/RedirecionadorService";
 import { VerificacaoSessaoService } from "../services/usuarios/VerificacaoSessaoService";
 import { AlunoService } from "../services/usuarios/AlunoService";
 import { ContratoService } from "../services/financeiro/ContratoService";
+import type { ContratoProximoVencimentoResponseDTO } from "../types/financeiro/ContratoProximoVencimentoResponseDTO";
 
 const alunoService: AlunoService = new AlunoService();
 const contratoService: ContratoService = new ContratoService();
@@ -11,6 +12,7 @@ let mensagemErro: string = "Erro";
 let quantidadeAlunos: number | null;
 let quantidadeContratosAtivos: number | null;
 let quantidadeAlunosAtivos: number | null;
+let alunosContratoProximoFim: ContratoProximoVencimentoResponseDTO[] | null;
 try {
   quantidadeAlunos = await alunoService.QuantidadeAlunos();
 } catch (erro) {
@@ -27,6 +29,14 @@ try {
 }
 try {
   quantidadeAlunosAtivos = await alunoService.QuantidadeAlunosAtivos();
+} catch (erro) {
+  if (erro instanceof Error) {
+    mensagemErro = erro.message;
+  }
+}
+try {
+  alunosContratoProximoFim =
+    await contratoService.ContratosProximosVencimento();
 } catch (erro) {
   if (erro instanceof Error) {
     mensagemErro = erro.message;
@@ -163,52 +173,31 @@ function RecepcionistaDashBoardPage() {
                     <th className="px-4 py-3 sm:px-5">Aluno</th>
                     <th className="px-4 py-3 sm:px-5">Plano</th>
                     <th className="px-4 py-3 sm:px-5">Data fim</th>
-                    <th className="px-4 py-3 text-center sm:px-5">Ação</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-[#edf0e9] text-[#343a31]">
-                  <tr>
-                    <td className="px-4 py-3 sm:px-5">Ana Souza</td>
-                    <td className="px-4 py-3 sm:px-5">Plano A</td>
-                    <td className="px-4 py-3 sm:px-5">29/10/2026</td>
-                    <td className="px-4 py-3 text-center sm:px-5">
-                      <button
-                        type="button"
-                        aria-label="Mais ações para Ana Souza"
-                        className="rounded-md px-2 font-bold tracking-widest text-green-800 hover:bg-green-50"
+                  {alunosContratoProximoFim?.length === 0 ? (
+                    <tr>
+                      <td
+                        colSpan={3}
+                        className="px-4 py-6 text-center text-gray-500"
                       >
-                        •••
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="px-4 py-3 sm:px-5">Bruno Costa</td>
-                    <td className="px-4 py-3 sm:px-5">Gold</td>
-                    <td className="px-4 py-3 sm:px-5">09/11/2026</td>
-                    <td className="px-4 py-3 text-center sm:px-5">
-                      <button
-                        type="button"
-                        aria-label="Mais ações para Bruno Costa"
-                        className="rounded-md px-2 font-bold tracking-widest text-green-800 hover:bg-green-50"
-                      >
-                        •••
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className="px-4 py-3 sm:px-5">Ana Souza</td>
-                    <td className="px-4 py-3 sm:px-5">Plano B</td>
-                    <td className="px-4 py-3 sm:px-5">10/12/2026</td>
-                    <td className="px-4 py-3 text-center sm:px-5">
-                      <button
-                        type="button"
-                        aria-label="Mais ações para Ana Souza"
-                        className="rounded-md px-2 font-bold tracking-widest text-green-800 hover:bg-green-50"
-                      >
-                        •••
-                      </button>
-                    </td>
-                  </tr>
+                        Nenhum contrato próximo do vencimento.
+                      </td>
+                    </tr>
+                  ) : (
+                    alunosContratoProximoFim?.map((contrato) => (
+                      <tr key={contrato.idContrato}>
+                        <td className="px-4 py-3">{contrato.nomeAluno}</td>
+                        <td className="px-4 py-3">{contrato.nomePlano}</td>
+                        <td className="px-4 py-3">
+                          {new Date(contrato.dataTermino).toLocaleDateString(
+                            "pt-br",
+                          )}
+                        </td>
+                      </tr>
+                    ))
+                  )}
                 </tbody>
               </table>
             </div>

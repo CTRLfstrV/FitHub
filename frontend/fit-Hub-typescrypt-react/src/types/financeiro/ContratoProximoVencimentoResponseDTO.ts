@@ -1,7 +1,8 @@
 interface ContratoProximoVencimentoResponseDTO{
+    idContrato: number
     nomeAluno: string,
-    nomePLano: string,
-    dataVencimento: Date
+    nomePlano: string,
+    dataTermino: string
 }
 
 export type {ContratoProximoVencimentoResponseDTO}
