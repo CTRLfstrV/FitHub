@@ -1,4 +1,4 @@
-﻿import { useState } from "react";
+﻿import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AlunoService } from "../../services/usuarios/AlunoService";
 import { ContratoService } from "../../services/financeiro/ContratoService";
@@ -6,42 +6,62 @@ import type { ContratoProximoVencimentoResponseDTO } from "../../types/financeir
 
 const alunoService: AlunoService = new AlunoService();
 const contratoService: ContratoService = new ContratoService();
-let mensagemErro: string = "Erro";
-let quantidadeAlunos: number | null;
-let quantidadeContratosAtivos: number | null;
-let quantidadeAlunosAtivos: number | null;
-let alunosContratoProximoFim: ContratoProximoVencimentoResponseDTO[] | null;
-try {
-  quantidadeAlunos = await alunoService.QuantidadeAlunos();
-} catch (erro) {
-  if (erro instanceof Error) {
-    mensagemErro = erro.message;
-  }
-}
-try {
-  quantidadeContratosAtivos = await contratoService.ContratosAtivos();
-} catch (erro) {
-  if (erro instanceof Error) {
-    mensagemErro = erro.message;
-  }
-}
-try {
-  quantidadeAlunosAtivos = await alunoService.QuantidadeAlunosAtivos();
-} catch (erro) {
-  if (erro instanceof Error) {
-    mensagemErro = erro.message;
-  }
-}
-try {
-  alunosContratoProximoFim =
-    await contratoService.ContratosProximosVencimento();
-} catch (erro) {
-  if (erro instanceof Error) {
-    mensagemErro = erro.message;
-  }
-}
 
 function RecepcionistaDashBoardPage() {
+  
+  const [mensagemErro, setMensagemErro] = useState<string>("Erro");
+  const [quantidadeAlunos, setQuantidadeAluno] = useState<number | null>();
+  const [quantidadeContratosAtivos, setQuantidadeContratosAtivos] = useState<
+    number | null
+  >();
+  const [quantidadeAlunosAtivos, setquantidadeAlunosAtivos] = useState<
+    number | null
+  >();
+  const [alunosContratoProximoFim, setAlunosContratoProximoFim] = useState<
+    ContratoProximoVencimentoResponseDTO[] | null
+  >();
+
+  useEffect(() => {
+    const carregarUsuario = async () => {
+      try {
+        const quantidadeAlunos: number = await alunoService.QuantidadeAlunos();
+        setQuantidadeAluno(quantidadeAlunos);
+      } catch (erro) {
+        if (erro instanceof Error) {
+          setMensagemErro(erro.message);
+        }
+      }
+      try {
+        const quantidadeAlunosContratoAtivo =
+          await contratoService.ContratosAtivos();
+        setQuantidadeContratosAtivos(quantidadeAlunosContratoAtivo);
+      } catch (erro) {
+        if (erro instanceof Error) {
+          setMensagemErro(erro.message);
+        }
+      }
+      try {
+        const quantidadeAlunosAtivos =
+          await alunoService.QuantidadeAlunosAtivos();
+        setquantidadeAlunosAtivos(quantidadeAlunosAtivos);
+      } catch (erro) {
+        if (erro instanceof Error) {
+          setMensagemErro(erro.message);
+        }
+      }
+      try {
+        const contratosProximoFim: ContratoProximoVencimentoResponseDTO[] =
+          await contratoService.ContratosProximosVencimento();
+        setAlunosContratoProximoFim(contratosProximoFim);
+      } catch (erro) {
+        if (erro instanceof Error) {
+          setMensagemErro(erro.message);
+        }
+      }
+    };
+
+    void carregarUsuario();
+  });
   return (
     <div className="min-h-full">
       <section className="min-w-0 flex-1 px-4 py-6 sm:px-7 sm:py-8 lg:px-10 lg:py-10">

@@ -13,7 +13,7 @@ function RecepcionistaLayout() {
   const [nomeUsuario, setNomeUsuario] = useState<string>("Carregando...");
   const navigate = useNavigate();
   useEffect(() => {
-    async function carregarUsuario(): Promise<void> {
+    const carregarUsuario = async () => {
       const redirecionadorService: RedirecionadorService =
         new RedirecionadorService(sessaoService);
       redirecionadorService.RedirecionaPorSessao(navigate);
