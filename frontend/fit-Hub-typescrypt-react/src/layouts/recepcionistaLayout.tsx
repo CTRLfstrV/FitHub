@@ -1,10 +1,15 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import UsersHeader from "../components/usersHeader";
 import Footer from "../components/footer";
 import RecepcionistaSideBar from "../components/recepcionistaSideBar";
 import { RecepcionistaMenuProvider } from "../contexts/RecepcionistaMenuContext";
+import { RedirecionadorService } from "../services/RedirecionadorService";
+import { SessaoService } from "../services/usuarios/SessaoService";
 
 function RecepcionistaLayout() {
+  const redirecionadorService: RedirecionadorService =
+    new RedirecionadorService(new SessaoService());
+  redirecionadorService.RedirecionaPorSessao(useNavigate());
   return (
     <RecepcionistaMenuProvider>
       <div className="relative flex min-h-screen flex-col overflow-hidden bg-white">

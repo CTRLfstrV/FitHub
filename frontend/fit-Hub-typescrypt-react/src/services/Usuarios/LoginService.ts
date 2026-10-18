@@ -42,7 +42,6 @@ export class LoginService {
     }
 
     const pessoaRetorno: number = await resposta.json();
-    console.log(pessoaRetorno);
     return {
       tipoPessoa: pessoaRetorno,
     };

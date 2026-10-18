@@ -1,5 +1,5 @@
 interface ContratoProximoVencimentoResponseDTO{
-    idContrato: number
+    id: number
     nomeAluno: string,
     nomePlano: string,
     dataTermino: string
