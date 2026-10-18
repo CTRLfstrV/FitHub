@@ -1,4 +1,5 @@
 import { useRecepcionistaMenu } from "../contexts/RecepcionistaMenuContext";
+import { Link } from "react-router-dom";
 
 function RecepcionistaSideBar() {
   const { isOpen } = useRecepcionistaMenu();
@@ -18,12 +19,12 @@ function RecepcionistaSideBar() {
             aria-label="Menu da recepcionista"
             className="flex w-full min-w-0 flex-col items-stretch justify-start gap-1 overflow-visible md:gap-2"
           >
-            <button className="shrink-0 cursor-pointer rounded-lg px-2 py-2 text-left text-base text-[#20251e]/85 transition-colors hover:bg-green-500 hover:text-white focus:bg-green-500 focus:text-white sm:text-lg md:px-3 md:py-2 md:text-lg">
+            <Link to="/recepcionista/dashboard" className="shrink-0 cursor-pointer rounded-lg px-2 py-2 text-left text-base text-[#20251e]/85 transition-colors hover:bg-green-500 hover:text-white focus:bg-green-500 focus:text-white sm:text-lg md:px-3 md:py-2 md:text-lg">
               Início
-            </button>
-            <button className="shrink-0 cursor-pointer rounded-lg px-2 py-2 text-left text-base text-[#20251e]/85 transition-colors hover:bg-green-500 hover:text-white focus:bg-green-500 focus:text-white sm:text-lg md:px-3 md:py-2 md:text-lg">
+            </Link>
+            <Link to="/recepcionista/gerencia-alunos" className="shrink-0 cursor-pointer rounded-lg px-2 py-2 text-left text-base text-[#20251e]/85 transition-colors hover:bg-green-500 hover:text-white focus:bg-green-500 focus:text-white sm:text-lg md:px-3 md:py-2 md:text-lg">
               Gerenciar alunos
-            </button>
+            </Link>
             <button className="shrink-0 cursor-pointer rounded-lg px-2 py-2 text-left text-base text-[#20251e]/85 transition-colors hover:bg-green-500 hover:text-white focus:bg-green-500 focus:text-white sm:text-lg md:px-3 md:py-2 md:text-lg">
               Matricular alunos
             </button>

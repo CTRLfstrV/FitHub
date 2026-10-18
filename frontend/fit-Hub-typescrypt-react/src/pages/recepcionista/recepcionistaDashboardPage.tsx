@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { RedirecionadorService } from "../../services/RedirecionadorService";
 import { SessaoService } from "../../services/usuarios/SessaoService";
 import { AlunoService } from "../../services/usuarios/AlunoService";
@@ -45,16 +45,9 @@ try {
 }
 
 function RecepcionistaDashBoardPage() {
-  const [buttonsInverted, setButtonsInverted] = useState(false);
-
   const redirecionadorService: RedirecionadorService =
     new RedirecionadorService(sessaoService);
   redirecionadorService.RedirecionaPorSessao(useNavigate());
-
-  const primaryButtonClass =
-    "inline-flex min-h-11 cursor-pointer items-center justify-center rounded-lg bg-[#c5ff62] px-5 py-3 text-sm font-semibold text-[#17200f] transition-colors hover:bg-[#b3ee4f] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-700 sm:text-base";
-  const secondaryButtonClass =
-    "inline-flex min-h-11 cursor-pointer items-center justify-center rounded-lg border border-green-700 bg-white px-5 py-3 text-sm font-semibold text-green-800 transition-colors hover:bg-green-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-700 sm:text-base";
 
   return (
     <div className="min-h-full">
@@ -207,22 +200,16 @@ function RecepcionistaDashBoardPage() {
           <div className="mt-5 flex flex-col gap-3 sm:mt-6 sm:flex-row sm:justify-end">
             <button
               type="button"
-              className={
-                buttonsInverted ? secondaryButtonClass : primaryButtonClass
-              }
-              onClick={() => setButtonsInverted((inverted) => !inverted)}
+className="inline-flex min-h-11 cursor-pointer items-center justify-center rounded-lg border border-green-700 bg-white px-5 py-3 text-sm font-semibold text-green-800 transition-colors hover:bg-green-800 hover:text-white hover:border-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-700 sm:text-base"
             >
-              Cadastrar novo aluno
+              Matricular Alunos
             </button>
-            <button
-              type="button"
-              className={
-                buttonsInverted ? primaryButtonClass : secondaryButtonClass
-              }
-              onClick={() => setButtonsInverted((inverted) => !inverted)}
+            <Link
+              to="/recepcionista/gerencia-alunos"
+              className="inline-flex min-h-11 cursor-pointer items-center justify-center rounded-lg border border-green-700 bg-white px-5 py-3 text-sm font-semibold text-green-800 transition-colors hover:bg-green-800 hover:text-white hover:border-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-700 sm:text-base"
             >
               Gerenciar Alunos
-            </button>
+            </Link>
           </div>
         </div>
       </section>
