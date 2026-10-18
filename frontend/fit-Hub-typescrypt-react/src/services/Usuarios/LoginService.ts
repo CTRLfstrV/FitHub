@@ -1,19 +1,20 @@
-import type { PessoaLoginDTO } from "../types/PessoaLoginDTO";
-import type { PessoaResponseLoginDTO } from "../types/PessoaResponseLoginDTO";
-import { LoginValidation } from "../validations/loginValidation";
+import type { PessoaLoginDTO } from "../../types/usuarios/PessoaLoginDTO";
+import type { PessoaResponseLoginDTO } from "../../types/usuarios/PessoaResponseLoginDTO";
+import { LoginValidation } from "../../validations/loginValidation";
 export class LoginService {
-  private readonly url: string = "http://192.168.2.110:63367/api/Pessoa/login";
+  private readonly url: string = "http://192.168.2.110:63367/api/pessoa/login";
   private validacaoLogin: LoginValidation;
 
   constructor(validacaoLogin: LoginValidation) {
     this.validacaoLogin = validacaoLogin;
   }
 
-  async login(pessoa: PessoaLoginDTO) : Promise<PessoaResponseLoginDTO> {
+  async login(pessoa: PessoaLoginDTO): Promise<PessoaResponseLoginDTO> {
     this.validacaoLogin.validacaoLogin(pessoa.cpf, pessoa.senha);
 
     const resposta = await fetch(this.url, {
       method: "POST",
+      credentials: "include",
       headers: {
         "Content-Type": "application/json",
       },
@@ -24,7 +25,8 @@ export class LoginService {
     });
 
     if (!resposta.ok) {
-      let mensagem = resposta.status === 404 ? "A requisição falhou" : "Falha inesperada";
+      let mensagem =
+        resposta.status === 404 ? "A requisição falhou" : "Falha inesperada";
 
       try {
         const erro = await resposta.json();
@@ -39,7 +41,10 @@ export class LoginService {
       throw new Error(mensagem);
     }
 
-    const pessoaRetorno: Promise<PessoaResponseLoginDTO> = await resposta.json();
-    return pessoaRetorno;
+    const pessoaRetorno: number = await resposta.json();
+    console.log(pessoaRetorno);
+    return {
+      tipoPessoa: pessoaRetorno,
+    };
   }
 }

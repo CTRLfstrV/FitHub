@@ -1,18 +1,18 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PorjetoBackend_FITHUB.Exceptions;
-using PorjetoBackend_FITHUB.Models.DTO_s;
+using PorjetoBackend_FITHUB.Models.DTO_s.Usuarios;
 using PorjetoBackend_FITHUB.Services.Interfaces;
 using System;
 
-namespace PorjetoBackend_FITHUB.Controllers
+namespace PorjetoBackend_FITHUB.Controllers.Usuarios
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/pessoa")]
     public class PessoaController : ControllerBase
     {
         private readonly ILoginService _loginService;
-        public PessoaController(ILoginService loginService) 
+        public PessoaController(ILoginService loginService)
         {
             _loginService = loginService;
         }
@@ -25,22 +25,45 @@ namespace PorjetoBackend_FITHUB.Controllers
                 PessoaResponseLoginDTO pessoaResponse = _loginService.Login(usuario);
 
                 HttpContext.Session.SetInt32("IdPessoa", pessoaResponse.Id);
+                HttpContext.Session.SetString("NomePessoa", pessoaResponse.Nome);
                 HttpContext.Session.SetInt32("TipoPessoa", (int)pessoaResponse.TipoPessoa);
 
-                return Ok(pessoaResponse);
+                return Ok(pessoaResponse.TipoPessoa);
             }
             catch (PessoaNaoEncontradaException ex)
             {
-                return NotFound(ex.Message);
+                return StatusCode(404, new { message = ex.Message });
             }
             catch (SenhaInvalidaException ex)
             {
-                return BadRequest(ex.Message);
+                return StatusCode(400, new { message = ex.Message });
             }
             catch (Exception)
             {
                 return StatusCode(500, new { message = "Ocorreu erro interno de servidor" });
             }
+        }
+
+        [HttpGet("sessao")]
+        public IActionResult VerificaSessao()
+        {
+            int? idPessoa = HttpContext.Session.GetInt32("IdPessoa");
+
+            if (idPessoa == null)
+                return Unauthorized();
+
+            return Ok();
+        }
+
+        [HttpGet("sessao/nome")]
+        public IActionResult RetornaNomePessoa()
+        {
+            string nomePessoa = HttpContext.Session.GetString("NomePessoa");
+
+            if (nomePessoa == null)
+                return NotFound();
+
+            return Ok(nomePessoa);
         }
     }
 }

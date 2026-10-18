@@ -1,11 +1,12 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import logo from "../../img/Primary-logo.svg";
-import type { PessoaLoginDTO } from "../types/PessoaLoginDTO";
-import { LoginService } from "../services/LoginService";
+import type { PessoaLoginDTO } from "../types/usuarios/PessoaLoginDTO";
+import { LoginService } from "../services/usuarios/LoginService";
 import { LoginValidation } from "../validations/loginValidation";
 import { CpfValidation } from "../validations/cpfValidation";
-import type { PessoaResponseLoginDTO } from "../types/PessoaResponseLoginDTO";
+import type { PessoaResponseLoginDTO } from "../types/usuarios/PessoaResponseLoginDTO";
 
 const eyebrow =
   "inline-flex items-center gap-2 text-[11px] font-bold tracking-[.16em] text-[#598c1c]";
@@ -18,6 +19,7 @@ function LoginPage() {
   const [cpf, setCpf] = useState<string>("");
   const [senha, setSenha] = useState<string>("");
   const [mensagemErro, setMensagemErro] = useState<string>("");
+  const navigate = useNavigate();
 
   const handleLogin = async (event: React.SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -31,9 +33,14 @@ function LoginPage() {
       const resposta: PessoaResponseLoginDTO =
         await loginService.login(pessoaLogin);
       setMensagemErro("");
-      console.log(resposta.nome);
+
+      if (resposta.tipoPessoa === 0)
+        navigate("/recepcionista/dashboard", { replace: true });
+
     } catch (erro: unknown) {
-      if (erro instanceof Error) {
+      if (erro instanceof TypeError) {
+        setMensagemErro("Falha ao comunicar com o servidor");
+      } else if (erro instanceof Error) {
         setMensagemErro(erro.message);
       }
     }
@@ -98,6 +105,12 @@ function LoginPage() {
               value={cpf}
               onChange={(e) => setCpf(e.target.value)}
             />
+            <label
+              className="mb-[9px] text-sm font-semibold text-[#30372d]"
+              htmlFor="cpf"
+            >
+              Senha
+            </label>
             <input
               className="mb-[22px] h-12 w-full rounded-[7px] border border-[#d9dfd5] bg-white px-[14px] text-sm text-[#20251e] outline-none transition placeholder:text-[#8a9185] focus:border-[#83b943] focus:ring-[3px] focus:ring-[#79b82d]/20"
               id="password"

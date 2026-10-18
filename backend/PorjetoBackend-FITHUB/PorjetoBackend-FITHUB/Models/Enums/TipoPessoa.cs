@@ -2,8 +2,8 @@
 {
     public enum TipoPessoa
     {
-        Recepcionista,
-        Professor,
-        Aluno
+        RECEPCIONISTA,
+        PROFESSOR,
+        ALUNO
     }
 }

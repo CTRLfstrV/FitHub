@@ -45,12 +45,12 @@ function HomePage() {
         </div>
         <div className="relative min-w-0">
           <div
-            className="home-visual-pulse relative grid h-[min(68vw,390px)] min-h-[280px] place-items-center overflow-hidden rounded-md border border-[#e5ecd9] bg-[#f1f6eb] md:h-[clamp(340px,38vw,450px)]"
+            className="home-visual-pulse relative grid h-[min(68vw,390px)] min-h-[280px] place-items-center overflow-hidden rounded-md border border-[#d6e8c4] bg-[#f1f6eb] md:h-[clamp(340px,38vw,450px)]"
             aria-label="Movimento, foco e evolução"
           >
-            <div className="absolute h-[34%] w-[72%] rotate-[-28deg] rounded-[50%] border border-[#b7d695]" />
-            <div className="absolute h-[54%] w-[58%] rotate-[32deg] rounded-[50%] border border-[#d2e5bf]" />
-            <span className="relative z-[1] text-[clamp(180px,25vw,320px)] font-extrabold leading-[.8] tracking-[-.12em] text-[#d5edbb]">
+            <div className="absolute h-[34%] w-[72%] rotate-[-28deg] rounded-[50%] border-[1.5px] border-[#78b936]/75 shadow-[0_0_18px_rgba(101,163,13,0.16)]" />
+            <div className="absolute h-[54%] w-[58%] rotate-[32deg] rounded-[50%] border-[1.5px] border-[#9acb62]/80" />
+            <span className="relative z-[1] text-[clamp(180px,25vw,320px)] font-extrabold leading-[.8] tracking-[-.12em] text-[#76b82a] drop-shadow-[0_8px_18px_rgba(87,145,25,0.2)]">
               F
             </span>
           </div>

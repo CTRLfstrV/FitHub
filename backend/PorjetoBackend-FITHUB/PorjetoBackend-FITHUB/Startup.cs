@@ -8,7 +8,11 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using PorjetoBackend_FITHUB.Data;
 using PorjetoBackend_FITHUB.Services.Implementations;
+using PorjetoBackend_FITHUB.Services.Implementations.Financeiro;
+using PorjetoBackend_FITHUB.Services.Implementations.Usuarios;
 using PorjetoBackend_FITHUB.Services.Interfaces;
+using PorjetoBackend_FITHUB.Services.Interfaces.Financeiro;
+using PorjetoBackend_FITHUB.Services.Interfaces.Usuarios;
 using System;
 using System.Linq;
 
@@ -27,6 +31,8 @@ namespace PorjetoBackend_FITHUB
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<ILoginService, LoginService>();
+            services.AddScoped<IAlunoService, AlunoService>();
+            services.AddScoped<IContratoService, ContratoService>();
 
             services.AddDbContext<FitHubDbContext>(option =>
                 option.UseSqlServer(
@@ -39,7 +45,9 @@ namespace PorjetoBackend_FITHUB
                 options.AddPolicy("PermiteRequisicoes", policy =>
                 {
                     policy
-                    .SetIsOriginAllowed(_=> true)
+                    .WithOrigins(
+                        "http://localhost:4173",
+                        "http://192.168.2.110:4173")
                     .AllowAnyHeader()
                     .AllowAnyMethod()
                     .AllowCredentials();
@@ -106,6 +114,7 @@ namespace PorjetoBackend_FITHUB
 
             app.UseCors("PermiteRequisicoes");
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

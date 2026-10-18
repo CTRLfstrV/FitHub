@@ -12,6 +12,9 @@ project.lock.json
 #ignorando conexões
 appsettings.json
 
+#ignorando documentação
+DOCUMENTACAO_BACKEND.txt
+
 # mstest test results
 TestResults
 

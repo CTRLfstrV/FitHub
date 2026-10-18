@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace PorjetoBackend_FITHUB.Models.DTO_s
+namespace PorjetoBackend_FITHUB.Models.DTO_s.Usuarios
 {
     public record PessoaLoginDTO
     {
