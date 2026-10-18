@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { RedirecionadorService } from "../services/RedirecionadorService";
-import { SessaoService } from "../services/usuarios/SessaoService";
-import { AlunoService } from "../services/usuarios/AlunoService";
-import { ContratoService } from "../services/financeiro/ContratoService";
-import type { ContratoProximoVencimentoResponseDTO } from "../types/financeiro/ContratoProximoVencimentoResponseDTO";
+import { RedirecionadorService } from "../../services/RedirecionadorService";
+import { SessaoService } from "../../services/usuarios/SessaoService";
+import { AlunoService } from "../../services/usuarios/AlunoService";
+import { ContratoService } from "../../services/financeiro/ContratoService";
+import type { ContratoProximoVencimentoResponseDTO } from "../../types/financeiro/ContratoProximoVencimentoResponseDTO";
 
 const alunoService: AlunoService = new AlunoService();
 const contratoService: ContratoService = new ContratoService();
