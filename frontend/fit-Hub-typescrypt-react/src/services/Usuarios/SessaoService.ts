@@ -21,7 +21,7 @@ export class SessaoService {
   async NomeUsuario(): Promise<string> {
     const url = this.urlBase + "/nome";
 
-    const resposta = await fetch(this.urlBase, {
+    const resposta = await fetch(url, {
       method: "GET",
       credentials: "include",
     });
@@ -31,6 +31,6 @@ export class SessaoService {
 
     if (!resposta.ok) throw new Error("Não foi possível ler a sessão");
 
-    return resposta.json();
+    return resposta.text();
   }
 }

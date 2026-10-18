@@ -1,6 +1,17 @@
 import { Link } from "react-router-dom";
 import logo from "../../img/Primary-logo.svg";
 import { useRecepcionistaMenu } from "../contexts/RecepcionistaMenuContext";
+import { SessaoService } from "../services/usuarios/SessaoService";
+
+const sessaoService: SessaoService = new SessaoService();
+let nomeUsuario: string;
+try {
+  nomeUsuario = await sessaoService.NomeUsuario();
+} catch (erro) {
+  if (erro instanceof Error) {
+    nomeUsuario = erro.message;
+  }
+}
 
 function UsersHeader() {
   const { isOpen, toggleMenu } = useRecepcionistaMenu();
@@ -31,7 +42,9 @@ function UsersHeader() {
 
         <div className="min-w-0 flex-1 text-center text-[20px] leading-tight text-white sm:text-sm">
           <span className="block text-white/75 text-[20px]">Olá,</span>
-          <strong className="block truncate font-bold text-[20px]">Nome do usuário</strong>
+          <strong className="block truncate font-bold text-[20px]">
+            {nomeUsuario}
+          </strong>
         </div>
 
         <button
