@@ -1,7 +1,5 @@
 ﻿import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { RedirecionadorService } from "../../services/RedirecionadorService";
-import { SessaoService } from "../../services/usuarios/SessaoService";
+import { Link } from "react-router-dom";
 import { AlunoService } from "../../services/usuarios/AlunoService";
 import { ContratoService } from "../../services/financeiro/ContratoService";
 import type { ContratoProximoVencimentoResponseDTO } from "../../types/financeiro/ContratoProximoVencimentoResponseDTO";
@@ -331,7 +329,7 @@ function RecepcionistaDashBoardPage() {
               Matricular alunos
             </button>
             <Link
-              to="/recepcionista/gerencia-alunos"
+              to="/recepcionista/gerenciamento-alunos"
               className="inline-flex min-h-11 cursor-pointer items-center justify-center gap-2 rounded-xl border border-green-700 bg-green-700 px-5 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:border-green-800 hover:bg-green-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-700 sm:text-base"
             >
               Gerenciar alunos

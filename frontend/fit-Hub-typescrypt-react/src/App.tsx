@@ -24,7 +24,7 @@ function App() {
             element={<RecepcionistaDashBoardPage />}
           />
           <Route
-            path="/recepcionista/gerencia-alunos"
+            path="/recepcionista/gerenciamento-alunos"
             element={<RecepcionistaGerenciamentoAlunoPage />}
           />
         </Route>

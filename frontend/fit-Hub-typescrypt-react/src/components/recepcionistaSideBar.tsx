@@ -22,7 +22,7 @@ function RecepcionistaSideBar() {
             <Link to="/recepcionista/dashboard" className="shrink-0 cursor-pointer rounded-lg px-2 py-2 text-left text-base text-[#20251e]/85 transition-colors hover:bg-green-500 hover:text-white focus:bg-green-500 focus:text-white sm:text-lg md:px-3 md:py-2 md:text-lg">
               Início
             </Link>
-            <Link to="/recepcionista/gerencia-alunos" className="shrink-0 cursor-pointer rounded-lg px-2 py-2 text-left text-base text-[#20251e]/85 transition-colors hover:bg-green-500 hover:text-white focus:bg-green-500 focus:text-white sm:text-lg md:px-3 md:py-2 md:text-lg">
+            <Link to="/recepcionista/gerenciamento-alunos" className="shrink-0 cursor-pointer rounded-lg px-2 py-2 text-left text-base text-[#20251e]/85 transition-colors hover:bg-green-500 hover:text-white focus:bg-green-500 focus:text-white sm:text-lg md:px-3 md:py-2 md:text-lg">
               Gerenciar alunos
             </Link>
             <button className="shrink-0 cursor-pointer rounded-lg px-2 py-2 text-left text-base text-[#20251e]/85 transition-colors hover:bg-green-500 hover:text-white focus:bg-green-500 focus:text-white sm:text-lg md:px-3 md:py-2 md:text-lg">
