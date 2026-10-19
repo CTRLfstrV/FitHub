@@ -183,7 +183,7 @@ function RecepcionistaDashBoardPage() {
                     {quantidadeAlunosAtivos ?? mensagemErro}
                   </p>
                   <p className="mt-3 text-xs text-[#81897d]">
-                    Alunos com cadastro ativo
+                    Alunos ativos no sistema
                   </p>
                 </div>
                 <div

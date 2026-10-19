@@ -31,15 +31,19 @@ function RecepcionistaLayout() {
   }, [navigate]);
   return (
     <RecepcionistaMenuProvider>
-      <div className="relative flex min-h-screen flex-col overflow-hidden bg-white">
-        <UsersHeader nomeUsuario={nomeUsuario} />
-        <div className="flex flex-1 flex-col md:flex-row">
+      <div className="relative flex h-dvh flex-col overflow-hidden bg-white">
+        <div className="shrink-0">
+          <UsersHeader nomeUsuario={nomeUsuario} />
+        </div>
+        <div className="flex min-h-0 flex-1 flex-col md:flex-row">
           <RecepcionistaSideBar />
-          <main className="flex min-w-0 flex-1 flex-col bg-[#fbfcfa]">
+          <main className="min-h-0 min-w-0 flex-1 overflow-x-hidden overflow-y-auto overscroll-y-contain bg-[#fbfcfa]">
             <Outlet />
           </main>
         </div>
-        <Footer />
+        <div className="shrink-0">
+          <Footer />
+        </div>
       </div>
     </RecepcionistaMenuProvider>
   );
