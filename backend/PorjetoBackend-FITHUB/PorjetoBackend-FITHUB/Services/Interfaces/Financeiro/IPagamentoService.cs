@@ -6,7 +6,7 @@ namespace PorjetoBackend_FITHUB.Services.Interfaces.Financeiro
 {
     public interface IPagamentoService
     {
-        void VerificaPagamentos();
+        Task VerificaPagamentos();
         Task<List<PagamentoDTO>> PegarPagamentos();
     }
 }
