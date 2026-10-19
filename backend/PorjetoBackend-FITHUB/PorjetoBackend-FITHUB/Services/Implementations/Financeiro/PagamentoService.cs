@@ -1,9 +1,11 @@
-﻿using PorjetoBackend_FITHUB.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using PorjetoBackend_FITHUB.Data;
 using PorjetoBackend_FITHUB.Models.DTO_s.Financeiro;
 using PorjetoBackend_FITHUB.Models.Enums;
 using PorjetoBackend_FITHUB.Services.Interfaces.Financeiro;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace PorjetoBackend_FITHUB.Services.Implementations.Financeiro
@@ -12,15 +14,19 @@ namespace PorjetoBackend_FITHUB.Services.Implementations.Financeiro
     {
         private readonly FitHubDbContext _fitHub;
 
-
         public PagamentoService(FitHubDbContext fitHub)
         {
             _fitHub = fitHub;
         }
 
-        public Task<List<PagamentoDTO>> PegarPagamentos()
+        public async Task<List<PagamentoDTO>> PegarPagamentos()
         {
-            throw new System.NotImplementedException();
+            List<PagamentoDTO> pagamentos = await _fitHub.TbPagamento
+                .Where(p => p.Contrato.StatusContrato == StatusContrato.ATIVO)
+                .Select(p => new PagamentoDTO(p.Id, p.Contrato.Aluno.Nome, p.Contrato.Aluno.Email, p.Contrato.Plano.Nome, (int)p.StatusPagamento))
+                .ToListAsync<PagamentoDTO>();
+
+            return pagamentos;
         }
 
         public async Task VerificaPagamentos()
