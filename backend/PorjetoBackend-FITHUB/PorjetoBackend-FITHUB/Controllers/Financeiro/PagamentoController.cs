@@ -18,7 +18,7 @@ namespace PorjetoBackend_FITHUB.Controllers.Financeiro
             _pagamentoService = pagamentoService;
         }
 
-        [HttpGet("pagamentos")]
+        [HttpGet]
         public async Task<IActionResult> PegarPagamentos()
         {
             
