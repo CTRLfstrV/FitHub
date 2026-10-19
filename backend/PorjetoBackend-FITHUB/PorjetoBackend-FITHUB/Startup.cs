@@ -33,6 +33,7 @@ namespace PorjetoBackend_FITHUB
             services.AddScoped<ILoginService, LoginService>();
             services.AddScoped<IAlunoService, AlunoService>();
             services.AddScoped<IContratoService, ContratoService>();
+            services.AddScoped<IPagamentoService, PagamentoService>();
 
             services.AddDbContext<FitHubDbContext>(option =>
                 option.UseSqlServer(
