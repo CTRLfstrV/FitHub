@@ -1,10 +1,11 @@
-function LinkVerDetalhes({ nomeAluno }: { nomeAluno: string }) {
+import { Link, replace } from "react-router-dom";
+
+function LinkVerDetalhes({ idAlunoPagamento }: { idAlunoPagamento: number }) {
   return (
-    <a
-      href="#"
-      onClick={(event) => event.preventDefault()}
-      aria-label={`Ver detalhes do pagamento de ${nomeAluno}`}
-      title={`Ver detalhes do aluno ${nomeAluno}`}
+    <Link
+      to={`/recepcionista/detalhes-aluno/${idAlunoPagamento}`}
+      aria-label={`Ver detalhes do pagamento de ${idAlunoPagamento}`}
+      title={`Ver detalhes do aluno ${idAlunoPagamento}`}
       className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-[#59634f] transition-colors hover:bg-[#f2f8ec] hover:text-green-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-700"
     >
       <svg
@@ -20,7 +21,7 @@ function LinkVerDetalhes({ nomeAluno }: { nomeAluno: string }) {
         <path d="M2.5 12s3.4-6 9.5-6 9.5 6 9.5 6-3.4 6-9.5 6-9.5-6-9.5-6Z" />
         <circle cx="12" cy="12" r="2.5" />
       </svg>
-    </a>
+    </Link>
   );
 }
 
