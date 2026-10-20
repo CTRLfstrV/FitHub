@@ -10,7 +10,7 @@ function TabelaPagamentos({
   return (
     <>
       <div className="hidden overflow-x-auto md:block">
-        <table className="w-full min-w-[760px] border-collapse text-left text-sm">
+        <table className="w-full min-w-[880px] border-collapse text-left text-sm">
           <thead className="bg-[#f7f9f4] text-[10px] font-semibold uppercase tracking-[0.12em] text-[#66705e] sm:text-xs">
             <tr>
               <th scope="col" className="px-5 py-3.5">
@@ -27,6 +27,9 @@ function TabelaPagamentos({
               </th>
               <th scope="col" className="px-4 py-3.5 text-right">
                 Contato
+              </th>
+              <th scope="col" className="px-4 py-3.5 text-center">
+                Ações
               </th>
             </tr>
           </thead>

@@ -1,6 +1,7 @@
 import type { PagamentoResponseDTO } from "../../../types/financeiro/PagamentoResponseDTO";
 import BadgeStatus from "./BadgeStatus";
 import Contato from "./Contato";
+import LinkVerDetalhes from "./LinkVerDetalhes";
 import Pessoa from "./Pessoa";
 import Vencimento from "./Vencimento";
 
@@ -38,11 +39,14 @@ function CartaoPagamento({ pagamento }: { pagamento: PagamentoResponseDTO }) {
               <Vencimento data={pagamento.vencimentoParcela} />
             </p>
           </div>
-          <Contato
-            nome={pagamento.nomeAluno}
-            email={pagamento.emailAluno}
-            compacto
-          />
+          <div className="flex items-center gap-1">
+            <LinkVerDetalhes nomeAluno={pagamento.nomeAluno} />
+            <Contato
+              nome={pagamento.nomeAluno}
+              email={pagamento.emailAluno}
+              compacto
+            />
+          </div>
         </div>
       </div>
     </article>

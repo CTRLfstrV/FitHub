@@ -27,7 +27,7 @@ function CabecalhoListaPagamentos({
       <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h2 className="text-base font-semibold text-[#20251e] sm:text-lg">
-            Alunos e pagamentos
+            Gerencie os pagamentos dos alunos com contrato ativo
           </h2>
           <p className="mt-1 text-sm text-[#81897d]">
             {carregando

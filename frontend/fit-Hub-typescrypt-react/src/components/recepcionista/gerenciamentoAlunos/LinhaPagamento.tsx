@@ -1,6 +1,7 @@
 import type { PagamentoResponseDTO } from "../../../types/financeiro/PagamentoResponseDTO";
 import BadgeStatus from "./BadgeStatus";
 import Contato from "./Contato";
+import LinkVerDetalhes from "./LinkVerDetalhes";
 import Pessoa from "./Pessoa";
 import Vencimento from "./Vencimento";
 
@@ -19,6 +20,9 @@ function LinhaPagamento({ pagamento }: { pagamento: PagamentoResponseDTO }) {
       </td>
       <td className="px-4 py-4 text-right">
         <Contato nome={pagamento.nomeAluno} email={pagamento.emailAluno} />
+      </td>
+      <td className="px-4 py-4 text-center">
+        <LinkVerDetalhes nomeAluno={pagamento.nomeAluno} />
       </td>
     </tr>
   );
