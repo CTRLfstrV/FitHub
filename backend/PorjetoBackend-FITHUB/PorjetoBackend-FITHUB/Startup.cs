@@ -48,7 +48,8 @@ namespace PorjetoBackend_FITHUB
                     policy
                     .WithOrigins(
                         "http://localhost:4173",
-                        "http://192.168.2.110:4173")
+                        "http://192.168.2.110:4173",
+                        "http://192.168.56.1:4173")
                     .AllowAnyHeader()
                     .AllowAnyMethod()
                     .AllowCredentials();
