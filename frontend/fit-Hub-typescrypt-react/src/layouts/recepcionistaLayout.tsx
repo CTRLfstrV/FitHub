@@ -26,7 +26,7 @@ function RecepcionistaLayout() {
           setNomeUsuario(erro.message);
         }
       }
-    }
+    };
     void carregarUsuario();
   }, [navigate]);
   return (

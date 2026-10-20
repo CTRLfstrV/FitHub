@@ -1,4 +1,4 @@
-import { Link, replace } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function LinkVerDetalhes({ idAlunoPagamento }: { idAlunoPagamento: number }) {
   return (

@@ -22,7 +22,7 @@ function LinhaPagamento({ pagamento }: { pagamento: PagamentoResponseDTO }) {
         <Contato nome={pagamento.nomeAluno} email={pagamento.emailAluno} />
       </td>
       <td className="px-4 py-4 text-center">
-        <LinkVerDetalhes idAlunoPagamento={pagamento.id} />
+        <LinkVerDetalhes idAlunoPagamento={pagamento.idAluno} />
       </td>
     </tr>
   );

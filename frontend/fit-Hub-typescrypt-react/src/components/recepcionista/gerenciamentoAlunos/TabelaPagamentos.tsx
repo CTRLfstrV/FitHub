@@ -35,14 +35,14 @@ function TabelaPagamentos({
           </thead>
           <tbody className="divide-y divide-[#edf0e9] text-[#343a31]">
             {pagamentos.map((pagamento) => (
-              <LinhaPagamento key={pagamento.id} pagamento={pagamento} />
+              <LinhaPagamento key={pagamento.idPagamento} pagamento={pagamento} />
             ))}
           </tbody>
         </table>
       </div>
       <div className="divide-y divide-[#edf0e9] md:hidden">
         {pagamentos.map((pagamento) => (
-          <CartaoPagamento key={pagamento.id} pagamento={pagamento} />
+          <CartaoPagamento key={pagamento.idPagamento} pagamento={pagamento} />
         ))}
       </div>
     </>

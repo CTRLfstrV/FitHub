@@ -1,5 +1,6 @@
 interface PagamentoResponseDTO {
-  id: number,
+  idAluno: number,
+  idPagamento: number,
   nomeAluno: string,
   emailAluno: string,
   nomePlano: string,
