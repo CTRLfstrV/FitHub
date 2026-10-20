@@ -1,7 +1,7 @@
 import { Outlet, useNavigate } from "react-router-dom";
 import UsersHeader from "../components/usersHeader";
 import Footer from "../components/footer";
-import RecepcionistaSideBar from "../components/recepcionistaSideBar";
+import RecepcionistaSideBar from "../components/recepcionista/recepcionistaSideBar";
 import { RecepcionistaMenuProvider } from "../contexts/RecepcionistaMenuContext";
 import { RedirecionadorService } from "../services/RedirecionadorService";
 import { SessaoService } from "../services/usuarios/SessaoService";

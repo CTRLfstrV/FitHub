@@ -1,4 +1,4 @@
-import { useRecepcionistaMenu } from "../contexts/RecepcionistaMenuContext";
+import { useRecepcionistaMenu } from "../../contexts/RecepcionistaMenuContext";
 import { Link } from "react-router-dom";
 
 function RecepcionistaSideBar() {

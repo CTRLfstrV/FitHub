@@ -9,7 +9,7 @@ const contratoService: ContratoService = new ContratoService();
 
 function RecepcionistaDashBoardPage() {
   
-  const [mensagemErro, setMensagemErro] = useState<string>("Erro");
+  const [mensagemErro, setMensagemErro] = useState<string>("...");
   const [quantidadeAlunos, setQuantidadeAluno] = useState<number | null>();
   const [quantidadeContratosAtivos, setQuantidadeContratosAtivos] = useState<
     number | null
