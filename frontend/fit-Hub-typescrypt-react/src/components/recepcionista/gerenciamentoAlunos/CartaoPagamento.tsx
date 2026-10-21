@@ -40,7 +40,7 @@ function CartaoPagamento({ pagamento }: { pagamento: PagamentoResponseDTO }) {
             </p>
           </div>
           <div className="flex items-center gap-1">
-            <LinkVerDetalhes nomeAluno={pagamento.nomeAluno} />
+            <LinkVerDetalhes idAlunoPagamento={pagamento.idAluno} />
             <Contato
               nome={pagamento.nomeAluno}
               email={pagamento.emailAluno}

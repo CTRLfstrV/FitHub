@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using PorjetoBackend_FITHUB.Services.Interfaces.Usuarios;
 using System;
 
@@ -18,6 +19,10 @@ namespace PorjetoBackend_FITHUB.Controllers.Usuarios
         [HttpGet("quantidade-alunos")]
         public IActionResult QuantidadeAlunos()
         {
+            int? idSessao = HttpContext.Session.GetInt32("IdPessoa");
+
+            if (idSessao == null)
+                return Unauthorized();
             try
             {
                 return Ok(_alunoService.QuantidadeAlunos());

@@ -31,7 +31,7 @@ function FiltrosPagamento({
               type="button"
               aria-pressed={selecionado}
               onClick={() => onFiltroStatusChange(filtro.id)}
-              className={`inline-flex shrink-0 items-center gap-2 rounded-full border px-3 py-2 text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-700 ${selecionado ? "border-green-700 bg-green-700 text-white" : "border-[#dfe5da] bg-white text-[#59634f] hover:bg-[#f4f8ef]"}`}
+              className={`inline-flex cursor-pointer shrink-0 items-center gap-2 rounded-full border px-3 py-2 text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-700 ${selecionado ? "border-green-700 bg-green-700 text-white" : "border-[#dfe5da] bg-white text-[#59634f] hover:bg-[#f4f8ef]"}`}
             >
               {filtro.label}
               <span

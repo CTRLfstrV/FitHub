@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using PorjetoBackend_FITHUB.Models.DTO_s.Financeiro;
 using PorjetoBackend_FITHUB.Services.Interfaces.Financeiro;
 using System;
@@ -21,9 +22,20 @@ namespace PorjetoBackend_FITHUB.Controllers.Financeiro
         [HttpGet]
         public async Task<IActionResult> PegarPagamentos()
         {
-            await _pagamentoService.VerificaPagamentos();
-            List<PagamentoDTO> pagamentos = await _pagamentoService.PegarPagamentos();
-            return Ok(pagamentos);
+            int? idSessao = HttpContext.Session.GetInt32("IdPessoa");
+
+            if (idSessao == null)
+                return Unauthorized();
+            try
+            {
+                await _pagamentoService.VerificaPagamentos();
+                List<PagamentoDTO> pagamentos = await _pagamentoService.PegarPagamentos();
+                return Ok(pagamentos);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, new { message = "Ocorreu um erro interno no servidor" });
+            }
         }
     }
 }
