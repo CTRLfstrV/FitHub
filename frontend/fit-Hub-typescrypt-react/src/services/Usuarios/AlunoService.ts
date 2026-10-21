@@ -1,3 +1,5 @@
+import { SessaoInvalidaException } from "../../exceptions/SessaoInvalidaException";
+
 export class AlunoService {
   private readonly urlBase: string = "http://192.168.2.110:63367/api/aluno/";
 
@@ -8,6 +10,8 @@ export class AlunoService {
       method: "GET",
       credentials: "include",
     });
+
+    if (resposta.status === 401) throw new SessaoInvalidaException();
 
     if (!resposta.ok)
       throw Error("Não foi possível ler a quantidade de alunos");

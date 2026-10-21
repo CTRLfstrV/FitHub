@@ -1,4 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { SessaoInvalidaException } from "../../../exceptions/SessaoInvalidaException";
+import { RedirecionadorService } from "../../../services/RedirecionadorService";
 import { ContratoService } from "../../../services/financeiro/ContratoService";
 import { PagamentoService } from "../../../services/financeiro/PagamentoService";
 import type { PagamentoResponseDTO } from "../../../types/financeiro/PagamentoResponseDTO";
@@ -10,6 +13,7 @@ const pagamentoService = new PagamentoService();
 const contratoService = new ContratoService();
 
 function useGerenciamentoAlunos() {
+  const navigate = useNavigate();
   const [busca, setBusca] = useState("");
   const [filtroStatus, setFiltroStatus] = useState<FiltroStatus>("todos");
   const [quantidadeContratosAtivos, setQuantidadeContratosAtivos] = useState<
@@ -37,6 +41,17 @@ function useGerenciamentoAlunos() {
       ]);
       if (!componenteAtivo) return;
 
+      const sessaoInvalida = [contratos, pagamentos].some(
+        (resultado) =>
+          resultado.status === "rejected" &&
+          resultado.reason instanceof SessaoInvalidaException,
+      );
+
+      if (sessaoInvalida) {
+        new RedirecionadorService().RedirecionaPorCaminho("/login", navigate);
+        return;
+      }
+
       if (contratos.status === "fulfilled")
         setQuantidadeContratosAtivos(contratos.value);
       else setErroContratos(true);
@@ -55,7 +70,7 @@ function useGerenciamentoAlunos() {
     return () => {
       componenteAtivo = false;
     };
-  }, [tentativa]);
+  }, [tentativa, navigate]);
 
   const resumo = useMemo(() => {
     const pagamentos = listaPagamentos ?? [];

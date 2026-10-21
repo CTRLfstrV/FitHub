@@ -1,3 +1,4 @@
+import { SessaoInvalidaException } from "../../exceptions/SessaoInvalidaException";
 import type { PagamentoResponseDTO } from "../../types/financeiro/PagamentoResponseDTO";
 
 export class PagamentoService {
@@ -12,8 +13,9 @@ export class PagamentoService {
       credentials: "include",
     });
 
-    if(!resposta.ok)
-        throw Error("Não foi possível ler os registros");
+    if (resposta.status === 401) throw new SessaoInvalidaException();
+
+    if (!resposta.ok) throw Error("Não foi possível ler os registros");
 
     return resposta.json();
   }

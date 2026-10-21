@@ -1,3 +1,4 @@
+import { SessaoInvalidaException } from "../../exceptions/SessaoInvalidaException";
 import type { ContratoProximoVencimentoResponseDTO } from "../../types/financeiro/ContratoProximoVencimentoResponseDTO";
 
 export class ContratoService {
@@ -12,6 +13,8 @@ export class ContratoService {
       method: "GET",
       credentials: "include",
     });
+
+    if (resposta.status === 401) throw new SessaoInvalidaException();
 
     if (!resposta.ok)
       throw new Error(
@@ -29,8 +32,9 @@ export class ContratoService {
       credentials: "include",
     });
 
-    if (!resposta.ok)
-        throw Error("Não foi possível ler os contratos ativos");
+    if (resposta.status === 401) throw new SessaoInvalidaException();
+
+    if (!resposta.ok) throw Error("Não foi possível ler os contratos ativos");
 
     return resposta.json();
   }

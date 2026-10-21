@@ -1,14 +1,15 @@
 ﻿import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AlunoService } from "../../services/usuarios/AlunoService";
 import { ContratoService } from "../../services/financeiro/ContratoService";
 import type { ContratoProximoVencimentoResponseDTO } from "../../types/financeiro/ContratoProximoVencimentoResponseDTO";
+import { SessaoInvalidaException } from "../../exceptions/SessaoInvalidaException";
+import { RedirecionadorService } from "../../services/RedirecionadorService";
 
 const alunoService: AlunoService = new AlunoService();
 const contratoService: ContratoService = new ContratoService();
 
 function RecepcionistaDashBoardPage() {
-  
   const [mensagemErro, setMensagemErro] = useState<string>("...");
   const [quantidadeAlunos, setQuantidadeAluno] = useState<number | null>();
   const [quantidadeContratosAtivos, setQuantidadeContratosAtivos] = useState<
@@ -29,6 +30,11 @@ function RecepcionistaDashBoardPage() {
       } catch (erro) {
         if (erro instanceof Error) {
           setMensagemErro(erro.message);
+        } else if (erro instanceof SessaoInvalidaException) {
+          new RedirecionadorService().RedirecionaPorCaminho(
+            "/login",
+            useNavigate(),
+          );
         }
       }
       try {
@@ -38,6 +44,11 @@ function RecepcionistaDashBoardPage() {
       } catch (erro) {
         if (erro instanceof Error) {
           setMensagemErro(erro.message);
+        } else if (erro instanceof SessaoInvalidaException) {
+          new RedirecionadorService().RedirecionaPorCaminho(
+            "/login",
+            useNavigate(),
+          );
         }
       }
       try {
@@ -47,6 +58,11 @@ function RecepcionistaDashBoardPage() {
       } catch (erro) {
         if (erro instanceof Error) {
           setMensagemErro(erro.message);
+        } else if (erro instanceof SessaoInvalidaException) {
+          new RedirecionadorService().RedirecionaPorCaminho(
+            "/login",
+            useNavigate(),
+          );
         }
       }
       try {
@@ -56,6 +72,11 @@ function RecepcionistaDashBoardPage() {
       } catch (erro) {
         if (erro instanceof Error) {
           setMensagemErro(erro.message);
+        } else if (erro instanceof SessaoInvalidaException) {
+          new RedirecionadorService().RedirecionaPorCaminho(
+            "/login",
+            useNavigate(),
+          );
         }
       }
     };
