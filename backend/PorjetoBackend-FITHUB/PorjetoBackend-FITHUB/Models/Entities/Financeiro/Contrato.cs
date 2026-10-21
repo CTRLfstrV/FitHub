@@ -1,6 +1,7 @@
 ﻿using PorjetoBackend_FITHUB.Models.Entities.Usuarios;
 using PorjetoBackend_FITHUB.Models.Enums;
 using System;
+using System.Collections.Generic;
 
 namespace PorjetoBackend_FITHUB.Models.Entities.Financeiro
 {
@@ -15,6 +16,7 @@ namespace PorjetoBackend_FITHUB.Models.Entities.Financeiro
         public StatusContrato StatusContrato { get; set; }
         public decimal Valor { get; private set; }
         public int QuantidadeParcelas { get; private set; }
+        public List<Pagamento> Pagamentos { get; set; }
 
         public Contrato() { }
     }
