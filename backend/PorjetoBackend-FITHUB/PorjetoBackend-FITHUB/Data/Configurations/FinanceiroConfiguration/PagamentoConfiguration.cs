@@ -19,6 +19,7 @@ namespace PorjetoBackend_FITHUB.Data.Configurations.FinanceiroConfiguration
 
             builder.Property(p => p.NumeroDaParcela).HasColumnName("num_parcela_pagamento");
             builder.Property(p => p.ValorParcela).HasColumnName("vlr_pagamento");
+            builder.Property(p => p.DataDoPagamento).HasColumnName("dt_pagamento");
             builder.Property(p => p.VencimentoParcela).HasColumnName("dt_vencimento_pagamento");
             builder.Property(p => p.FormaPagamento).HasColumnName("frm_pagamento");
             builder.Property(p => p.StatusPagamento).HasColumnName("status_pagamento");

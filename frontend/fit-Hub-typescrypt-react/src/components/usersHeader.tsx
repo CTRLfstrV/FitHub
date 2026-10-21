@@ -1,19 +1,10 @@
 import { Link } from "react-router-dom";
 import logo from "../../img/Primary-logo.svg";
 import { useRecepcionistaMenu } from "../contexts/RecepcionistaMenuContext";
-import { SessaoService } from "../services/usuarios/SessaoService";
 
-const sessaoService: SessaoService = new SessaoService();
-let nomeUsuario: string;
-try {
-  nomeUsuario = await sessaoService.NomeUsuario();
-} catch (erro) {
-  if (erro instanceof Error) {
-    nomeUsuario = erro.message;
-  }
-}
+type UsersHeaderProps = { nomeUsuario: string };
 
-function UsersHeader() {
+function UsersHeader({ nomeUsuario }: UsersHeaderProps) {
   const { isOpen, toggleMenu } = useRecepcionistaMenu();
   return (
     <header className="relative z-10 border-b border-black/10 bg-green-600 font-mono">

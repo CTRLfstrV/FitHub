@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using PorjetoBackend_FITHUB.Models.DTO_s.Financeiro;
 using PorjetoBackend_FITHUB.Services.Interfaces.Financeiro;
 using System;
@@ -21,6 +22,11 @@ namespace PorjetoBackend_FITHUB.Controllers.Financeiro
         [HttpGet("quantidade-ativos")]
         public IActionResult QuantidadeContratosAtivos()
         {
+            int? idSessao = HttpContext.Session.GetInt32("IdPessoa");
+
+            if (idSessao == null)
+                return Unauthorized();
+
             try
             {
                 return Ok(_contratoService.QuantidadeContratosAtivos());
@@ -34,6 +40,10 @@ namespace PorjetoBackend_FITHUB.Controllers.Financeiro
         [HttpGet("vencimento-proximo")]
         public async Task<IActionResult> ContratosProximosFim()
         {
+            int? idSessao = HttpContext.Session.GetInt32("IdPessoa");
+
+            if (idSessao == null)
+                return Unauthorized();
             try
             {
                 IEnumerable<ContratoProximoFimDTO> contratosProximoFimDto = await _contratoService.ContratosProximosFim();

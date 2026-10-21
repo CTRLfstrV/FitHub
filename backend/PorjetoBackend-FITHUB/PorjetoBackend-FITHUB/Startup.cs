@@ -33,6 +33,7 @@ namespace PorjetoBackend_FITHUB
             services.AddScoped<ILoginService, LoginService>();
             services.AddScoped<IAlunoService, AlunoService>();
             services.AddScoped<IContratoService, ContratoService>();
+            services.AddScoped<IPagamentoService, PagamentoService>();
 
             services.AddDbContext<FitHubDbContext>(option =>
                 option.UseSqlServer(
@@ -47,7 +48,8 @@ namespace PorjetoBackend_FITHUB
                     policy
                     .WithOrigins(
                         "http://localhost:4173",
-                        "http://192.168.2.110:4173")
+                        "http://192.168.2.110:4173",
+                        "http://192.168.56.1:4173")
                     .AllowAnyHeader()
                     .AllowAnyMethod()
                     .AllowCredentials();

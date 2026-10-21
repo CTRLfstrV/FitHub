@@ -1,5 +1,19 @@
 @import "tailwindcss";
 
+@media (max-width: 639px) {
+  [class~="text-[9px]"],
+  [class~="text-[10px]"],
+  [class~="text-[11px]"] {
+    font-size: 0.75rem !important;
+  }
+
+  [class~="text-xs"],
+  [class~="text-[12px]"],
+  [class~="text-[13px]"] {
+    font-size: 0.875rem !important;
+  }
+}
+
 @keyframes home-card-pulse {
   0%, 100% {
     box-shadow: 0 0 0 0 rgba(121, 184, 45, 0), 0 8px 22px rgba(65, 104, 32, 0.025);
