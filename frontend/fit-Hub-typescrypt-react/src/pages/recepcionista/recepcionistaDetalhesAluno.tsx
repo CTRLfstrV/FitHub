@@ -1,5 +1,7 @@
-function RecepcionistaDetalhesAluno(){
-    return <h1>Olá</h1>
+import DetalhesAlunoConteudo from "../../components/recepcionista/detalhes-aluno/DetalhesAlunoConteudo";
+
+function RecepcionistaDetalhesAluno() {
+  return <DetalhesAlunoConteudo />;
 }
 
 export default RecepcionistaDetalhesAluno;

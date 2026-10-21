@@ -1,4 +1,4 @@
-import GerenciamentoAlunosConteudo from "../../components/recepcionista/gerenciamentoAlunos/GerenciamentoAlunosConteudo";
+import GerenciamentoAlunosConteudo from "../../components/recepcionista/gerenciamento-alunos/GerenciamentoAlunosConteudo";
 
 function RecepcionistaGerenciamentoAlunoPage() {
   return <GerenciamentoAlunosConteudo />;
