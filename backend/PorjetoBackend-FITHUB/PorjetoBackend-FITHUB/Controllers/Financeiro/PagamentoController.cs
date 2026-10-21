@@ -37,5 +37,23 @@ namespace PorjetoBackend_FITHUB.Controllers.Financeiro
                 return StatusCode(500, new { message = "Ocorreu um erro interno no servidor" });
             }
         }
+
+        [HttpGet("detalhes-aluno/{idAluno}")]
+        public async Task<IActionResult> PegarDetalhesPagamentoAlunoId([FromRoute] int idAluno)
+        {
+            int? idSessao = HttpContext.Session.GetInt32("IdPessoa");
+
+            if (idSessao == null)
+                return Unauthorized();
+            try
+            {
+                PagamentoAlunoDTO pagamentoAluno = await _pagamentoService.PegarPagamentosDoApartirDeId(idAluno);
+                return Ok(pagamentoAluno);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, new { message = "Ocorreu um erro interno no servidor" });
+            }
+        }
     }
 }
