@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using PorjetoBackend_FITHUB.Exceptions;
 using PorjetoBackend_FITHUB.Models.DTO_s.Usuarios;
 using PorjetoBackend_FITHUB.Services.Interfaces;
@@ -37,6 +38,10 @@ namespace PorjetoBackend_FITHUB.Controllers.Usuarios
             catch (SenhaInvalidaException ex)
             {
                 return StatusCode(400, new { message = ex.Message });
+            }
+            catch (SqlException)
+            {
+                return StatusCode(500, new { message = "Ocorreu um erro no consultar banco de dados" });
             }
             catch (Exception)
             {
