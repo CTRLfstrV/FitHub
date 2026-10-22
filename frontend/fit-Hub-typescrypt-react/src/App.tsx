@@ -6,6 +6,7 @@ import RecepcionistaDashBoardPage from "./pages/recepcionista/recepcionistaDashb
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import RecepcionistaGerenciamentoAlunoPage from "./pages/recepcionista/recepcionistaGerenciamentoAlunoPage.tsx";
 import RecepcionistaDetalhesAluno from "./pages/recepcionista/recepcionistaDetalhesAluno.tsx";
+import RecepcionistaMatriculaPage from "./pages/recepcionista/recepcionistaMatriculaPage.tsx";
 
 //http://localhost:4173/
 
@@ -31,6 +32,10 @@ function App() {
           <Route 
             path="/recepcionista/detalhes-aluno/:id"
             element={<RecepcionistaDetalhesAluno />}
+          />
+          <Route 
+            path="/recepcionista/matricular-aluno"
+            element={<RecepcionistaMatriculaPage />}
           />
         </Route>
         <Route path="/" element={<Navigate to="/home" />} />

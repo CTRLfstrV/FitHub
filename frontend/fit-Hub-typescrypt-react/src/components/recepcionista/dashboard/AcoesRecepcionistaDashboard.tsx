@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 function AcoesRecepcionistaDashboard() {
   return (
     <div className="mt-5 flex flex-col gap-3 sm:mt-6 sm:flex-row sm:justify-end">
-      <button
+      <Link
+      to={"/recepcionista/matricular-aluno"}
         type="button"
         className="inline-flex min-h-11 cursor-pointer items-center justify-center gap-2 rounded-xl border border-green-700 bg-white px-5 py-3 text-sm font-semibold text-green-800 shadow-sm transition-colors hover:bg-[#f2f8ec] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-700 sm:text-base"
       >
@@ -21,7 +22,7 @@ function AcoesRecepcionistaDashboard() {
           <path d="M3.5 19v-1.5A4.5 4.5 0 0 1 8 13h2a4.5 4.5 0 0 1 4.5 4.5V19h-11ZM19 8v6M16 11h6" />
         </svg>
         Matricular alunos
-      </button>
+      </Link>
       <Link
         to="/recepcionista/gerenciamento-alunos"
         className="inline-flex min-h-11 cursor-pointer items-center justify-center gap-2 rounded-xl border border-green-700 bg-green-700 px-5 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:border-green-800 hover:bg-green-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-700 sm:text-base"
