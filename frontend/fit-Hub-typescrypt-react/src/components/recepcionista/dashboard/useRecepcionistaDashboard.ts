@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { SessaoInvalidaException } from "../../../exceptions/SessaoInvalidaException";
 import { RedirecionadorService } from "../../../services/RedirecionadorService";
 import { ContratoService } from "../../../services/financeiro/ContratoService";
-import { AlunoService } from "../../../services/usuarios/AlunoService";
+import { AlunoService } from "../../../services/Usuarios/AlunoService";
 import type { ContratoProximoVencimentoResponseDTO } from "../../../types/financeiro/ContratoProximoVencimentoResponseDTO";
 
 const alunoService = new AlunoService();

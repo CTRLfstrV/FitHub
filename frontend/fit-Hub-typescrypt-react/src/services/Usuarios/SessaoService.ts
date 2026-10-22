@@ -2,7 +2,7 @@ export class SessaoService {
   private readonly urlBase: string;
 
   constructor() {
-    this.urlBase = "http://192.168.2.110:63367/api/pessoa/sessao";
+    this.urlBase = "http://localhost:63367/api/pessoa/sessao";//mudar o ip para localhost quando for para produção
   }
 
   async VerificaSessao(): Promise<boolean> {

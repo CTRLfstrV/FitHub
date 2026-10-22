@@ -4,7 +4,7 @@ import type { PagamentoResponseDTO } from "../../types/financeiro/PagamentoRespo
 
 export class PagamentoService {
   private readonly urlBase: string =
-    "http://192.168.2.110:63367/api/pagamento/";
+    "http://localhost:63367/api/pagamento/";//mudar o ip para localhost quando for para produção
 
   async ListarPagamentos(): Promise<PagamentoResponseDTO[]> {
     const url: string = this.urlBase;

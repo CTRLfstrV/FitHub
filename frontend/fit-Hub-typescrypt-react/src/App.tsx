@@ -6,6 +6,8 @@ import RecepcionistaDashBoardPage from "./pages/recepcionista/recepcionistaDashb
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import RecepcionistaGerenciamentoAlunoPage from "./pages/recepcionista/recepcionistaGerenciamentoAlunoPage.tsx";
 import RecepcionistaDetalhesAluno from "./pages/recepcionista/recepcionistaDetalhesAluno.tsx";
+import PersonalLayout from "./layouts/personalLayout.tsx";
+import PersonalDashboardPage from "./pages/personal/personalDashboardPage.tsx";
 
 //http://localhost:4173/
 
@@ -15,6 +17,9 @@ function App() {
       <Routes>
         <Route element={<HomeLayout />}>
           <Route path="/login" element={<LoginPage />} />
+        </Route>
+        <Route element={<PersonalLayout />}>
+          <Route path="/personal/dashboard" element={<PersonalDashboardPage />} />
         </Route>
         <Route element={<HomeLayout />}>
           <Route path="/home" element={<HomePage />} />

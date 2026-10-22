@@ -36,6 +36,8 @@ function LoginPage() {
 
       if (resposta.tipoPessoa === 0)
         navigate("/recepcionista/dashboard", { replace: true });
+      else if (resposta.tipoPessoa === 1)
+        navigate("/personal/dashboard", { replace: true });
 
     } catch (erro: unknown) {
       if (erro instanceof TypeError) {

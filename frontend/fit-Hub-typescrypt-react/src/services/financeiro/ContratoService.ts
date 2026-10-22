@@ -2,7 +2,7 @@ import { SessaoInvalidaException } from "../../exceptions/SessaoInvalidaExceptio
 import type { ContratoProximoVencimentoResponseDTO } from "../../types/financeiro/ContratoProximoVencimentoResponseDTO";
 
 export class ContratoService {
-  private readonly urlBase: string = "http://192.168.2.110:63367/api/contrato/";
+  private readonly urlBase: string = "http://localhost:63367/api/contrato/";//mudar o ip para localhost quando for para produção
 
   async ContratosProximosVencimento(): Promise<
     ContratoProximoVencimentoResponseDTO[]

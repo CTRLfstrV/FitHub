@@ -2,7 +2,7 @@ import type { PessoaLoginDTO } from "../../types/usuarios/PessoaLoginDTO";
 import type { PessoaResponseLoginDTO } from "../../types/usuarios/PessoaResponseLoginDTO";
 import { LoginValidation } from "../../validations/loginValidation";
 export class LoginService {
-  private readonly url: string = "http://192.168.2.110:63367/api/pessoa/login";
+  private readonly url: string = "http://localhost:63367/api/pessoa/login";//mudar o ip para localhost quando for para produção
   private validacaoLogin: LoginValidation;
 
   constructor(validacaoLogin: LoginValidation) {
