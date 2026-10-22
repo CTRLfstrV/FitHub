@@ -3,8 +3,8 @@ import type { PagamentoListagemResponseDTO } from "./PagamentoListagemResponseDT
 interface DetalhesAlunoResponseDTO{
     nomeAluno: string,
     nomePlano: string,
-    dataInicioContrato: string,
-    dataTerminoContrato: string,
+    dataInicioContrato: string | null,
+    dataTerminoContrato: string | null,
     valorContrato: number,
     pagamentos: PagamentoListagemResponseDTO[]
 }

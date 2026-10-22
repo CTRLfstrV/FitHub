@@ -1,6 +1,8 @@
-import type { ContratoAlunoDetalhe } from "./tipos";
+import type { DetalhesAlunoResponseDTO } from "../../../types/financeiro/DetalhesAlunoResponseDTO";
 
-function formatarDataCompleta(valor: string) {
+function formatarDataCompleta(valor: string | null) {
+  if (valor === null || valor.trim() === "") return "Em espera";
+
   const data = new Date(valor);
   return Number.isNaN(data.getTime())
     ? "Data não informada"
@@ -15,7 +17,7 @@ function formatarDataCompleta(valor: string) {
 function InformacoesContratoAluno({
   contrato,
 }: {
-  contrato: ContratoAlunoDetalhe;
+  contrato: DetalhesAlunoResponseDTO;
 }) {
   return (
     <section className="rounded-2xl border border-[#e4e9df] bg-white p-5 shadow-[0_8px_24px_rgba(34,44,27,0.035)] sm:p-6">

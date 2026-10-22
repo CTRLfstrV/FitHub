@@ -1,11 +1,11 @@
-import type { ContratoAlunoDetalhe } from "./tipos";
+import type { DetalhesAlunoResponseDTO } from "../../../types/financeiro/DetalhesAlunoResponseDTO";
 
 const moeda = new Intl.NumberFormat("pt-BR", {
   style: "currency",
   currency: "BRL",
 });
 
-function ResumoContratoAluno({ contrato }: { contrato: ContratoAlunoDetalhe }) {
+function ResumoContratoAluno({ contrato }: { contrato: DetalhesAlunoResponseDTO }) {
   return (
     <section
       aria-label="Resumo do contrato"

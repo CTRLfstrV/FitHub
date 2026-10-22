@@ -1,18 +1,45 @@
 import CabecalhoDetalhesAluno from "./CabecalhoDetalhesAluno";
-import dadosAlunoVisual from "./dadosAlunoVisual";
+import EstadoDetalhesAluno from "./EstadoDetalhesAluno";
 import HistoricoPagamentosAluno from "./HistoricoPagamentosAluno";
 import InformacoesContratoAluno from "./InformacoesContratoAluno";
 import ResumoContratoAluno from "./ResumoContratoAluno";
+import useDetalhesAluno from "./useDetalhesAluno";
 
-function DetalhesAlunoConteudo() {
+function DetalhesAlunoConteudo({ idAluno }: { idAluno: number | null }) {
+  const {
+    detalhes,
+    carregando,
+    mensagemErro,
+    tentarNovamente,
+  } = useDetalhesAluno(idAluno);
+
+  if (carregando || !detalhes) {
+    return (
+      <EstadoDetalhesAluno
+        carregando={carregando}
+        mensagemErro={mensagemErro}
+        permiteNovaTentativa={idAluno !== null}
+        onTentarNovamente={tentarNovamente}
+      />
+    );
+  }
+
+  const pagamentosPagos = detalhes.pagamentos.filter(
+    (pagamento) => pagamento.statusPagamento === 1,
+  ).length;
+
   return (
     <section className="min-w-0 flex-1 px-4 py-6 sm:px-7 sm:py-8 lg:px-10 lg:py-10">
       <div className="mx-auto w-full max-w-[1160px]">
-        <CabecalhoDetalhesAluno nomeAluno={dadosAlunoVisual.nomeAluno} />
-        <ResumoContratoAluno contrato={dadosAlunoVisual} />
+        <CabecalhoDetalhesAluno
+          nomeAluno={detalhes.nomeAluno}
+          dataInicioContrato={detalhes.dataInicioContrato}
+          dataTerminoContrato={detalhes.dataTerminoContrato}
+        />
+        <ResumoContratoAluno contrato={detalhes} />
 
         <div className="grid gap-6 lg:grid-cols-[0.85fr_1.15fr] lg:gap-8">
-          <InformacoesContratoAluno contrato={dadosAlunoVisual} />
+          <InformacoesContratoAluno contrato={detalhes} />
           <div className="rounded-2xl border border-[#dcebd0] bg-gradient-to-br from-[#f3f9ed] via-white to-[#f7fbf3] p-5 sm:p-6">
             <p className="text-xs font-semibold uppercase tracking-[0.12em] text-green-800">
               Acompanhamento
@@ -21,8 +48,8 @@ function DetalhesAlunoConteudo() {
               Visão do contrato
             </h2>
             <p className="mt-3 text-sm leading-6 text-[#66705e]">
-              Os dados abaixo ajudam a acompanhar o período contratado e a situação
-              de cada parcela de {dadosAlunoVisual.nomeAluno}.
+              Acompanhe o período contratado e a situação das parcelas de{" "}
+              {detalhes.nomeAluno}.
             </p>
             <div className="mt-5 flex items-center gap-3 rounded-xl border border-[#e4ebdc] bg-white/80 p-4">
               <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#e8f5d9] text-green-800">
@@ -40,16 +67,18 @@ function DetalhesAlunoConteudo() {
                 </svg>
               </span>
               <div>
-                <p className="text-sm font-semibold text-[#343b2e]">Pagamento registrado</p>
+                <p className="text-sm font-semibold text-[#343b2e]">
+                  Pagamentos registrados
+                </p>
                 <p className="mt-0.5 text-xs text-[#788270]">
-                  {dadosAlunoVisual.pagamentos.length} parcela no histórico
+                  {pagamentosPagos} de {detalhes.pagamentos.length} pagos
                 </p>
               </div>
             </div>
           </div>
         </div>
 
-        <HistoricoPagamentosAluno pagamentos={dadosAlunoVisual.pagamentos} />
+        <HistoricoPagamentosAluno pagamentos={detalhes.pagamentos} />
       </div>
     </section>
   );

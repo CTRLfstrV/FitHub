@@ -1,4 +1,8 @@
-function formatarData(data: string) {
+function formatarData(data: string | null | undefined) {
+  if (data === null || data === undefined || data.trim() === "") {
+    return "Em espera";
+  }
+
   const valor = new Date(data);
   return Number.isNaN(valor.getTime())
     ? "Data não informada"

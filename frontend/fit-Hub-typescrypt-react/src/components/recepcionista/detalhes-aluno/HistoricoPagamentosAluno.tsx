@@ -1,6 +1,6 @@
 import getStatus from "../gerenciamento-alunos/getStatus";
 import formatarData from "../gerenciamento-alunos/formatarData";
-import type { PagamentoAlunoDetalhe } from "./tipos";
+import type { PagamentoListagemResponseDTO } from "../../../types/financeiro/PagamentoListagemResponseDTO";
 
 const moeda = new Intl.NumberFormat("pt-BR", {
   style: "currency",
@@ -10,7 +10,7 @@ const moeda = new Intl.NumberFormat("pt-BR", {
 function HistoricoPagamentosAluno({
   pagamentos,
 }: {
-  pagamentos: PagamentoAlunoDetalhe[];
+  pagamentos: PagamentoListagemResponseDTO[];
 }) {
   return (
     <section className="mt-6 rounded-2xl border border-[#e4e9df] bg-white shadow-[0_8px_24px_rgba(34,44,27,0.035)] sm:mt-8">

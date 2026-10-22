@@ -1,12 +1,87 @@
 import { Link } from "react-router-dom";
 
-function CabecalhoDetalhesAluno({ nomeAluno }: { nomeAluno: string }) {
+function obterEstadoContrato(
+  dataInicio: string | null,
+  dataTermino: string | null,
+) {
+  if (!dataInicio || !dataTermino) {
+    return {
+      rotulo: "Vigência não informada",
+      estilo: "border-[#e6e9e2] bg-[#f7f8f5] text-[#66705e]",
+      ponto: "bg-[#81897d]",
+    };
+  }
+
+  const inicio = new Date(dataInicio);
+  const termino = new Date(dataTermino);
+
+  if (Number.isNaN(inicio.getTime()) || Number.isNaN(termino.getTime())) {
+    return {
+      rotulo: "Vigência não informada",
+      estilo: "border-[#e6e9e2] bg-[#f7f8f5] text-[#66705e]",
+      ponto: "bg-[#81897d]",
+    };
+  }
+
+  const agora = new Date();
+  const hoje = Date.UTC(
+    agora.getUTCFullYear(),
+    agora.getUTCMonth(),
+    agora.getUTCDate(),
+  );
+  const inicioUtc = Date.UTC(
+    inicio.getUTCFullYear(),
+    inicio.getUTCMonth(),
+    inicio.getUTCDate(),
+  );
+  const terminoUtc = Date.UTC(
+    termino.getUTCFullYear(),
+    termino.getUTCMonth(),
+    termino.getUTCDate(),
+  );
+
+  if (hoje < inicioUtc) {
+    return {
+      rotulo: "Ainda não iniciado",
+      estilo: "border-amber-200 bg-amber-50 text-amber-700",
+      ponto: "bg-amber-500",
+    };
+  }
+
+  if (hoje > terminoUtc) {
+    return {
+      rotulo: "Contrato encerrado",
+      estilo: "border-[#e6e9e2] bg-[#f7f8f5] text-[#66705e]",
+      ponto: "bg-[#81897d]",
+    };
+  }
+
+  return {
+    rotulo: "Contrato ativo",
+    estilo: "border-[#cfe4bd] bg-[#f3f9ed] text-[#437524]",
+    ponto: "bg-green-600",
+  };
+}
+
+function CabecalhoDetalhesAluno({
+  nomeAluno,
+  dataInicioContrato,
+  dataTerminoContrato,
+}: {
+  nomeAluno: string;
+  dataInicioContrato: string | null;
+  dataTerminoContrato: string | null;
+}) {
   const iniciais = nomeAluno
     .split(" ")
     .map((parte) => parte[0])
     .slice(0, 2)
     .join("")
     .toUpperCase();
+  const estadoContrato = obterEstadoContrato(
+    dataInicioContrato,
+    dataTerminoContrato,
+  );
 
   return (
     <>
@@ -56,9 +131,9 @@ function CabecalhoDetalhesAluno({ nomeAluno }: { nomeAluno: string }) {
           </div>
         </div>
 
-        <span className="inline-flex w-fit items-center gap-2 rounded-full border border-[#cfe4bd] bg-[#f3f9ed] px-3.5 py-2 text-sm font-semibold text-[#437524]">
-          <span className="h-2 w-2 rounded-full bg-green-600" />
-          Contrato ativo
+        <span className={`inline-flex w-fit items-center gap-2 rounded-full border px-3.5 py-2 text-sm font-semibold ${estadoContrato.estilo}`}>
+          <span className={`h-2 w-2 rounded-full ${estadoContrato.ponto}`} />
+          {estadoContrato.rotulo}
         </span>
       </header>
     </>
