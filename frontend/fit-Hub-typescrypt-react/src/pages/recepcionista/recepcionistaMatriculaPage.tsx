@@ -1,5 +1,7 @@
-function RecepcionistaMatriculaPage(){
-    return <h1>Olá</h1>
+import MatriculaAlunoConteudo from "../../components/recepcionista/matricula-aluno/MatriculaAlunoConteudo";
+
+function RecepcionistaMatriculaPage() {
+  return <MatriculaAlunoConteudo />;
 }
 
 export default RecepcionistaMatriculaPage;
