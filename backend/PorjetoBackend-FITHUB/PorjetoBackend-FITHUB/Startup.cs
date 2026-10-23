@@ -15,6 +15,8 @@ using PorjetoBackend_FITHUB.Services.Interfaces.Financeiro;
 using PorjetoBackend_FITHUB.Services.Interfaces.Usuarios;
 using System;
 using System.Linq;
+using PorjetoBackend_FITHUB.Services.Implementations.Matricula;
+using PorjetoBackend_FITHUB.Services.Interfaces.Matricula;
 
 namespace PorjetoBackend_FITHUB
 {
@@ -34,6 +36,7 @@ namespace PorjetoBackend_FITHUB
             services.AddScoped<IAlunoService, AlunoService>();
             services.AddScoped<IContratoService, ContratoService>();
             services.AddScoped<IPagamentoService, PagamentoService>();
+            services.AddScoped<IMatriculaService, MatriculaService>();
 
             services.AddDbContext<FitHubDbContext>(option =>
                 option.UseSqlServer(
