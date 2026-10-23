@@ -17,7 +17,6 @@ namespace PorjetoBackend_FITHUB.Data.Configurations.UsuariosConfiguration
             builder.Property(p => p.Senha).HasColumnName("senha_pessoa");
             builder.Property(p => p.Cpf).HasColumnName("cpf_pessoa");
             builder.Property(p => p.DataNascimento).HasColumnName("data_nasc_pessoa");
-            builder.Property(p => p.Rg).HasColumnName("rg_pessoa");
             builder.Property(p => p.Cep).HasColumnName("cep_pessoa");
             builder.Property(p => p.NumeroCasa).HasColumnName("num_casa_pessoa");
             builder.Property(p => p.Telefone).HasColumnName("telefone_pessoa");
