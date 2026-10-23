@@ -15,8 +15,6 @@ namespace PorjetoBackend_FITHUB.Models.DTO_s.Matricula
         [Required]
         public DateTime DataNascimento { get; set; }
         [Required]
-        public string Rg { get; set; }
-        [Required]
         public string Cep { get; set; }
         public int NumeroCasa { get; set; }
         [Required]
