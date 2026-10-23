@@ -46,7 +46,6 @@ C:\Users\Pichau\OneDrive\Documentos\Projeto-Emerson\FitHub\backend\PorjetoBacken
 C:\Users\Pichau\OneDrive\Documentos\Projeto-Emerson\FitHub\backend\PorjetoBackend-FITHUB\PorjetoBackend-FITHUB\obj\Debug\net5.0\ProjetoBackend-FITHUB.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\Pichau\OneDrive\Documentos\Projeto-Emerson\FitHub\backend\PorjetoBackend-FITHUB\PorjetoBackend-FITHUB\obj\Debug\net5.0\ProjetoBackend-FITHUB.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\Pichau\OneDrive\Documentos\Projeto-Emerson\FitHub\backend\PorjetoBackend-FITHUB\PorjetoBackend-FITHUB\obj\Debug\net5.0\staticwebassets\ProjetoBackend-FITHUB.StaticWebAssets.Manifest.cache
-C:\Users\Pichau\OneDrive\Documentos\Projeto-Emerson\FitHub\backend\PorjetoBackend-FITHUB\PorjetoBackend-FITHUB\obj\Debug\net5.0\staticwebassets\ProjetoBackend-FITHUB.StaticWebAssets.xml
 C:\Users\Pichau\OneDrive\Documentos\Projeto-Emerson\FitHub\backend\PorjetoBackend-FITHUB\PorjetoBackend-FITHUB\obj\Debug\net5.0\scopedcss\bundle\ProjetoBackend-FITHUB.styles.css
 C:\Users\Pichau\OneDrive\Documentos\Projeto-Emerson\FitHub\backend\PorjetoBackend-FITHUB\PorjetoBackend-FITHUB\obj\Debug\net5.0\ProjetoBackend-FITHUB.RazorTargetAssemblyInfo.cache
 C:\Users\Pichau\OneDrive\Documentos\Projeto-Emerson\FitHub\backend\PorjetoBackend-FITHUB\PorjetoBackend-FITHUB\obj\Debug\net5.0\ProjetoB.99C4C1D3.Up2Date
@@ -206,3 +205,9 @@ E:\ds\Projeto-Emerson\Projeto\FitHub\backend\PorjetoBackend-FITHUB\PorjetoBacken
 E:\ds\Projeto-Emerson\Projeto\FitHub\backend\PorjetoBackend-FITHUB\PorjetoBackend-FITHUB\obj\Debug\net5.0\ProjetoBackend-FITHUB.pdb
 E:\ds\Projeto-Emerson\Projeto\FitHub\backend\PorjetoBackend-FITHUB\PorjetoBackend-FITHUB\obj\Debug\net5.0\ProjetoBackend-FITHUB.genruntimeconfig.cache
 E:\ds\Projeto-Emerson\Projeto\FitHub\backend\PorjetoBackend-FITHUB\PorjetoBackend-FITHUB\bin\Debug\net5.0\appsettings.json
+C:\Users\Pichau\OneDrive\Documentos\Projeto-Emerson\FitHub\backend\PorjetoBackend-FITHUB\PorjetoBackend-FITHUB\obj\Debug\net5.0\ProjetoBackend-FITHUB.sourcelink.json
+C:\Users\Pichau\OneDrive\Documentos\Projeto-Emerson\FitHub\backend\PorjetoBackend-FITHUB\PorjetoBackend-FITHUB\obj\Debug\net5.0\staticwebassets\ProjetoBackend-FITHUB.StaticWebAssets.Pack.cache
+C:\Users\Pichau\OneDrive\Documentos\Projeto-Emerson\FitHub\backend\PorjetoBackend-FITHUB\PorjetoBackend-FITHUB\obj\Debug\net5.0\staticwebassets\msbuild.ProjetoBackend-FITHUB.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\Pichau\OneDrive\Documentos\Projeto-Emerson\FitHub\backend\PorjetoBackend-FITHUB\PorjetoBackend-FITHUB\obj\Debug\net5.0\staticwebassets\msbuild.build.ProjetoBackend-FITHUB.props
+C:\Users\Pichau\OneDrive\Documentos\Projeto-Emerson\FitHub\backend\PorjetoBackend-FITHUB\PorjetoBackend-FITHUB\obj\Debug\net5.0\staticwebassets\msbuild.buildMultiTargeting.ProjetoBackend-FITHUB.props
+C:\Users\Pichau\OneDrive\Documentos\Projeto-Emerson\FitHub\backend\PorjetoBackend-FITHUB\PorjetoBackend-FITHUB\obj\Debug\net5.0\staticwebassets\msbuild.buildTransitive.ProjetoBackend-FITHUB.props
