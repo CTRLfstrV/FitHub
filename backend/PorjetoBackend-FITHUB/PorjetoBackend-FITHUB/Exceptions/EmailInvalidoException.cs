@@ -4,7 +4,12 @@ namespace PorjetoBackend_FITHUB.Exceptions
 {
     public class EmailInvalidoException : ApplicationException
     {
-        public EmailInvalidoException() { }
-        public EmailInvalidoException(string message) : base(message) { }
+        public EmailInvalidoException()
+        {
+        }
+
+        public EmailInvalidoException(string message) : base(message)
+        {
+        }
     }
 }

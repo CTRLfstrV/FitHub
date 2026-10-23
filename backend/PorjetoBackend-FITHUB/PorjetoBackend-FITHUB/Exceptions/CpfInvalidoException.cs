@@ -4,7 +4,12 @@ namespace PorjetoBackend_FITHUB.Exceptions
 {
     public class CpfInvalidoException : ApplicationException
     {
-        public CpfInvalidoException() { }
-        public CpfInvalidoException(string message) : base(message) { }
+        public CpfInvalidoException()
+        {
+        }
+
+        public CpfInvalidoException(string message) : base(message)
+        {
+        }
     }
 }
