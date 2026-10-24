@@ -69,6 +69,8 @@ namespace PorjetoBackend_FITHUB.Controllers.Financeiro
         [HttpGet("formas")]
         public IActionResult ListarFormaPagamento()
         {
+            if(HttpContext.Session.GetInt32("IdPessoa") == null)
+                return Unauthorized();
             try
             {
                 var formasPagamento = new[]
