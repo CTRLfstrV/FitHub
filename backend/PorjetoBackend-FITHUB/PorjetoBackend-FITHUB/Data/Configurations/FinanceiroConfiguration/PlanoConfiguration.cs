@@ -11,7 +11,7 @@ namespace PorjetoBackend_FITHUB.Data.Configurations.FinanceiroConfiguration
             builder.ToTable("Tb_plano");
 
             builder.HasKey(p => p.Id);
-            builder.Property(p => p.Id).HasColumnName("pk_id_plano");
+            builder.Property(p => p.Id).HasColumnName("pk_id_plano").ValueGeneratedOnAdd();
 
             builder.Property(p => p.Nome).HasColumnName("nome_plano");
             builder.Property(p => p.Valor).HasColumnName("vlr_plano");

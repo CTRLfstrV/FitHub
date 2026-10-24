@@ -41,3 +41,10 @@
   button, input { font: inherit; }
 }
 
+.matricula-combobox:focus,
+.matricula-combobox:focus-visible {
+  outline: 0 !important;
+  border-color: #83b943;
+  box-shadow: 0 0 0 3px rgba(121, 184, 45, 0.24);
+}
+

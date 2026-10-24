@@ -8,6 +8,7 @@ Logs/
 # Generated files
 project.lock.json
 .vs/
+.idea/
 
 #ignorando conexões
 appsettings.json
@@ -102,6 +103,8 @@ csx
 AppPackages/
 
 # Others
+bin/
+obj/
 [Bb]in
 [Oo]bj
 sql

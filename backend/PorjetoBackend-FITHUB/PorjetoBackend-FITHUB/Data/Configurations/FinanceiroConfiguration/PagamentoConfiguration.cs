@@ -11,7 +11,7 @@ namespace PorjetoBackend_FITHUB.Data.Configurations.FinanceiroConfiguration
             builder.ToTable("Tb_pagamento");
 
             builder.HasKey(p => p.Id);
-            builder.Property(p => p.Id).HasColumnName("pk_id_pagamento");
+            builder.Property(p => p.Id).HasColumnName("pk_id_pagamento").ValueGeneratedOnAdd();
 
             builder.HasOne(p => p.Contrato)
                 .WithMany(c => c.Pagamentos)

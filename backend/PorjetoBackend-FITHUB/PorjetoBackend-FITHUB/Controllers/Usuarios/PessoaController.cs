@@ -70,5 +70,19 @@ namespace PorjetoBackend_FITHUB.Controllers.Usuarios
 
             return Ok(nomePessoa);
         }
+
+        [HttpDelete]
+        public IActionResult Logout()
+        {
+            try
+            {
+                HttpContext.Session.Clear();
+                return Ok();
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, new { message = "Ocorreu erro interno de servidor" });
+            }
+        }
     }
 }
