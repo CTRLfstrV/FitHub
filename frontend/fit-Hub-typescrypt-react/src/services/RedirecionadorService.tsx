@@ -1,20 +1,20 @@
-import { SessaoService } from "./usuarios/SessaoService";
+import type { PessoaService } from "./usuarios/PessoaService";
 import { type NavigateFunction } from "react-router-dom";
 
 export class RedirecionadorService {
-  private readonly sessaoService?: SessaoService;
+  private readonly sessaoService?: PessoaService;
 
   constructor();
-  constructor(verificaSessao: SessaoService);
+  constructor(verificaSessao: PessoaService);
 
-  
-  constructor(verificaSessao?: SessaoService) {
+  constructor(verificaSessao?: PessoaService) {
     this.sessaoService = verificaSessao;
   }
 
   async RedirecionaPorSessao(funcaoNavegacao: NavigateFunction) {
     try {
-      const resposta: boolean | undefined = await this.sessaoService?.VerificaSessao();
+      const resposta: boolean | undefined =
+        await this.sessaoService?.VerificaSessao();
 
       if (!resposta) {
         funcaoNavegacao("/login");

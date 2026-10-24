@@ -4,10 +4,10 @@ import Footer from "../components/footer";
 import RecepcionistaSideBar from "../components/recepcionista/recepcionistaSideBar";
 import { RecepcionistaMenuProvider } from "../contexts/RecepcionistaMenuContext";
 import { RedirecionadorService } from "../services/RedirecionadorService";
-import { SessaoService } from "../services/usuarios/SessaoService";
+import { PessoaService } from "../services/usuarios/PessoaService";
 import { useEffect, useState } from "react";
 
-const sessaoService: SessaoService = new SessaoService();
+const pessoaService: PessoaService = new PessoaService();
 
 function RecepcionistaLayout() {
   const [nomeUsuario, setNomeUsuario] = useState<string>("Carregando...");
@@ -15,11 +15,11 @@ function RecepcionistaLayout() {
   useEffect(() => {
     const carregarUsuario = async () => {
       const redirecionadorService: RedirecionadorService =
-        new RedirecionadorService(sessaoService);
+        new RedirecionadorService(pessoaService);
       redirecionadorService.RedirecionaPorSessao(navigate);
 
       try {
-        const nome = await sessaoService.NomeUsuario();
+        const nome = await pessoaService.NomeUsuario();
         setNomeUsuario(nome);
       } catch (erro) {
         if (erro instanceof Error) {
