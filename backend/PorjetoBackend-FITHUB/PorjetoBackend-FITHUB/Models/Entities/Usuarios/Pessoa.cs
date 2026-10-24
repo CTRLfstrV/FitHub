@@ -1,9 +1,12 @@
 ﻿using PorjetoBackend_FITHUB.Models.DTO_s.Usuarios;
 using PorjetoBackend_FITHUB.Models.Enums;
 using System;
+using System.Globalization;
+using System.Linq;
 using PorjetoBackend_FITHUB.Exceptions.MatriculaExceptions;
 using PorjetoBackend_FITHUB.Exceptions;
 using System.Text.RegularExpressions;
+using PorjetoBackend_FITHUB.Helpers;
 using PorjetoBackend_FITHUB.Models.DTO_s.Matricula;
 
 namespace PorjetoBackend_FITHUB.Models.Entities.Usuarios
@@ -35,16 +38,17 @@ namespace PorjetoBackend_FITHUB.Models.Entities.Usuarios
 
         public Pessoa(AlunoMatriculaResponseDTO alunoMatricula)
         {
+            if (!DateTime.TryParse(alunoMatricula.DataNascimento, CultureInfo.InvariantCulture,
+                    DateTimeStyles.None, out DateTime dataNascimento))
             VerificaCpf(alunoMatricula.Cpf);
-            VerificaDigitosCpf(alunoMatricula.Cpf);
             VerificaCep(alunoMatricula.Cep);
             VerificaSenha(alunoMatricula.Senha);
-            VerificaDataNascimento(alunoMatricula.DataNascimento);
+            VerificaDataNascimento(dataNascimento);
             VerificaNumeroCelular(alunoMatricula.Telefone);
             Nome = alunoMatricula.Nome;
-            Senha = alunoMatricula.Senha;
+            Senha = PasswordHelper.GerarHash(alunoMatricula.Senha);
             Cpf = alunoMatricula.Cpf;
-            DataNascimento = alunoMatricula.DataNascimento;
+            DataNascimento = dataNascimento;
             Cep = alunoMatricula.Cep;
             NumeroCasa = alunoMatricula.NumeroCasa;
             Telefone = alunoMatricula.Telefone;
@@ -58,22 +62,13 @@ namespace PorjetoBackend_FITHUB.Models.Entities.Usuarios
 
         private void VerificaCpf(string cpf)
         {
-            if (cpf.Length != 11)
+            if (cpf.Length != 11 || !cpf.All(char.IsDigit))
                 throw new CpfInvalidoException("CPF invalido");
 
-            bool digitosIguais = true;
-            char primeiroCaracter = cpf[0];
-
-            foreach (char caracter in cpf)
-            {
-                if (primeiroCaracter == caracter)
-                    digitosIguais = true;
-                else
-                    digitosIguais = false;
-            }
+            bool digitosIguais = cpf.All(caracter => caracter == cpf[0]);
 
             if (digitosIguais) throw new CpfInvalidoException("CPF invalido");
-            VerificaCpf(cpf);
+            VerificaDigitosCpf(cpf);
         }
 
         private void VerificaDigitosCpf(string cpf)
@@ -167,8 +162,8 @@ namespace PorjetoBackend_FITHUB.Models.Entities.Usuarios
 
         private void VerificaDataNascimento(DateTime dataNascimento)
         {
-            if (DataNascimento == DateTime.MinValue || DataNascimento == DateTime.MaxValue ||
-                DataNascimento == DateTime.Today)
+            if (dataNascimento == DateTime.MinValue || dataNascimento == DateTime.MaxValue ||
+                dataNascimento.Date >= DateTime.Today)
                 throw new DataNascimentoException("Data Nascimento invalido");
         }
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using PorjetoBackend_FITHUB.Exceptions;
@@ -20,16 +21,13 @@ namespace PorjetoBackend_FITHUB.Controllers.Matricula
         }
 
         [HttpPost]
-        public IActionResult MatricularAluno([FromBody] MatriculaResponseDTO matricula)
+        public async Task<IActionResult> MatricularAluno([FromBody] MatriculaResponseDTO matricula)
         {
             try
             {
-                _matriculaService.MatricularAluno(matricula);
-
+                await _matriculaService.MatricularAluno(matricula);
                 return Ok();
             }
-            #region Catch's
-
             catch (SenhaInvalidaException ex)
             {
                 return BadRequest(ex.Message);
@@ -66,8 +64,6 @@ namespace PorjetoBackend_FITHUB.Controllers.Matricula
             {
                 return StatusCode(500, new { message = "Ocorreu um erro interno de servidor" });
             }
-
-            #endregion
         }
     }
 }

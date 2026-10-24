@@ -11,7 +11,7 @@ namespace PorjetoBackend_FITHUB.Data.Configurations.TreinamentoConfiguration
             builder.ToTable("Tb_treino_exercicio");
 
             builder.HasKey(et => et.Id);
-            builder.Property(et => et.Id).HasColumnName("pk_id_treino_exercicio");
+            builder.Property(et => et.Id).HasColumnName("pk_id_treino_exercicio").ValueGeneratedOnAdd();
 
             builder.HasOne(et => et.Treino)
                 .WithMany(t => t.Exercicios)

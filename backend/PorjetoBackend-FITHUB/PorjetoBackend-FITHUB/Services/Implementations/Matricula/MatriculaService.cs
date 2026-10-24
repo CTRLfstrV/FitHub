@@ -18,15 +18,14 @@ namespace PorjetoBackend_FITHUB.Services.Implementations.Matricula
             _fitHub = fitHub;
         }
 
-        public async void MatricularAluno(MatriculaResponseDTO matricula)
+        public async Task MatricularAluno(MatriculaResponseDTO matricula)
         {
-            Aluno aluno = await CadastrarPessoa(matricula.Aluno);
-            await CadastrarAluno(aluno);
+            Aluno aluno = await CadastrarAluno(matricula.Aluno);
             Contrato contrato = await CadastrarContrato(matricula.Contrato, aluno);
             await CadastrarPagamento(matricula.Pagamento, contrato);
         }
 
-        public async Task<Aluno> CadastrarPessoa(AlunoMatriculaResponseDTO alunoMatricula)
+        public async Task<Aluno> CadastrarAluno(AlunoMatriculaResponseDTO alunoMatricula)
         {
             Pessoa pessoa = new Aluno(alunoMatricula);
             _fitHub.TbPessoa.Add(pessoa);
@@ -34,12 +33,6 @@ namespace PorjetoBackend_FITHUB.Services.Implementations.Matricula
             Aluno pessoaAluno = pessoa as Aluno;
 
             return pessoaAluno;
-        }
-
-        public async Task CadastrarAluno(Aluno aluno)
-        {
-            _fitHub.TbAluno.Add(aluno);
-            await _fitHub.SaveChangesAsync();
         }
 
         public async Task<Contrato> CadastrarContrato(ContratoMatriculaResponseDTO contratoMatricula, Aluno aluno)

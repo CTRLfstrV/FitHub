@@ -7,6 +7,6 @@ namespace PorjetoBackend_FITHUB.Services.Interfaces.Matricula
 {
     public interface IMatriculaService
     {
-        void MatricularAluno(MatriculaResponseDTO matricula);
+        Task MatricularAluno(MatriculaResponseDTO matricula);
     }
 }
