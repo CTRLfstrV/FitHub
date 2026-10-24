@@ -40,6 +40,7 @@ namespace PorjetoBackend_FITHUB.Models.Entities.Usuarios
         {
             if (!DateTime.TryParse(alunoMatricula.DataNascimento, CultureInfo.InvariantCulture,
                     DateTimeStyles.None, out DateTime dataNascimento))
+                throw new DataNascimentoException("Data de nascimento inválida");
             VerificaCpf(alunoMatricula.Cpf);
             VerificaCep(alunoMatricula.Cep);
             VerificaSenha(alunoMatricula.Senha);

@@ -8,7 +8,7 @@ namespace PorjetoBackend_FITHUB.Models.DTO_s.Matricula
         [Required]
         public int IdPlano { get; set; }
         [Required]
-        public DateTime Termino { get; set; }
+        public string Termino { get; set; }
         [Required]
         public int QuantidadeParcelas { get; set; }
     }

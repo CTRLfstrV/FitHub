@@ -9,6 +9,6 @@ namespace PorjetoBackend_FITHUB.Models.DTO_s.Matricula
         [Required]
         public FormaPagamento FormaPagamento { get; set; }
         [Required]
-        public DateTime VencimentoPrimeiraParcela { get; set; }
+        public string VencimentoPrimeiraParcela { get; set; }
     }
 }
