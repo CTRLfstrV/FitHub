@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
+using PorjetoBackend_FITHUB.Exceptions;
+using PorjetoBackend_FITHUB.Exceptions.MatriculaExceptions;
 using PorjetoBackend_FITHUB.Models.DTO_s.Matricula;
 using PorjetoBackend_FITHUB.Services.Interfaces.Matricula;
 
@@ -14,11 +18,56 @@ namespace PorjetoBackend_FITHUB.Controllers.Matricula
         {
             _matriculaService = matriculaService;
         }
-        
+
         [HttpPost]
-        public IActionResult Teste([FromBody] MatriculaResponseDTO matricula)
+        public IActionResult MatricularAluno([FromBody] MatriculaResponseDTO matricula)
         {
-            return null;
+            try
+            {
+                _matriculaService.MatricularAluno(matricula);
+
+                return Ok();
+            }
+            #region Catch's
+
+            catch (SenhaInvalidaException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (CepInvalidoException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (CpfInvalidoException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (DataNascimentoException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (EmailInvalidoException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (NumeroCelularException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (PlanoInvalidoException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (SqlException)
+            {
+                return StatusCode(500, new { message = "Ocorreu um erro ao acessar o banco de dados" });
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, new { message = "Ocorreu um erro interno de servidor" });
+            }
+
+            #endregion
         }
     }
 }
