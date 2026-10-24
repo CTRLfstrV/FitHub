@@ -1,5 +1,6 @@
 import { SessaoInvalidaException } from "../../exceptions/SessaoInvalidaException";
 import type { DetalhesAlunoResponseDTO } from "../../types/financeiro/DetalhesAlunoResponseDTO";
+import type { FormaPagamentoResponseDTO } from "../../types/financeiro/FormaPagamentoResponseDTO";
 import type { PagamentoResponseDTO } from "../../types/financeiro/PagamentoResponseDTO";
 
 export class PagamentoService {
@@ -21,7 +22,9 @@ export class PagamentoService {
     return resposta.json();
   }
 
-  async DetalhesPagamentoAluno(idAluno: number): Promise<DetalhesAlunoResponseDTO>{
+  async DetalhesPagamentoAluno(
+    idAluno: number,
+  ): Promise<DetalhesAlunoResponseDTO> {
     const url: string = this.urlBase + `detalhes-aluno/${idAluno}`;
 
     const resposta = await fetch(url, {
@@ -32,6 +35,21 @@ export class PagamentoService {
     if (resposta.status === 401) throw new SessaoInvalidaException();
 
     if (!resposta.ok) throw Error("Não foi possivel ler os registros");
+
+    return resposta.json();
+  }
+
+  async ListarFormasPagamento(): Promise<FormaPagamentoResponseDTO[]> {
+    const url: string = this.urlBase + "formas";
+
+    const resposta = await fetch(url, {
+      method: "GET",
+      credentials: "include"
+    });
+
+    if (resposta.status === 401) throw new SessaoInvalidaException();
+
+    if(!resposta.ok) throw Error("Não foi possível ler os registros");
 
     return resposta.json();
   }
