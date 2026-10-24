@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using PorjetoBackend_FITHUB.Exceptions;
@@ -23,6 +24,9 @@ namespace PorjetoBackend_FITHUB.Controllers.Matricula
         [HttpPost]
         public async Task<IActionResult> MatricularAluno([FromBody] MatriculaResponseDTO matricula)
         {
+            int? idPessoa = HttpContext.Session.GetInt32("IdPessoa");
+            if (idPessoa == null)
+                return Unauthorized();
             try
             {
                 await _matriculaService.MatricularAluno(matricula);

@@ -36,6 +36,7 @@ namespace PorjetoBackend_FITHUB
             services.AddScoped<IAlunoService, AlunoService>();
             services.AddScoped<IContratoService, ContratoService>();
             services.AddScoped<IPagamentoService, PagamentoService>();
+            services.AddScoped<IPlanoService, PlanoService>();
             services.AddScoped<IMatriculaService, MatriculaService>();
 
             services.AddDbContext<FitHubDbContext>(option =>
