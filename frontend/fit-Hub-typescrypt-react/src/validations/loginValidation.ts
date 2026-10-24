@@ -1,8 +1,7 @@
-import { CpfValidation } from "./cpfValidation";
-
+import { GlobalValidation } from "./globalValidation";
 export class LoginValidation {
-  cpfValidation : CpfValidation;
-  constructor(cpfValidation: CpfValidation){
+  cpfValidation : GlobalValidation;
+  constructor(cpfValidation: GlobalValidation){
     this.cpfValidation = cpfValidation;
   }
 

@@ -5,14 +5,14 @@ import logo from "../../img/Primary-logo.svg";
 import type { PessoaLoginDTO } from "../types/usuarios/PessoaLoginDTO";
 import { PessoaService } from "../services/usuarios/PessoaService";
 import { LoginValidation } from "../validations/loginValidation";
-import { CpfValidation } from "../validations/cpfValidation";
 import type { PessoaResponseLoginDTO } from "../types/usuarios/PessoaResponseLoginDTO";
+import { GlobalValidation } from "../validations/globalValidation";
 
 const eyebrow =
   "inline-flex items-center gap-2 text-[11px] font-bold tracking-[.16em] text-[#598c1c]";
 
 const pessoaService: PessoaService = new PessoaService(
-  new LoginValidation(new CpfValidation()),
+  new LoginValidation(new GlobalValidation()),
 );
 
 function LoginPage() {
