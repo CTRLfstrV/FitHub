@@ -8,9 +8,5 @@ namespace PorjetoBackend_FITHUB.Services.Interfaces.Matricula
     public interface IMatriculaService
     {
         void MatricularAluno(MatriculaResponseDTO matricula);
-        Task<Aluno> CadastrarPessoa(AlunoMatriculaResponseDTO alunoMatricula);
-        void CadastrarAluno(Aluno aluno);
-        Task<Contrato> CadastrarContrato(ContratoMatriculaResponseDTO contratoMatricula, Aluno aluno);
-        void CadastrarPagamento(Contrato contrato);
     }
 }

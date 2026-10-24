@@ -1,6 +1,7 @@
 ﻿using PorjetoBackend_FITHUB.Models.DTO_s.Usuarios;
 using PorjetoBackend_FITHUB.Models.Enums;
 using System;
+using PorjetoBackend_FITHUB.Exceptions.MatriculaExceptions;
 using PorjetoBackend_FITHUB.Exceptions;
 using System.Text.RegularExpressions;
 using PorjetoBackend_FITHUB.Models.DTO_s.Matricula;

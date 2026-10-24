@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PorjetoBackend_FITHUB.Exceptions
+namespace PorjetoBackend_FITHUB.Exceptions.MatriculaExceptions
 {
     public class CpfInvalidoException : ApplicationException
     {

@@ -1,5 +1,7 @@
 ﻿using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using PorjetoBackend_FITHUB.Data;
+using PorjetoBackend_FITHUB.Exceptions.MatriculaExceptions;
 using PorjetoBackend_FITHUB.Models.DTO_s.Matricula;
 using PorjetoBackend_FITHUB.Models.Entities.Financeiro;
 using PorjetoBackend_FITHUB.Models.Entities.Usuarios;
@@ -18,10 +20,10 @@ namespace PorjetoBackend_FITHUB.Services.Implementations.Matricula
 
         public async void MatricularAluno(MatriculaResponseDTO matricula)
         {
-            var aluno = await CadastrarPessoa(matricula.Aluno);
-            CadastrarAluno(aluno);
-            var contrato = await CadastrarContrato(matricula.Contrato, aluno);
-            CadastrarPagamento(contrato);
+            Aluno aluno = await CadastrarPessoa(matricula.Aluno);
+            await CadastrarAluno(aluno);
+            Contrato contrato = await CadastrarContrato(matricula.Contrato, aluno);
+            await CadastrarPagamento(matricula.Pagamento, contrato);
         }
 
         public async Task<Aluno> CadastrarPessoa(AlunoMatriculaResponseDTO alunoMatricula)
@@ -29,12 +31,12 @@ namespace PorjetoBackend_FITHUB.Services.Implementations.Matricula
             Pessoa pessoa = new Aluno(alunoMatricula);
             _fitHub.TbPessoa.Add(pessoa);
             await _fitHub.SaveChangesAsync();
-            var pessoaAluno = pessoa as Aluno;
-            
+            Aluno pessoaAluno = pessoa as Aluno;
+
             return pessoaAluno;
         }
 
-        public async void CadastrarAluno(Aluno aluno)
+        public async Task CadastrarAluno(Aluno aluno)
         {
             _fitHub.TbAluno.Add(aluno);
             await _fitHub.SaveChangesAsync();
@@ -42,13 +44,26 @@ namespace PorjetoBackend_FITHUB.Services.Implementations.Matricula
 
         public async Task<Contrato> CadastrarContrato(ContratoMatriculaResponseDTO contratoMatricula, Aluno aluno)
         {
-            throw new System.NotImplementedException();
+            Plano planoContrato = await _fitHub.TbPlano.FirstOrDefaultAsync(p => p.Id == contratoMatricula.IdPlano);
+            if (planoContrato == null)
+                throw new PlanoInvalidoException("Plano inválido");
+            
+            Contrato contrato = new Contrato(contratoMatricula, aluno, planoContrato);
+            _fitHub.TbContrato.Add(contrato);
+            await _fitHub.SaveChangesAsync();
+            return contrato;
         }
 
 
-        public async void CadastrarPagamento(Contrato contrato)
+        public async Task CadastrarPagamento(PagamentoMatriculaResponseDTO pagamentoMatricula, Contrato contrato)
         {
-            throw new System.NotImplementedException();
+            for (int i = 1; i <= contrato.QuantidadeParcelas; i++)
+            {
+                Pagamento pagamento = new Pagamento(pagamentoMatricula, contrato, i);
+                _fitHub.TbPagamento.Add(pagamento);
+            }
+            
+            await _fitHub.SaveChangesAsync();
         }
     }
 }

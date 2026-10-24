@@ -2,6 +2,7 @@
 using PorjetoBackend_FITHUB.Models.Enums;
 using System;
 using System.Collections.Generic;
+using PorjetoBackend_FITHUB.Models.DTO_s.Matricula;
 
 namespace PorjetoBackend_FITHUB.Models.Entities.Financeiro
 {
@@ -18,6 +19,19 @@ namespace PorjetoBackend_FITHUB.Models.Entities.Financeiro
         public int QuantidadeParcelas { get; private set; }
         public List<Pagamento> Pagamentos { get; set; }
 
-        public Contrato() { }
+        public Contrato()
+        {
+        }
+
+        public Contrato(ContratoMatriculaResponseDTO contratoMatricula, Aluno aluno, Plano plano)
+        {
+            Aluno = aluno;
+            Plano = plano;
+            Inicio = DateTime.Today;
+            Termino = contratoMatricula.Termino;
+            StatusContrato = StatusContrato.PENDENTE;
+            Valor = plano.Valor;
+            QuantidadeParcelas = contratoMatricula.QuantidadeParcelas;
+        }
     }
 }
