@@ -4,29 +4,14 @@ import CampoFormularioMatricula, {
   classesCampoMatricula,
   classesCampoMatriculaSemMargem,
 } from "./CampoFormularioMatricula";
-import OpcoesPlanoMatricula, {
-  planosMatricula,
-  type CodigoPlanoMatricula,
-} from "./OpcoesPlanoMatricula";
+import OpcoesPlanoMatricula from "./OpcoesPlanoMatricula";
 import SecaoFormularioMatricula from "./SecaoFormularioMatricula";
+import useOpcoesMatricula from "./useOpcoesMatricula";
 
 const formatarMoeda = new Intl.NumberFormat("pt-BR", {
   style: "currency",
   currency: "BRL",
 });
-
-function dataComMesesAdicionados(data: string, quantidadeMeses: number) {
-  if (!data) return "";
-
-  const [ano, mes, dia] = data.split("-").map(Number);
-  const mesAlvo = mes - 1 + quantidadeMeses;
-  const anoAlvo = ano + Math.floor(mesAlvo / 12);
-  const mesNormalizado = mesAlvo % 12;
-  const ultimoDiaDoMes = new Date(anoAlvo, mesNormalizado + 1, 0).getDate();
-  const diaAlvo = Math.min(dia, ultimoDiaDoMes);
-
-  return `${anoAlvo}-${String(mesNormalizado + 1).padStart(2, "0")}-${String(diaAlvo).padStart(2, "0")}`;
-}
 
 function calcularPrimeiroVencimento(dataInicio: string, diaVencimento: string) {
   if (!dataInicio || !diaVencimento) return "";
@@ -53,8 +38,16 @@ function formatarData(data: string) {
 }
 
 function FormularioMatriculaAluno() {
-  const [codigoPlano, setCodigoPlano] = useState<CodigoPlanoMatricula>("mensal");
-  const [valorContrato, setValorContrato] = useState("129.90");
+  const {
+    planos,
+    sexos,
+    formasPagamento,
+    carregando: carregandoOpcoes,
+    mensagemErro: erroOpcoes,
+    tentarNovamente,
+  } = useOpcoesMatricula();
+  const [codigoPlano, setCodigoPlano] = useState<number | null>(null);
+  const [valorContrato, setValorContrato] = useState("");
   const [quantidadeParcelas, setQuantidadeParcelas] = useState("1");
   const [dataInicioContrato, setDataInicioContrato] = useState("");
   const [dataFimContrato, setDataFimContrato] = useState("");
@@ -62,7 +55,7 @@ function FormularioMatriculaAluno() {
   const [mensagem, setMensagem] = useState("");
 
   const planoSelecionado =
-    planosMatricula.find((plano) => plano.id === codigoPlano) ?? planosMatricula[0];
+    planos.find((plano) => plano.id === codigoPlano) ?? null;
   const valorTotal = Number(valorContrato);
   const parcelas = Number(quantidadeParcelas);
   const valorParcela =
@@ -77,22 +70,16 @@ function FormularioMatriculaAluno() {
     diaVencimento,
   );
 
-  function selecionarPlano(novoCodigo: CodigoPlanoMatricula) {
-    const novoPlano = planosMatricula.find((plano) => plano.id === novoCodigo);
+  function selecionarPlano(novoCodigo: number) {
+    const novoPlano = planos.find((plano) => plano.id === novoCodigo);
     if (!novoPlano) return;
 
     setCodigoPlano(novoCodigo);
-    setValorContrato(
-      (novoPlano.valorMensal * novoPlano.duracaoMeses).toFixed(2),
-    );
-    setQuantidadeParcelas(String(novoPlano.duracaoMeses));
-    setDataFimContrato(
-      dataComMesesAdicionados(dataInicioContrato, novoPlano.duracaoMeses),
-    );
+    setValorContrato(novoPlano.valor.toFixed(2));
     setMensagem("");
   }
 
-  function revisarDados(event: React.FormEvent<HTMLFormElement>) {
+  function revisarDados(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setMensagem(
       "Os campos obrigatórios foram preenchidos. A gravação da matrícula depende da integração com o serviço de cadastro.",
@@ -101,6 +88,21 @@ function FormularioMatriculaAluno() {
 
   return (
     <form className="grid gap-8 sm:gap-10 lg:gap-12" onSubmit={revisarDados}>
+      {erroOpcoes && (
+        <div
+          className="flex flex-col gap-3 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900 sm:flex-row sm:items-center sm:justify-between"
+          role="alert"
+        >
+          <span>{erroOpcoes}</span>
+          <button
+            type="button"
+            className="w-fit font-semibold underline underline-offset-2"
+            onClick={tentarNovamente}
+          >
+            Tentar novamente
+          </button>
+        </div>
+      )}
       <SecaoFormularioMatricula
         numero="01"
         titulo="Dados do aluno"
@@ -182,7 +184,7 @@ function FormularioMatriculaAluno() {
         <CampoFormularioMatricula
           id="sexo"
           rotulo="Sexo"
-          dica="A API deverá associar a opção selecionada ao código usado pelo sistema."
+          dica="Selecione um dos sexos cadastrados no sistema."
         >
           <select
             className={`${classesCampoMatricula} matricula-combobox`}
@@ -192,12 +194,17 @@ function FormularioMatriculaAluno() {
             required
           >
             <option value="" disabled>
-              Selecione uma opção
+              {carregandoOpcoes
+                ? "Carregando sexos..."
+                : sexos.length > 0
+                  ? "Selecione uma opção"
+                  : "Nenhum sexo disponível"}
             </option>
-            <option value="feminino">Feminino</option>
-            <option value="masculino">Masculino</option>
-            <option value="outro">Outro</option>
-            <option value="nao_informado">Prefiro não informar</option>
+            {sexos.map((sexo) => (
+              <option key={sexo.sexo} value={sexo.sexo}>
+                {sexo.descricao}
+              </option>
+            ))}
           </select>
         </CampoFormularioMatricula>
       </SecaoFormularioMatricula>
@@ -285,13 +292,17 @@ function FormularioMatriculaAluno() {
               Plano selecionado: {" "}
             </span>
             <span className="text-sm font-bold text-green-800">
-              {planoSelecionado.nome} ({formatarMoeda.format(planoSelecionado.valorMensal)}/mês)
+              {planoSelecionado
+                ? `${planoSelecionado.nome} (${formatarMoeda.format(planoSelecionado.valor)})`
+                : "Selecione um plano"}
             </span>
           </p>
         }
       >
         <OpcoesPlanoMatricula
+          planos={planos}
           planoSelecionado={codigoPlano}
+          carregando={carregandoOpcoes}
           onSelecionar={selecionarPlano}
         />
 
@@ -306,11 +317,7 @@ function FormularioMatriculaAluno() {
             type="date"
             value={dataInicioContrato}
             onChange={(event) => {
-              const novaData = event.target.value;
-              setDataInicioContrato(novaData);
-              setDataFimContrato(
-                dataComMesesAdicionados(novaData, planoSelecionado.duracaoMeses),
-              );
+              setDataInicioContrato(event.target.value);
               setMensagem("");
             }}
             required
@@ -343,7 +350,7 @@ function FormularioMatriculaAluno() {
         <CampoFormularioMatricula
           id="forma-pagamento"
           rotulo="Forma de pagamento"
-          dica="A forma escolhida será aplicada às parcelas do contrato."
+          dica="Selecione uma forma de pagamento cadastrada no sistema."
           className="sm:col-span-2 sm:w-1/2"
         >
           <select
@@ -354,14 +361,20 @@ function FormularioMatriculaAluno() {
             required
           >
             <option value="" disabled>
-              Selecione uma forma
+              {carregandoOpcoes
+                ? "Carregando formas de pagamento..."
+                : formasPagamento.length > 0
+                  ? "Selecione uma forma"
+                  : "Nenhuma forma disponível"}
             </option>
-            <option value="cartao_credito_recorrente">
-              Cartão de crédito (recorrente)
-            </option>
-            <option value="pix">Pix</option>
-            <option value="cartao_debito">Cartão de débito</option>
-            <option value="dinheiro">Dinheiro</option>
+            {formasPagamento.map((forma) => (
+              <option
+                key={forma.formaPagamento}
+                value={forma.formaPagamento}
+              >
+                {forma.descricao}
+              </option>
+            ))}
           </select>
         </CampoFormularioMatricula>
       </SecaoFormularioMatricula>
@@ -374,7 +387,7 @@ function FormularioMatriculaAluno() {
         <CampoFormularioMatricula
           id="fim-contrato"
           rotulo="Término do contrato"
-          dica="Preenchido de acordo com a duração do plano; pode ser ajustado."
+          dica="Informe a data final da vigência do contrato."
         >
           <input
             className={classesCampoMatricula}
@@ -516,7 +529,13 @@ function FormularioMatriculaAluno() {
         </Link>
         <button
           type="submit"
-          className="inline-flex min-h-12 cursor-pointer items-center justify-center gap-2 rounded-xl bg-green-700 px-6 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-green-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-700"
+          disabled={
+            carregandoOpcoes ||
+            planos.length === 0 ||
+            sexos.length === 0 ||
+            formasPagamento.length === 0
+          }
+          className="inline-flex min-h-12 cursor-pointer items-center justify-center gap-2 rounded-xl bg-green-700 px-6 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-green-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-700 disabled:cursor-not-allowed disabled:bg-[#9aa493] disabled:shadow-none"
         >
           Revisar dados
           <svg
