@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using PorjetoBackend_FITHUB.Data;
 using PorjetoBackend_FITHUB.Exceptions.MatriculaExceptions;
@@ -27,6 +28,10 @@ namespace PorjetoBackend_FITHUB.Services.Implementations.Matricula
 
         public async Task<Aluno> CadastrarAluno(AlunoMatriculaResponseDTO alunoMatricula)
         {
+            string cpfExiste = await _fitHub.TbPessoa.Select(p => p.Cpf).FirstOrDefaultAsync(cpf => cpf == alunoMatricula.Cpf);
+            if (cpfExiste != null)
+                throw new CpfInvalidoException("Já existe um cadastro com o cpf informado");
+            
             Pessoa pessoa = new Aluno(alunoMatricula);
             _fitHub.TbPessoa.Add(pessoa);
             await _fitHub.SaveChangesAsync();
