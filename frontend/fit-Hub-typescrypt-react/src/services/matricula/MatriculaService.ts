@@ -40,6 +40,6 @@ export class MatriculaService {
       throw new Error(mensagem);
     }
 
-    return "Matricula concluida com êxito";
+    return "Matrícula concluída com êxito.";
   }
 }

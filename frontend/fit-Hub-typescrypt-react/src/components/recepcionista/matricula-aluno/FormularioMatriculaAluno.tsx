@@ -2,39 +2,69 @@ import { useState, type FormEvent } from "react";
 import { Link } from "react-router-dom";
 import CampoFormularioMatricula, {
   classesCampoMatricula,
-  classesCampoMatriculaSemMargem,
 } from "./CampoFormularioMatricula";
 import OpcoesPlanoMatricula from "./OpcoesPlanoMatricula";
 import SecaoFormularioMatricula from "./SecaoFormularioMatricula";
 import useOpcoesMatricula from "./useOpcoesMatricula";
+import { MatriculaService } from "../../../services/matricula/MatriculaService";
+import type { MatriculaDTO } from "../../../types/matricula/MatriculaDTO";
+import { GlobalValidation } from "../../../validations/globalValidation";
+
+const matriculaService = new MatriculaService(new GlobalValidation());
 
 const formatarMoeda = new Intl.NumberFormat("pt-BR", {
   style: "currency",
   currency: "BRL",
 });
 
-function calcularPrimeiroVencimento(dataInicio: string, diaVencimento: string) {
-  if (!dataInicio || !diaVencimento) return "";
-
-  const [ano, mes, dia] = dataInicio.split("-").map(Number);
-  const diaCobranca = Number(diaVencimento);
-  const dataVencimento =
-    diaCobranca < dia
-      ? new Date(ano, mes, diaCobranca)
-      : new Date(ano, mes - 1, diaCobranca);
-
+function formatarDataISO(data: Date) {
   return [
-    dataVencimento.getFullYear(),
-    String(dataVencimento.getMonth() + 1).padStart(2, "0"),
-    String(dataVencimento.getDate()).padStart(2, "0"),
+    data.getFullYear(),
+    String(data.getMonth() + 1).padStart(2, "0"),
+    String(data.getDate()).padStart(2, "0"),
   ].join("-");
 }
 
-function formatarData(data: string) {
-  if (!data) return "";
+function adicionarMeses(data: Date, meses: number) {
+  const primeiroDiaDoMesAlvo = new Date(
+    data.getFullYear(),
+    data.getMonth() + meses,
+    1,
+  );
+  const ultimoDiaDoMesAlvo = new Date(
+    primeiroDiaDoMesAlvo.getFullYear(),
+    primeiroDiaDoMesAlvo.getMonth() + 1,
+    0,
+  ).getDate();
 
-  const [ano, mes, dia] = data.split("-").map(Number);
-  return new Intl.DateTimeFormat("pt-BR").format(new Date(ano, mes - 1, dia));
+  return new Date(
+    primeiroDiaDoMesAlvo.getFullYear(),
+    primeiroDiaDoMesAlvo.getMonth(),
+    Math.min(data.getDate(), ultimoDiaDoMesAlvo),
+  );
+}
+
+function calcularDataTermino(quantidadeParcelas: string) {
+  const meses = Number(quantidadeParcelas);
+  if (!Number.isInteger(meses) || meses < 1 || meses > 6) return "";
+
+  return formatarDataISO(adicionarMeses(new Date(), meses));
+}
+
+function calcularPrimeiroVencimento(diaPagamento: string) {
+  const dia = Number(diaPagamento);
+  if (!Number.isInteger(dia) || dia < 1 || dia > 31) return "";
+
+  const hoje = new Date();
+  const mesDoVencimento =
+    hoje.getMonth() + (hoje.getDate() > dia ? 1 : 0);
+  const dataVencimento = new Date(
+    hoje.getFullYear(),
+    mesDoVencimento,
+    dia,
+  );
+
+  return formatarDataISO(dataVencimento);
 }
 
 function FormularioMatriculaAluno() {
@@ -47,47 +77,77 @@ function FormularioMatriculaAluno() {
     tentarNovamente,
   } = useOpcoesMatricula();
   const [codigoPlano, setCodigoPlano] = useState<number | null>(null);
-  const [valorContrato, setValorContrato] = useState("");
   const [quantidadeParcelas, setQuantidadeParcelas] = useState("1");
-  const [dataInicioContrato, setDataInicioContrato] = useState("");
-  const [dataFimContrato, setDataFimContrato] = useState("");
-  const [diaVencimento, setDiaVencimento] = useState("10");
+  const [diaPagamento, setDiaPagamento] = useState("10");
   const [mensagem, setMensagem] = useState("");
+  const [erroEnvio, setErroEnvio] = useState(false);
+  const [enviando, setEnviando] = useState(false);
+  const [matriculaConcluida, setMatriculaConcluida] = useState(false);
 
   const planoSelecionado =
     planos.find((plano) => plano.id === codigoPlano) ?? null;
-  const valorTotal = Number(valorContrato);
-  const parcelas = Number(quantidadeParcelas);
-  const valorParcela =
-    Number.isFinite(valorTotal) &&
-    valorTotal > 0 &&
-    Number.isInteger(parcelas) &&
-    parcelas > 0
-      ? Math.round((valorTotal / parcelas + Number.EPSILON) * 100) / 100
-      : null;
-  const primeiroVencimento = calcularPrimeiroVencimento(
-    dataInicioContrato,
-    diaVencimento,
-  );
-
+  const dataFimContrato = calcularDataTermino(quantidadeParcelas);
+  const vencimentoPrimeiraParcela = calcularPrimeiroVencimento(diaPagamento);
   function selecionarPlano(novoCodigo: number) {
     const novoPlano = planos.find((plano) => plano.id === novoCodigo);
     if (!novoPlano) return;
 
     setCodigoPlano(novoCodigo);
-    setValorContrato(novoPlano.valor.toFixed(2));
     setMensagem("");
   }
 
-  function revisarDados(event: FormEvent<HTMLFormElement>) {
+  async function enviarMatricula(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setMensagem(
-      "Os campos obrigatórios foram preenchidos. A gravação da matrícula depende da integração com o serviço de cadastro.",
-    );
+    setMensagem("");
+    setErroEnvio(false);
+
+    const dadosFormulario = new FormData(event.currentTarget);
+    const obterValor = (campo: string) =>
+      String(dadosFormulario.get(campo) ?? "").trim();
+    const numeroCasa = obterValor("numeroCasa");
+
+    const matricula: MatriculaDTO = {
+      aluno: {
+        nome: obterValor("nome"),
+        senha: obterValor("senha"),
+        cpf: obterValor("cpf"),
+        dataNascimento: obterValor("dataNascimento"),
+        cep: obterValor("cep"),
+        numeroCasa: numeroCasa === "" ? 0 : Number(numeroCasa),
+        telefone: obterValor("telefone"),
+        telefoneEmergencia: obterValor("telefoneEmergencia"),
+        sexo: Number(obterValor("sexo")),
+        email: obterValor("email"),
+      },
+      contrato: {
+        idPlano: Number(obterValor("idPlano")),
+        termino: dataFimContrato,
+        quantidadeParcelas: Number(obterValor("quantidadeParcelas")),
+      },
+      pagamento: {
+        formaPagamento: Number(obterValor("formaPagamento")),
+        vencimentoPrimeiraParcela,
+      },
+    };
+
+    setEnviando(true);
+    try {
+      setMensagem(await matriculaService.MatricularAluno(matricula));
+      setMatriculaConcluida(true);
+    } catch (erro) {
+      setErroEnvio(true);
+      setMensagem(
+        erro instanceof Error
+          ? erro.message
+          : "Não foi possível concluir a matrícula. Tente novamente.",
+      );
+    } finally {
+      setEnviando(false);
+    }
   }
 
   return (
-    <form className="grid gap-8 sm:gap-10 lg:gap-12" onSubmit={revisarDados}>
+    <form className="grid gap-8 sm:gap-10 lg:gap-12" onSubmit={enviarMatricula}>
       {erroOpcoes && (
         <div
           className="flex flex-col gap-3 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900 sm:flex-row sm:items-center sm:justify-between"
@@ -112,7 +172,7 @@ function FormularioMatriculaAluno() {
           <input
             className={classesCampoMatricula}
             id="nome"
-            name="nome_pessoa"
+            name="nome"
             type="text"
             autoComplete="name"
             maxLength={100}
@@ -129,7 +189,7 @@ function FormularioMatriculaAluno() {
           <input
             className={classesCampoMatricula}
             id="email"
-            name="email_pessoa"
+            name="email"
             type="email"
             autoComplete="email"
             maxLength={100}
@@ -146,7 +206,7 @@ function FormularioMatriculaAluno() {
           <input
             className={classesCampoMatricula}
             id="cpf"
-            name="cpf_pessoa"
+            name="cpf"
             type="text"
             inputMode="numeric"
             autoComplete="off"
@@ -158,23 +218,11 @@ function FormularioMatriculaAluno() {
           />
         </CampoFormularioMatricula>
 
-        <CampoFormularioMatricula id="rg" rotulo="RG">
-          <input
-            className={classesCampoMatricula}
-            id="rg"
-            name="rg_pessoa"
-            type="text"
-            maxLength={20}
-            placeholder="Número do documento"
-            required
-          />
-        </CampoFormularioMatricula>
-
         <CampoFormularioMatricula id="data-nascimento" rotulo="Data de nascimento">
           <input
             className={classesCampoMatricula}
             id="data-nascimento"
-            name="data_nasc_pessoa"
+            name="dataNascimento"
             type="date"
             autoComplete="bday"
             required
@@ -189,7 +237,7 @@ function FormularioMatriculaAluno() {
           <select
             className={`${classesCampoMatricula} matricula-combobox`}
             id="sexo"
-            name="sexo_pessoa"
+            name="sexo"
             defaultValue=""
             required
           >
@@ -218,7 +266,7 @@ function FormularioMatriculaAluno() {
           <input
             className={classesCampoMatricula}
             id="telefone"
-            name="telefone_pessoa"
+            name="telefone"
             type="tel"
             inputMode="tel"
             autoComplete="tel"
@@ -236,7 +284,7 @@ function FormularioMatriculaAluno() {
           <input
             className={classesCampoMatricula}
             id="telefone-emergencia"
-            name="telefone_emergencia_pessoa"
+            name="telefoneEmergencia"
             type="tel"
             inputMode="tel"
             maxLength={20}
@@ -252,7 +300,7 @@ function FormularioMatriculaAluno() {
           <input
             className={classesCampoMatricula}
             id="cep"
-            name="cep_pessoa"
+            name="cep"
             type="text"
             inputMode="numeric"
             autoComplete="postal-code"
@@ -272,7 +320,7 @@ function FormularioMatriculaAluno() {
           <input
             className={classesCampoMatricula}
             id="numero-residencia"
-            name="num_casa_pessoa"
+            name="numeroCasa"
             type="number"
             inputMode="numeric"
             min={0}
@@ -284,8 +332,8 @@ function FormularioMatriculaAluno() {
 
       <SecaoFormularioMatricula
         numero="03"
-        titulo="Plano e detalhes da matrícula"
-        descricao="Escolha o pacote e configure o início das aulas e da cobrança."
+        titulo="Plano e pagamento"
+        descricao="Selecione o plano e informe os dados do pagamento."
         resumo={
           <p className="sm:mt-1 sm:max-w-[280px] sm:text-right">
             <span className="text-xs font-medium text-[#788270]">
@@ -307,34 +355,18 @@ function FormularioMatriculaAluno() {
         />
 
         <CampoFormularioMatricula
-          id="inicio-aulas"
-          rotulo="Data de início das aulas"
-        >
-          <input
-            className={classesCampoMatricula}
-            id="inicio-aulas"
-            name="dt_inicio_contrato"
-            type="date"
-            value={dataInicioContrato}
-            onChange={(event) => {
-              setDataInicioContrato(event.target.value);
-              setMensagem("");
-            }}
-            required
-          />
-        </CampoFormularioMatricula>
-
-        <CampoFormularioMatricula
-          id="dia-vencimento"
-          rotulo="Dia de vencimento da fatura"
+          id="dia-pagamento"
+          rotulo="Dia de pagamento"
+          dica="O vencimento será neste dia ou no próximo mês, se o dia já tiver passado."
+          className="sm:col-span-2 sm:w-1/2"
         >
           <select
             className={`${classesCampoMatricula} matricula-combobox`}
-            id="dia-vencimento"
-            name="dia_vencimento_fatura"
-            value={diaVencimento}
+            id="dia-pagamento"
+            name="diaPagamento"
+            value={diaPagamento}
             onChange={(event) => {
-              setDiaVencimento(event.target.value);
+              setDiaPagamento(event.target.value);
               setMensagem("");
             }}
             required
@@ -348,6 +380,23 @@ function FormularioMatriculaAluno() {
         </CampoFormularioMatricula>
 
         <CampoFormularioMatricula
+          id="vencimento-primeira-parcela"
+          rotulo="Data do primeiro vencimento"
+          dica="Calculada automaticamente com base no dia de pagamento."
+          className="sm:col-span-2 sm:w-1/2"
+        >
+          <input
+            className={classesCampoMatricula}
+            id="vencimento-primeira-parcela"
+            name="vencimentoPrimeiraParcela"
+            type="date"
+            value={vencimentoPrimeiraParcela}
+            disabled
+            required
+          />
+        </CampoFormularioMatricula>
+
+        <CampoFormularioMatricula
           id="forma-pagamento"
           rotulo="Forma de pagamento"
           dica="Selecione uma forma de pagamento cadastrada no sistema."
@@ -356,7 +405,7 @@ function FormularioMatriculaAluno() {
           <select
             className={`${classesCampoMatricula} matricula-combobox`}
             id="forma-pagamento"
-            name="frm_pagamento"
+            name="formaPagamento"
             defaultValue=""
             required
           >
@@ -382,63 +431,36 @@ function FormularioMatriculaAluno() {
       <SecaoFormularioMatricula
         numero="04"
         titulo="Contrato e parcelas"
-        descricao="Confira o período contratado e os valores antes de revisar os dados."
+        descricao="Informe a data de término e a quantidade de parcelas do contrato."
       >
         <CampoFormularioMatricula
           id="fim-contrato"
           rotulo="Término do contrato"
-          dica="Informe a data final da vigência do contrato."
+          dica="Calculado a partir de hoje, somando um mês por parcela."
         >
           <input
             className={classesCampoMatricula}
             id="fim-contrato"
-            name="dt_fim_contrato"
+            name="termino"
             type="date"
-            min={dataInicioContrato || undefined}
             value={dataFimContrato}
-            onChange={(event) => {
-              setDataFimContrato(event.target.value);
-              setMensagem("");
-            }}
+            disabled
             required
           />
-        </CampoFormularioMatricula>
-
-        <CampoFormularioMatricula id="valor-contrato" rotulo="Valor total do contrato">
-          <div className="relative mt-3">
-            <span className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-sm text-[#788270]">
-              R$
-            </span>
-            <input
-              className={`${classesCampoMatriculaSemMargem} pl-10`}
-              id="valor-contrato"
-              name="vlr_contrato"
-              type="number"
-              min={0}
-              step="0.01"
-              inputMode="decimal"
-              placeholder="0,00"
-              value={valorContrato}
-              onChange={(event) => {
-                setValorContrato(event.target.value);
-                setMensagem("");
-              }}
-              required
-            />
-          </div>
         </CampoFormularioMatricula>
 
         <CampoFormularioMatricula
           id="quantidade-parcelas"
           rotulo="Quantidade de parcelas"
-          dica="O contrato precisa ter pelo menos uma parcela."
+          dica="Informe de 1 a 6 parcelas."
         >
           <input
             className={classesCampoMatricula}
             id="quantidade-parcelas"
-            name="qtd_parcelas_contrato"
+            name="quantidadeParcelas"
             type="number"
             min={1}
+            max={6}
             step={1}
             inputMode="numeric"
             value={quantidadeParcelas}
@@ -450,40 +472,6 @@ function FormularioMatriculaAluno() {
           />
         </CampoFormularioMatricula>
 
-        <div className="flex min-h-[82px] items-center justify-between gap-4 rounded-xl border border-[#e4ebdc] bg-[#f7fbf3] px-4 py-3 sm:col-span-2">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-wide text-[#788270]">
-              Valor estimado por parcela
-            </p>
-            <p className="mt-1 text-xs leading-5 text-[#788270]">
-              Valor total dividido pela quantidade de parcelas.
-            </p>
-          </div>
-          <p className="shrink-0 text-lg font-bold text-green-800 sm:text-xl">
-            {valorParcela === null ? "—" : formatarMoeda.format(valorParcela)}
-          </p>
-        </div>
-
-        <div className="flex flex-col justify-between gap-3 rounded-xl border border-[#e4e9df] bg-white px-4 py-3 sm:col-span-2 sm:flex-row sm:items-center">
-          <div>
-            <p className="text-sm font-semibold text-[#343b2e]">
-              Primeiro vencimento
-            </p>
-            <p className="mt-1 text-xs text-[#788270]">
-              {primeiroVencimento
-                ? `A primeira cobrança vence em ${formatarData(primeiroVencimento)}.`
-                : "Informe a data de início para calcular o primeiro vencimento."}
-            </p>
-            <input
-              type="hidden"
-              name="dt_vencimento_pagamento"
-              value={primeiroVencimento}
-            />
-          </div>
-          <span className="w-fit rounded-full bg-amber-50 px-3 py-1.5 text-xs font-semibold text-amber-800">
-            Status inicial: pendente
-          </span>
-        </div>
       </SecaoFormularioMatricula>
 
       <SecaoFormularioMatricula
@@ -494,13 +482,13 @@ function FormularioMatriculaAluno() {
         <CampoFormularioMatricula
           id="senha"
           rotulo="Senha inicial"
-          dica="A senha deve ter pelo menos 8 caracteres."
+          dica="Use no mínimo 8 caracteres, incluindo letra, número e caractere especial."
           className="sm:col-span-2"
         >
           <input
             className={classesCampoMatricula}
             id="senha"
-            name="senha_pessoa"
+            name="senha"
             type="password"
             autoComplete="new-password"
             minLength={8}
@@ -513,8 +501,12 @@ function FormularioMatriculaAluno() {
 
       {mensagem && (
         <div
-          className="rounded-xl border border-[#dcebd0] bg-[#f3f9ed] px-4 py-3 text-sm leading-6 text-[#486b2d]"
-          role="status"
+          className={`rounded-xl border px-4 py-3 text-sm leading-6 ${
+            erroEnvio
+              ? "border-red-200 bg-red-50 text-red-800"
+              : "border-[#dcebd0] bg-[#f3f9ed] text-[#486b2d]"
+          }`}
+          role={erroEnvio ? "alert" : "status"}
         >
           {mensagem}
         </div>
@@ -530,6 +522,8 @@ function FormularioMatriculaAluno() {
         <button
           type="submit"
           disabled={
+            enviando ||
+            matriculaConcluida ||
             carregandoOpcoes ||
             planos.length === 0 ||
             sexos.length === 0 ||
@@ -537,7 +531,11 @@ function FormularioMatriculaAluno() {
           }
           className="inline-flex min-h-12 cursor-pointer items-center justify-center gap-2 rounded-xl bg-green-700 px-6 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-green-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-700 disabled:cursor-not-allowed disabled:bg-[#9aa493] disabled:shadow-none"
         >
-          Revisar dados
+          {enviando
+            ? "Enviando matrícula..."
+            : matriculaConcluida
+              ? "Matrícula concluída"
+              : "Concluir matrícula"}
           <svg
             aria-hidden="true"
             viewBox="0 0 24 24"

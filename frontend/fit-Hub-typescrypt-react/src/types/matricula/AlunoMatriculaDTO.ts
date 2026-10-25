@@ -4,9 +4,9 @@ interface AlunoMatriculaDTO{
     cpf: string,
     dataNascimento: string,
     cep: string,
-    numeroCasa: string,
+    numeroCasa: number,
     telefone: string,
-    telefoneEmergencia: string | null,
+    telefoneEmergencia: string,
     sexo: number,
     email: string
 }

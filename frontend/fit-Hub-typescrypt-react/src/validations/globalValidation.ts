@@ -141,18 +141,11 @@ export class GlobalValidation {
     }
   }
 
-  validacaoNumeroCasa(numeroCasa: string): void {
-    if (typeof numeroCasa !== "string") {
-      throw new Error("O número da residência deve ser informado como texto.");
-    }
-    if (numeroCasa.trim() === "") return;
-    if (!/^\d+$/.test(numeroCasa.trim())) {
+  validacaoNumeroCasa(numeroCasa: number): void {
+    if (!Number.isSafeInteger(numeroCasa) || numeroCasa < 0) {
       throw new Error(
-        "O número da residência deve conter apenas números inteiros iguais ou maiores que zero.",
+        "O número da residência deve ser um inteiro igual ou maior que zero.",
       );
-    }
-    if (!Number.isSafeInteger(Number(numeroCasa.trim()))) {
-      throw new Error("O número da residência está fora do intervalo permitido.");
     }
   }
 
@@ -160,10 +153,8 @@ export class GlobalValidation {
     this.validacaoNumeroTelefone(telefone, "O telefone do aluno");
   }
 
-  validacaoTelefoneEmergencia(telefone: string | null): void {
-    if (telefone === null || (typeof telefone === "string" && telefone.trim() === "")) {
-      return;
-    }
+  validacaoTelefoneEmergencia(telefone: string): void {
+    if (telefone.trim() === "") return;
     this.validacaoNumeroTelefone(telefone, "O telefone de emergência");
   }
 
@@ -188,8 +179,12 @@ export class GlobalValidation {
   }
 
   validacaoQuantidadeParcelas(quantidadeParcelas: number): void {
-    if (!Number.isInteger(quantidadeParcelas) || quantidadeParcelas <= 0) {
-      throw new Error("A quantidade de parcelas deve ser um número inteiro maior que zero.");
+    if (
+      !Number.isInteger(quantidadeParcelas) ||
+      quantidadeParcelas < 1 ||
+      quantidadeParcelas > 6
+    ) {
+      throw new Error("A quantidade de parcelas deve ser um inteiro entre 1 e 6.");
     }
   }
   //#endregion
