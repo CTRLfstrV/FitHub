@@ -38,4 +38,19 @@ export class ContratoService {
 
     return resposta.json();
   }
+  
+  async ContratosPendentes(): Promise<number> {
+    const url: string = this.urlBase + "quantidade-pendentes";
+
+    const resposta = await fetch(url, {
+      method: "GET",
+      credentials: "include"
+    });
+
+    if (resposta.status === 401) throw new SessaoInvalidaException();
+
+    if(!resposta.ok) throw Error("Não foi possível ler os contratos pendentes");
+
+    return resposta.json();
+  }
 }
