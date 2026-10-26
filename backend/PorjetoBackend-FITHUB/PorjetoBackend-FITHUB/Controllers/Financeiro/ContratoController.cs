@@ -65,9 +65,9 @@ namespace PorjetoBackend_FITHUB.Controllers.Financeiro
 
         [HttpGet("pendentes")]
         public async Task<IActionResult> ContratosPendentes()
-        {/*
+        {
             if(HttpContext.Session.GetInt32("IdPessoa") == null)
-                return Unauthorized();*/
+                return Unauthorized();
 
             try
             {
