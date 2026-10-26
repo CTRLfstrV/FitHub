@@ -33,8 +33,7 @@ function DetalhesAlunoConteudo({ idAluno }: { idAluno: number | null }) {
       <div className="mx-auto w-full max-w-[1160px]">
         <CabecalhoDetalhesAluno
           nomeAluno={detalhes.nomeAluno}
-          dataInicioContrato={detalhes.dataInicioContrato}
-          dataTerminoContrato={detalhes.dataTerminoContrato}
+          statusContrato={detalhes.statusContrato}
         />
         <ResumoContratoAluno contrato={detalhes} />
 

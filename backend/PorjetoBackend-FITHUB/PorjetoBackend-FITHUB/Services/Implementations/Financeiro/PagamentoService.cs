@@ -34,7 +34,7 @@ namespace PorjetoBackend_FITHUB.Services.Implementations.Financeiro
         {
             PagamentoAlunoDTO pagamentoAluno = await _fitHub.TbPagamento
                 .Where(p => p.Contrato.Aluno.Id == id)
-                .Select(p => new PagamentoAlunoDTO(p.Contrato.Aluno.Nome, p.Contrato.Plano.Nome, p.Contrato.Inicio, p.Contrato.Termino, p.Contrato.Valor,
+                .Select(p => new PagamentoAlunoDTO(p.Contrato.Aluno.Nome, p.Contrato.Plano.Nome, p.Contrato.Inicio, p.Contrato.Termino, p.Contrato.Valor, (int)p.Contrato.StatusContrato,
                 p.Contrato.Pagamentos.Select(
                     p => new PagamentoListagemDTO(p.Id, p.NumeroDaParcela, p.ValorParcela, p.VencimentoParcela, p.DataDoPagamento, (int)p.StatusPagamento)
                     ).ToList<PagamentoListagemDTO>()

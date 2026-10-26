@@ -1,76 +1,35 @@
 import { Link } from "react-router-dom";
 
-function obterEstadoContrato(
-  dataInicio: string | null,
-  dataTermino: string | null,
-) {
-  if (!dataInicio || !dataTermino) {
+function obterEstadoContrato(statusContrato: number) {
+  if (statusContrato === 0) {
     return {
-      rotulo: "Vigência não informada",
-      estilo: "border-[#e6e9e2] bg-[#f7f8f5] text-[#66705e]",
-      ponto: "bg-[#81897d]",
-    };
-  }
-
-  const inicio = new Date(dataInicio);
-  const termino = new Date(dataTermino);
-
-  if (Number.isNaN(inicio.getTime()) || Number.isNaN(termino.getTime())) {
-    return {
-      rotulo: "Vigência não informada",
-      estilo: "border-[#e6e9e2] bg-[#f7f8f5] text-[#66705e]",
-      ponto: "bg-[#81897d]",
-    };
-  }
-
-  const agora = new Date();
-  const hoje = Date.UTC(
-    agora.getUTCFullYear(),
-    agora.getUTCMonth(),
-    agora.getUTCDate(),
-  );
-  const inicioUtc = Date.UTC(
-    inicio.getUTCFullYear(),
-    inicio.getUTCMonth(),
-    inicio.getUTCDate(),
-  );
-  const terminoUtc = Date.UTC(
-    termino.getUTCFullYear(),
-    termino.getUTCMonth(),
-    termino.getUTCDate(),
-  );
-
-  if (hoje < inicioUtc) {
-    return {
-      rotulo: "Ainda não iniciado",
+      rotulo: "Contrato pendente",
       estilo: "border-amber-200 bg-amber-50 text-amber-700",
       ponto: "bg-amber-500",
     };
   }
 
-  if (hoje > terminoUtc) {
+  if (statusContrato === 1) {
     return {
-      rotulo: "Contrato encerrado",
-      estilo: "border-[#e6e9e2] bg-[#f7f8f5] text-[#66705e]",
-      ponto: "bg-[#81897d]",
+      rotulo: "Contrato ativo",
+      estilo: "border-[#cfe4bd] bg-[#f3f9ed] text-[#437524]",
+      ponto: "bg-green-600",
     };
   }
 
   return {
-    rotulo: "Contrato ativo",
-    estilo: "border-[#cfe4bd] bg-[#f3f9ed] text-[#437524]",
-    ponto: "bg-green-600",
+    rotulo: "Status não informado",
+    estilo: "border-[#e6e9e2] bg-[#f7f8f5] text-[#66705e]",
+    ponto: "bg-[#81897d]",
   };
 }
 
 function CabecalhoDetalhesAluno({
   nomeAluno,
-  dataInicioContrato,
-  dataTerminoContrato,
+  statusContrato,
 }: {
   nomeAluno: string;
-  dataInicioContrato: string | null;
-  dataTerminoContrato: string | null;
+  statusContrato: number;
 }) {
   const iniciais = nomeAluno
     .split(" ")
@@ -78,10 +37,7 @@ function CabecalhoDetalhesAluno({
     .slice(0, 2)
     .join("")
     .toUpperCase();
-  const estadoContrato = obterEstadoContrato(
-    dataInicioContrato,
-    dataTerminoContrato,
-  );
+  const estadoContrato = obterEstadoContrato(statusContrato);
 
   return (
     <>

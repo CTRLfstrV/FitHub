@@ -6,6 +6,7 @@ interface DetalhesAlunoResponseDTO{
     dataInicioContrato: string | null,
     dataTerminoContrato: string | null,
     valorContrato: number,
+    statusContrato: number
     pagamentos: PagamentoListagemResponseDTO[]
 }
 
