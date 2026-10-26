@@ -19,11 +19,14 @@ function useGerenciamentoAlunos() {
   const [quantidadeContratosAtivos, setQuantidadeContratosAtivos] = useState<
     number | null
   >(null);
+  const [quantidadeContratosPendentes, setQuantidadeContratosPendentes] =
+    useState<number | null>(null);
   const [listaPagamentos, setListaPagamentos] = useState<
     PagamentoResponseDTO[] | null
   >(null);
   const [mensagemErro, setMensagemErro] = useState<string | null>(null);
   const [erroContratos, setErroContratos] = useState(false);
+  const [erroContratosPendentes, setErroContratosPendentes] = useState(false);
   const [carregando, setCarregando] = useState(true);
   const [tentativa, setTentativa] = useState(0);
 
@@ -34,14 +37,16 @@ function useGerenciamentoAlunos() {
       setCarregando(true);
       setMensagemErro(null);
       setErroContratos(false);
+      setErroContratosPendentes(false);
 
-      const [contratos, pagamentos] = await Promise.allSettled([
+      const [contratos, contratosPendentes, pagamentos] = await Promise.allSettled([
         contratoService.ContratosAtivos(),
+        contratoService.ContratosPendentes(),
         pagamentoService.ListarPagamentos(),
       ]);
       if (!componenteAtivo) return;
 
-      const sessaoInvalida = [contratos, pagamentos].some(
+      const sessaoInvalida = [contratos, contratosPendentes, pagamentos].some(
         (resultado) =>
           resultado.status === "rejected" &&
           resultado.reason instanceof SessaoInvalidaException,
@@ -55,6 +60,10 @@ function useGerenciamentoAlunos() {
       if (contratos.status === "fulfilled")
         setQuantidadeContratosAtivos(contratos.value);
       else setErroContratos(true);
+
+      if (contratosPendentes.status === "fulfilled")
+        setQuantidadeContratosPendentes(contratosPendentes.value);
+      else setErroContratosPendentes(true);
 
       if (pagamentos.status === "fulfilled")
         setListaPagamentos(pagamentos.value);
@@ -124,8 +133,10 @@ function useGerenciamentoAlunos() {
     filtroStatus,
     setFiltroStatus,
     quantidadeContratosAtivos,
+    quantidadeContratosPendentes,
     mensagemErro,
     erroContratos,
+    erroContratosPendentes,
     carregando,
     resumo,
     filtros,

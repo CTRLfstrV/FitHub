@@ -6,6 +6,8 @@ import Indicador from "./Indicador";
 interface IndicadoresGerenciamentoAlunosProps {
   quantidadeContratosAtivos: number | null;
   erroContratos: boolean;
+  quantidadeContratosPendentes: number | null;
+  erroContratosPendentes: boolean;
   carregando: boolean;
   pendentes: number;
   atrasados: number;
@@ -14,6 +16,8 @@ interface IndicadoresGerenciamentoAlunosProps {
 function IndicadoresGerenciamentoAlunos({
   quantidadeContratosAtivos,
   erroContratos,
+  quantidadeContratosPendentes,
+  erroContratosPendentes,
   carregando,
   pendentes,
   atrasados,
@@ -35,6 +39,17 @@ function IndicadoresGerenciamentoAlunos({
       icone: <Icon nome="alunos" className="h-6 w-6" />,
     },
     {
+      titulo: "Contratos pendentes",
+      valor:
+        quantidadeContratosPendentes ??
+        (erroContratosPendentes ? "—" : "..."),
+      legenda: erroContratosPendentes
+        ? "Não foi possível atualizar este dado"
+        : "Aguardando regularização",
+      cor: "amber",
+      icone: <Icon nome="calendario" className="h-5 w-5" />,
+    },
+    {
       titulo: "Pagamentos pendentes",
       valor: carregando ? "..." : pendentes,
       legenda: "Aguardando confirmação",
@@ -51,7 +66,7 @@ function IndicadoresGerenciamentoAlunos({
   ];
 
   return (
-    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 xl:grid-cols-3">
+    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 xl:grid-cols-4">
       {indicadores.map((item) => (
         <Indicador key={item.titulo} {...item} />
       ))}

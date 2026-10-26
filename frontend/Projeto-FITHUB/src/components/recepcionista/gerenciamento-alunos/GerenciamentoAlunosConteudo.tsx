@@ -14,6 +14,10 @@ function GerenciamentoAlunosConteudo() {
         <IndicadoresGerenciamentoAlunos
           quantidadeContratosAtivos={gerenciamento.quantidadeContratosAtivos}
           erroContratos={gerenciamento.erroContratos}
+          quantidadeContratosPendentes={
+            gerenciamento.quantidadeContratosPendentes
+          }
+          erroContratosPendentes={gerenciamento.erroContratosPendentes}
           carregando={gerenciamento.carregando}
           pendentes={gerenciamento.resumo.pendentes}
           atrasados={gerenciamento.resumo.atrasados}

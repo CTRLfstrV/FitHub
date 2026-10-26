@@ -61,7 +61,7 @@ export class ContratoService {
     return resposta.json();
   }
 
-  async ContratosPendentes(): Promise<number> {
+  async ContratosPendentes(): Promise<number | string> {
     const url: string = this.urlBase + "quantidade-pendentes";
 
     const resposta = await fetch(url, {
@@ -70,6 +70,7 @@ export class ContratoService {
     });
 
     if (resposta.status === 401) throw new SessaoInvalidaException();
+     if (resposta.status === 500) return resposta.text();
 
     if (!resposta.ok)
       throw Error("Não foi possível ler os contratos pendentes");
