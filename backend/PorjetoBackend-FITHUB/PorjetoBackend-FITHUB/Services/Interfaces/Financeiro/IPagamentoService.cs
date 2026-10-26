@@ -8,5 +8,6 @@ namespace PorjetoBackend_FITHUB.Services.Interfaces.Financeiro
     {
         Task VerificaPagamentos();
         Task<List<PagamentoDTO>> PegarPagamentos();
+        Task<PagamentoAlunoDTO> PegarPagamentosDoApartirDeId(int id);
     }
 }

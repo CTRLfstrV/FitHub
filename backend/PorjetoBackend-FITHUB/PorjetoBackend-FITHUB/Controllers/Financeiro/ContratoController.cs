@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using PorjetoBackend_FITHUB.Models.DTO_s.Financeiro;
 using PorjetoBackend_FITHUB.Services.Interfaces.Financeiro;
 using System;
@@ -31,6 +32,10 @@ namespace PorjetoBackend_FITHUB.Controllers.Financeiro
             {
                 return Ok(_contratoService.QuantidadeContratosAtivos());
             }
+            catch (SqlException)
+            {
+                return StatusCode(500, new { message = "Ocorreu um erro no consultar banco de dados" });
+            }
             catch (Exception)
             {
                 return StatusCode(500, new { message = "Ocorreu um erro interno de servidor" });
@@ -49,6 +54,10 @@ namespace PorjetoBackend_FITHUB.Controllers.Financeiro
                 IEnumerable<ContratoProximoFimDTO> contratosProximoFimDto = await _contratoService.ContratosProximosFim();
 
                 return Ok(contratosProximoFimDto);
+            }
+            catch (SqlException)
+            {
+                return StatusCode(500, new { message = "Ocorreu um erro no consultar banco de dados" });
             }
             catch (Exception)
             {

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using PorjetoBackend_FITHUB.Services.Interfaces.Usuarios;
 using System;
 
@@ -27,6 +28,10 @@ namespace PorjetoBackend_FITHUB.Controllers.Usuarios
             {
                 return Ok(_alunoService.QuantidadeAlunos());
             }
+            catch (SqlException)
+            {
+                return StatusCode(500, new { message = "Ocorreu um erro no consultar banco de dados" });
+            }
             catch (Exception)
             {
                 return StatusCode(500, new { message = "Ocorreu um erro interno de servidor" });
@@ -39,6 +44,10 @@ namespace PorjetoBackend_FITHUB.Controllers.Usuarios
             try
             {
                 return Ok(_alunoService.QuantidadeAlunosAtivos());
+            }
+            catch (SqlException)
+            {
+                return StatusCode(500, new { message = "Ocorreu um erro no consultar banco de dados" });
             }
             catch (Exception)
             {

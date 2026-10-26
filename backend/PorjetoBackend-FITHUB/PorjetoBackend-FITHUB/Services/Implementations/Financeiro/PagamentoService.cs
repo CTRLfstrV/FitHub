@@ -29,6 +29,19 @@ namespace PorjetoBackend_FITHUB.Services.Implementations.Financeiro
             return pagamentos;
         }
 
+        public async Task<PagamentoAlunoDTO> PegarPagamentosDoApartirDeId(int id)
+        {
+            PagamentoAlunoDTO pagamentoAluno = await _fitHub.TbPagamento
+                .Where(p => p.Contrato.Aluno.Id == id)
+                .Select(p => new PagamentoAlunoDTO(p.Contrato.Aluno.Nome, p.Contrato.Plano.Nome, p.Contrato.Inicio, p.Contrato.Termino, p.Contrato.Valor,
+                p.Contrato.Pagamentos.Select(
+                    p => new PagamentoListagemDTO(p.Id, p.NumeroDaParcela, p.ValorParcela, p.VencimentoParcela, p.DataDoPagamento, (int)p.StatusPagamento)
+                    ).ToList<PagamentoListagemDTO>()
+                )).FirstAsync<PagamentoAlunoDTO>();
+
+            return pagamentoAluno;
+        }
+
         public async Task VerificaPagamentos()
         {
             foreach (var pagamento in _fitHub.TbPagamento)

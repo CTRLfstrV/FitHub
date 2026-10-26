@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using PorjetoBackend_FITHUB.Exceptions;
 using PorjetoBackend_FITHUB.Models.DTO_s.Usuarios;
 using PorjetoBackend_FITHUB.Services.Interfaces;
 using System;
+using PorjetoBackend_FITHUB.Models.Enums;
 
 namespace PorjetoBackend_FITHUB.Controllers.Usuarios
 {
@@ -38,6 +40,10 @@ namespace PorjetoBackend_FITHUB.Controllers.Usuarios
             {
                 return StatusCode(400, new { message = ex.Message });
             }
+            catch (SqlException)
+            {
+                return StatusCode(500, new { message = "Ocorreu um erro no consultar banco de dados" });
+            }
             catch (Exception)
             {
                 return StatusCode(500, new { message = "Ocorreu erro interno de servidor" });
@@ -64,6 +70,41 @@ namespace PorjetoBackend_FITHUB.Controllers.Usuarios
                 return NotFound();
 
             return Ok(nomePessoa);
+        }
+
+        [HttpGet("sexo")]
+        public IActionResult ListarSexo()
+        {
+            if(HttpContext.Session.GetInt32("IdPessoa") == null)
+                return Unauthorized();
+            try
+            {
+                var sexos = new[]
+                {
+                    new { sexo = SexoPessoa.MASCULINO, descricao = "Masculino" },
+                    new { sexo = SexoPessoa.FEMININO, descricao = "Feminino" },
+                };
+
+                return Ok(sexos);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, new { message = "Ocorreu erro interno de servidor" });
+            }
+        }
+
+        [HttpDelete]
+        public IActionResult Logout()
+        {
+            try
+            {
+                HttpContext.Session.Clear();
+                return Ok();
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, new { message = "Ocorreu erro interno de servidor" });
+            }
         }
     }
 }

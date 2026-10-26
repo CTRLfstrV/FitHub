@@ -11,7 +11,7 @@ namespace PorjetoBackend_FITHUB.Data.Configurations.AgendaConfiguration
             builder.ToTable("Tb_agendamento");
 
             builder.HasKey(a => a.Id);
-            builder.Property(a => a.Id).HasColumnName("pk_id_agendamento");
+            builder.Property(a => a.Id).HasColumnName("pk_id_agendamento").ValueGeneratedOnAdd();
 
             builder.HasOne(a => a.Aluno).WithMany()
                 .HasForeignKey("fk_id_pessoa_aluno")
