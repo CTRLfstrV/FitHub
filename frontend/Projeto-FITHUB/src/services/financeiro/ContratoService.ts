@@ -1,4 +1,5 @@
 import { SessaoInvalidaException } from "../../exceptions/SessaoInvalidaException";
+import type { ContratoPendenteResponseDTO } from "../../types/financeiro/ContratoPendenteResponseDTO";
 import type { ContratoProximoVencimentoResponseDTO } from "../../types/financeiro/ContratoProximoVencimentoResponseDTO";
 
 export class ContratoService {
@@ -15,6 +16,27 @@ export class ContratoService {
     });
 
     if (resposta.status === 401) throw new SessaoInvalidaException();
+
+    if (!resposta.ok)
+      throw new Error(
+        "Não foi possível listar os contratos com vencimento próximo",
+      );
+
+    return resposta.json();
+  }
+
+  async ListarContratosPendentes(): Promise<
+    ContratoPendenteResponseDTO[] | string
+  > {
+    const url: string = this.urlBase + "pendentes";
+
+    const resposta = await fetch(url, {
+      method: "GET",
+      credentials: "include",
+    });
+
+    if (resposta.status === 401) throw new SessaoInvalidaException();
+    if (resposta.status === 500) return resposta.text();
 
     if (!resposta.ok)
       throw new Error(
@@ -38,18 +60,19 @@ export class ContratoService {
 
     return resposta.json();
   }
-  
+
   async ContratosPendentes(): Promise<number> {
     const url: string = this.urlBase + "quantidade-pendentes";
 
     const resposta = await fetch(url, {
       method: "GET",
-      credentials: "include"
+      credentials: "include",
     });
 
     if (resposta.status === 401) throw new SessaoInvalidaException();
 
-    if(!resposta.ok) throw Error("Não foi possível ler os contratos pendentes");
+    if (!resposta.ok)
+      throw Error("Não foi possível ler os contratos pendentes");
 
     return resposta.json();
   }
