@@ -22,7 +22,7 @@ function CabecalhoGerenciamentoAlunos() {
         </svg>
         Retornar à página incial
       </Link>
-      <header className="relative mb-6 overflow-hidden rounded-2xl border border-[#dcebd0] bg-gradient-to-br from-[#f3f9ed] via-white to-[#e8f5d9] px-5 py-6 shadow-[0_8px_28px_rgba(65,104,32,0.06)] sm:mb-8 sm:px-8 sm:py-8 lg:px-10 lg:py-9">
+      <header className="relative overflow-hidden rounded-2xl border border-[#dcebd0] bg-gradient-to-br from-[#f3f9ed] via-white to-[#e8f5d9] px-5 py-6 shadow-[0_8px_28px_rgba(65,104,32,0.06)] sm:px-8 sm:py-8 lg:px-10 lg:py-9">
         <div className="relative z-10 max-w-2xl">
           <span className="inline-flex items-center gap-2 rounded-full border border-[#cfe4bd] bg-white/80 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.15em] text-green-800 sm:text-xs">
             <span className="h-1.5 w-1.5 rounded-full bg-green-600" />

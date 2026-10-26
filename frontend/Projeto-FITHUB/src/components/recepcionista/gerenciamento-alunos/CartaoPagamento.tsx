@@ -7,7 +7,7 @@ import Vencimento from "./Vencimento";
 
 function CartaoPagamento({ pagamento }: { pagamento: PagamentoResponseDTO }) {
   return (
-    <article className="space-y-4 px-4 py-4">
+    <article className="space-y-4 rounded-xl border border-[#e4eadf] bg-white p-4 shadow-[0_2px_8px_rgba(32,37,30,0.035)] transition-shadow hover:shadow-[0_6px_14px_rgba(32,37,30,0.06)]">
       <Pessoa
         nome={pagamento.nomeAluno}
         email={pagamento.emailAluno}
@@ -40,7 +40,10 @@ function CartaoPagamento({ pagamento }: { pagamento: PagamentoResponseDTO }) {
             </p>
           </div>
           <div className="flex items-center gap-1">
-            <LinkVerDetalhes idAlunoPagamento={pagamento.idAluno} />
+            <LinkVerDetalhes
+              idAluno={pagamento.idAluno}
+              nomeAluno={pagamento.nomeAluno}
+            />
             <Contato
               nome={pagamento.nomeAluno}
               email={pagamento.emailAluno}

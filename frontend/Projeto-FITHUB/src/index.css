@@ -36,6 +36,10 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
   .home-visual-pulse {
     animation: none;
   }

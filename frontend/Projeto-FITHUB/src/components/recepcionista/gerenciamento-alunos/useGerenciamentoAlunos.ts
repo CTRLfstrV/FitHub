@@ -4,6 +4,7 @@ import { SessaoInvalidaException } from "../../../exceptions/SessaoInvalidaExcep
 import { RedirecionadorService } from "../../../services/RedirecionadorService";
 import { ContratoService } from "../../../services/financeiro/ContratoService";
 import { PagamentoService } from "../../../services/financeiro/PagamentoService";
+import type { ContratoPendenteResponseDTO } from "../../../types/financeiro/ContratoPendenteResponseDTO";
 import type { PagamentoResponseDTO } from "../../../types/financeiro/PagamentoResponseDTO";
 import getStatus from "./getStatus";
 import normalizarTexto from "./normalizarTexto";
@@ -24,6 +25,11 @@ function useGerenciamentoAlunos() {
   const [listaPagamentos, setListaPagamentos] = useState<
     PagamentoResponseDTO[] | null
   >(null);
+  const [listaContratosPendentes, setListaContratosPendentes] = useState<
+    ContratoPendenteResponseDTO[] | null
+  >(null);
+  const [mensagemErroContratosPendentes, setMensagemErroContratosPendentes] =
+    useState<string | null>(null);
   const [mensagemErro, setMensagemErro] = useState<string | null>(null);
   const [erroContratos, setErroContratos] = useState(false);
   const [erroContratosPendentes, setErroContratosPendentes] = useState(false);
@@ -36,17 +42,30 @@ function useGerenciamentoAlunos() {
     const carregarDados = async () => {
       setCarregando(true);
       setMensagemErro(null);
+      setMensagemErroContratosPendentes(null);
       setErroContratos(false);
       setErroContratosPendentes(false);
+      setListaContratosPendentes(null);
 
-      const [contratos, contratosPendentes, pagamentos] = await Promise.allSettled([
+      const [
+        contratos,
+        contratosPendentes,
+        listaContratosPendentes,
+        pagamentos,
+      ] = await Promise.allSettled([
         contratoService.ContratosAtivos(),
         contratoService.ContratosPendentes(),
+        contratoService.ListarContratosPendentes(),
         pagamentoService.ListarPagamentos(),
       ]);
       if (!componenteAtivo) return;
 
-      const sessaoInvalida = [contratos, contratosPendentes, pagamentos].some(
+      const sessaoInvalida = [
+        contratos,
+        contratosPendentes,
+        listaContratosPendentes,
+        pagamentos,
+      ].some(
         (resultado) =>
           resultado.status === "rejected" &&
           resultado.reason instanceof SessaoInvalidaException,
@@ -61,9 +80,23 @@ function useGerenciamentoAlunos() {
         setQuantidadeContratosAtivos(contratos.value);
       else setErroContratos(true);
 
-      if (contratosPendentes.status === "fulfilled")
+      if (
+        contratosPendentes.status === "fulfilled" &&
+        typeof contratosPendentes.value === "number"
+      )
         setQuantidadeContratosPendentes(contratosPendentes.value);
       else setErroContratosPendentes(true);
+
+      if (
+        listaContratosPendentes.status === "fulfilled" &&
+        Array.isArray(listaContratosPendentes.value)
+      ) {
+        setListaContratosPendentes(listaContratosPendentes.value);
+      } else {
+        setMensagemErroContratosPendentes(
+          "Não foi possível carregar os contratos pendentes. Tente novamente.",
+        );
+      }
 
       if (pagamentos.status === "fulfilled")
         setListaPagamentos(pagamentos.value);
@@ -134,6 +167,8 @@ function useGerenciamentoAlunos() {
     setFiltroStatus,
     quantidadeContratosAtivos,
     quantidadeContratosPendentes,
+    listaContratosPendentes,
+    mensagemErroContratosPendentes,
     mensagemErro,
     erroContratos,
     erroContratosPendentes,

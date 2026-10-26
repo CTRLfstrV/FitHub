@@ -23,7 +23,7 @@ function CabecalhoListaPagamentos({
   onBuscaChange,
 }: CabecalhoListaPagamentosProps) {
   return (
-    <div className="flex flex-col gap-4 border-b border-[#e7ebe3] p-4 sm:px-6 sm:py-5">
+    <div className="flex flex-col gap-4 border-b border-[#e7ebe3] bg-gradient-to-r from-[#fbfdf8] to-white p-4 sm:px-6 sm:py-5">
       <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h2 className="text-base font-semibold text-[#20251e] sm:text-lg">
