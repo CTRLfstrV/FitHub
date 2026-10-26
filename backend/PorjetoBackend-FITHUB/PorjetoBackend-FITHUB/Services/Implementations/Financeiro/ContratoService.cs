@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using PorjetoBackend_FITHUB.Models.Enums;
 
 namespace PorjetoBackend_FITHUB.Services.Implementations.Financeiro
 {
@@ -39,7 +40,7 @@ namespace PorjetoBackend_FITHUB.Services.Implementations.Financeiro
         {
             List<ContratoPendenteDTO> contratosPendentes = await _fitHub.TbContrato
                 .Where(c => c.StatusContrato == Models.Enums.StatusContrato.PENDENTE)
-                .Select(c => new ContratoPendenteDTO(c.Aluno.Id, c.Aluno.Nome, c.Id, c.Plano.Nome, c.Inicio))
+                .Select(c => new ContratoPendenteDTO(c.Aluno.Id, c.Aluno.Nome, c.Aluno.Email, c.Id, c.Plano.Nome, c.Inicio))
                 .ToListAsync<ContratoPendenteDTO>();
 
             return contratosPendentes;
@@ -47,7 +48,12 @@ namespace PorjetoBackend_FITHUB.Services.Implementations.Financeiro
 
         public int QuantidadeContratosAtivos()
         {
-            return _fitHub.TbContrato.Where(c => c.StatusContrato == Models.Enums.StatusContrato.ATIVO).Count();
+            return _fitHub.TbContrato.Count(c => c.StatusContrato == StatusContrato.ATIVO);
+        }
+
+        public int QuantidadeContratosPendentes()
+        {
+            return _fitHub.TbContrato.Count(c => c.StatusContrato == StatusContrato.PENDENTE);  
         }
     }
 }

@@ -31,11 +31,11 @@ namespace PorjetoBackend_FITHUB.Controllers.Financeiro
             }
             catch (SqlException)
             {
-                return StatusCode(500, new { message = "Ocorreu um erro ao acessar o banco de dados" });
+                return StatusCode(500, "Ocorreu um erro no consultar banco de dados");
             }
             catch (Exception)
             {
-                return StatusCode(500, new { message = "Ocorreu um erro interno de servidor" });
+                return StatusCode(500, "Ocorreu um erro interno de servidor");
             }
         }
     }
