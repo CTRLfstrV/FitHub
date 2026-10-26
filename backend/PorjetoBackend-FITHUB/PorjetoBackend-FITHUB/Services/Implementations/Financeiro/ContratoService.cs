@@ -35,6 +35,16 @@ namespace PorjetoBackend_FITHUB.Services.Implementations.Financeiro
             return contratosProximosFim;
         }
 
+        public async Task<List<ContratoPendenteDTO>> ContratosPendentes()
+        {
+            List<ContratoPendenteDTO> contratosPendentes = await _fitHub.TbContrato
+                .Where(c => c.StatusContrato == Models.Enums.StatusContrato.PENDENTE)
+                .Select(c => new ContratoPendenteDTO(c.Aluno.Id, c.Aluno.Nome, c.Id, c.Plano.Nome, c.Inicio))
+                .ToListAsync<ContratoPendenteDTO>();
+
+            return contratosPendentes;
+        }
+
         public int QuantidadeContratosAtivos()
         {
             return _fitHub.TbContrato.Where(c => c.StatusContrato == Models.Enums.StatusContrato.ATIVO).Count();

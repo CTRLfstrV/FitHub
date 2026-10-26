@@ -51,9 +51,27 @@ namespace PorjetoBackend_FITHUB.Controllers.Financeiro
                 return Unauthorized();
             try
             {
-                IEnumerable<ContratoProximoFimDTO> contratosProximoFimDto = await _contratoService.ContratosProximosFim();
+                return Ok(await _contratoService.ContratosProximosFim());
+            }
+            catch (SqlException)
+            {
+                return StatusCode(500, new { message = "Ocorreu um erro no consultar banco de dados" });
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, new { message = "Ocorreu um erro interno de servidor" });
+            }
+        }
 
-                return Ok(contratosProximoFimDto);
+        [HttpGet("pendentes")]
+        public async Task<IActionResult> ContratosPendentes()
+        {/*
+            if(HttpContext.Session.GetInt32("IdPessoa") == null)
+                return Unauthorized();*/
+
+            try
+            {
+                return Ok(await _contratoService.ContratosPendentes());
             }
             catch (SqlException)
             {
