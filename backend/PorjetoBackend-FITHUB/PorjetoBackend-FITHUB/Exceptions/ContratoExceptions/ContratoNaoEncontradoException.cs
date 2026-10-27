@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PorjetoBackend_FITHUB.Exceptions
+namespace PorjetoBackend_FITHUB.Exceptions.ContratoExceptions
 {
     public class ContratoNaoEncontradoException : ApplicationException
     {

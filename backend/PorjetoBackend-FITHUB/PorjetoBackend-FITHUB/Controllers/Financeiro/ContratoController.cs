@@ -1,12 +1,11 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
-using PorjetoBackend_FITHUB.Exceptions;
-using PorjetoBackend_FITHUB.Models.DTO_s.Financeiro;
 using PorjetoBackend_FITHUB.Services.Interfaces.Financeiro;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
+using PorjetoBackend_FITHUB.Exceptions;
+using PorjetoBackend_FITHUB.Exceptions.ContratoExceptions;
 
 namespace PorjetoBackend_FITHUB.Controllers.Financeiro
 {
@@ -105,14 +104,18 @@ namespace PorjetoBackend_FITHUB.Controllers.Financeiro
         }
 
         [HttpPut("atualizar")]
-        public async Task<IActionResult> AtualizarStatusContrato([FromQuery] int idContrato)
+        public async Task<IActionResult> AtualizarStatusContrato([FromQuery] int idContrato, [FromBody] int novoStatus)
         {
             if (HttpContext.Session.GetInt32("IdPessoa") == null)
                 return Unauthorized();
             try
             {
-                await _contratoService.AtualizarStatusContrato(idContrato);
+                await _contratoService.AtualizarStatusContrato(idContrato, novoStatus);
                 return Ok();
+            }
+            catch (StatusContratoInvalidoException ex)
+            {
+                return BadRequest(ex.Message);
             }
             catch (ContratoNaoEncontradoException ex)
             {
