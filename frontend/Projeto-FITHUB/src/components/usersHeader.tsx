@@ -31,9 +31,9 @@ function UsersHeader({ nomeUsuario }: UsersHeaderProps) {
           <img className="block h-auto w-28 md:w-32" src={logo} alt="FitHub" />
         </Link>
 
-        <div className="min-w-0 flex-1 text-center text-[20px] leading-tight text-white sm:text-sm">
-          <span className="block text-white/75 text-[20px]">Olá,</span>
-          <strong className="block truncate font-bold text-[20px]">
+        <div className="flex min-w-0 flex-1 flex-col justify-center text-center leading-tight text-white">
+          <span className="block text-xs leading-4 text-white/75 sm:text-sm">Olá,</span>
+          <strong className="block truncate text-base font-bold leading-6 sm:text-lg">
             {nomeUsuario}
           </strong>
         </div>

@@ -44,8 +44,8 @@ namespace PorjetoBackend_FITHUB.Controllers.Financeiro
             }
         }
 
-        [HttpGet("detalhes-aluno/{idAluno}")]
-        public async Task<IActionResult> PegarDetalhesPagamentoAlunoId([FromRoute] int idAluno)
+        [HttpGet("detalhes")]
+        public async Task<IActionResult> PegarDetalhesPagamentoAlunoId([FromQuery] int idAluno)
         {
             int? idSessao = HttpContext.Session.GetInt32("IdPessoa");
 

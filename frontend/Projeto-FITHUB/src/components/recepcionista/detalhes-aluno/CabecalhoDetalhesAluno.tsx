@@ -78,8 +78,8 @@ function CabecalhoDetalhesAluno({
             >
               {iniciais}
             </div>
-            <div className="min-w-0">
-              <h1 className="truncate text-2xl font-extrabold tracking-tight text-[#20251e] sm:text-3xl lg:text-4xl">
+            <div className="flex min-w-0 flex-1 flex-col justify-center py-1">
+              <h1 className="block w-full truncate text-2xl font-extrabold leading-[1.15] tracking-tight text-[#20251e] sm:text-3xl lg:text-4xl">
                 {nomeAluno}
               </h1>
               <p className="mt-1 text-sm leading-6 text-[#66705e] sm:text-base">

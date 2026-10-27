@@ -25,7 +25,7 @@ export class PagamentoService {
   async DetalhesPagamentoAluno(
     idAluno: number,
   ): Promise<DetalhesAlunoResponseDTO> {
-    const url: string = this.urlBase + `detalhes-aluno/${idAluno}`;
+    const url: string = this.urlBase + `detalhes?idAluno=${idAluno}`;
 
     const resposta = await fetch(url, {
       method: "GET",
