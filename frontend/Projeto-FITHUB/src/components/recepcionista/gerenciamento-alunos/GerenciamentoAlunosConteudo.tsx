@@ -79,6 +79,7 @@ function GerenciamentoAlunosConteudo() {
           carregando={gerenciamento.carregando}
           mensagemErro={gerenciamento.mensagemErroContratosPendentes}
           contratos={gerenciamento.listaContratosPendentes}
+          onAtivarContrato={gerenciamento.ativarContrato}
           onTentarNovamente={() => gerenciamento.setTentativa((valor) => valor + 1)}
         />
 

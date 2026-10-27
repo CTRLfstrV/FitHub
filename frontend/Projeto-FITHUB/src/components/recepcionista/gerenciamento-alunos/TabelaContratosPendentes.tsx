@@ -1,3 +1,4 @@
+import { useState } from "react";
 import type { ContratoPendenteResponseDTO } from "../../../types/financeiro/ContratoPendenteResponseDTO";
 import formatarData from "./formatarData";
 import LinkVerDetalhes from "./LinkVerDetalhes";
@@ -12,10 +13,75 @@ function BadgeContratoPendente() {
   );
 }
 
+function BotaoAtivarContrato({
+  contrato,
+  onAtivarContrato,
+}: {
+  contrato: ContratoPendenteResponseDTO;
+  onAtivarContrato: (idContrato: number) => Promise<void>;
+}) {
+  const [ativando, setAtivando] = useState(false);
+  const [erro, setErro] = useState(false);
+
+  async function ativar() {
+    setAtivando(true);
+    setErro(false);
+
+    try {
+      await onAtivarContrato(contrato.idContrato);
+    } catch {
+      setErro(true);
+    } finally {
+      setAtivando(false);
+    }
+  }
+
+  return (
+    <div className="flex flex-col items-center gap-1">
+      <button
+        type="button"
+        onClick={ativar}
+        disabled={ativando}
+        aria-label={`Ativar contrato de ${contrato.nomeAluno}`}
+        className="inline-flex min-h-10 items-center justify-center gap-2 rounded-lg border border-green-700 bg-green-700 px-3 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-green-800 disabled:cursor-wait disabled:opacity-60 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-700"
+      >
+        {ativando ? (
+          <span
+            className="h-4 w-4 animate-spin rounded-full border-2 border-white/50 border-t-white"
+            role="status"
+            aria-label="Ativando contrato"
+          />
+        ) : (
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 24 24"
+            fill="none"
+            className="h-4 w-4"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="m5 12 4 4L19 6" />
+          </svg>
+        )}
+        {ativando ? "Ativando" : "Ativar"}
+      </button>
+      {erro && (
+        <span className="max-w-40 text-center text-xs text-rose-700" role="alert">
+          Falha ao ativar o contrato. Tente novamente.
+        </span>
+      )}
+    </div>
+  );
+}
+
 function TabelaContratosPendentes({
   contratos,
+  onAtivarContrato,
 }: {
   contratos: ContratoPendenteResponseDTO[];
+  onAtivarContrato: (idContrato: number) => Promise<void>;
 }) {
   return (
     <>
@@ -59,10 +125,16 @@ function TabelaContratosPendentes({
                   <BadgeContratoPendente />
                 </td>
                 <td className="border-b border-[#edf0e9] px-4 py-4 text-center">
-                  <LinkVerDetalhes
-                    idAluno={contrato.idAluno}
-                    nomeAluno={contrato.nomeAluno}
-                  />
+                  <div className="flex items-center justify-center gap-2">
+                    <BotaoAtivarContrato
+                      contrato={contrato}
+                      onAtivarContrato={onAtivarContrato}
+                    />
+                    <LinkVerDetalhes
+                      idAluno={contrato.idAluno}
+                      nomeAluno={contrato.nomeAluno}
+                    />
+                  </div>
                 </td>
               </tr>
             ))}
@@ -106,10 +178,16 @@ function TabelaContratosPendentes({
                     {formatarData(contrato.dataInicio)}
                   </p>
                 </div>
-                <LinkVerDetalhes
-                  idAluno={contrato.idAluno}
-                  nomeAluno={contrato.nomeAluno}
-                />
+                <div className="flex flex-col items-end gap-2">
+                  <BotaoAtivarContrato
+                    contrato={contrato}
+                    onAtivarContrato={onAtivarContrato}
+                  />
+                  <LinkVerDetalhes
+                    idAluno={contrato.idAluno}
+                    nomeAluno={contrato.nomeAluno}
+                  />
+                </div>
               </div>
             </div>
           </article>

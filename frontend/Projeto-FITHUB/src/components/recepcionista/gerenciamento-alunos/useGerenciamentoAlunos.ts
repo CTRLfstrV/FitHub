@@ -36,6 +36,20 @@ function useGerenciamentoAlunos() {
   const [carregando, setCarregando] = useState(true);
   const [tentativa, setTentativa] = useState(0);
 
+  async function ativarContrato(idContrato: number) {
+    try {
+      await contratoService.AtualizarStatusContrato(idContrato, 1);
+      setTentativa((valor) => valor + 1);
+    } catch (erro: unknown) {
+      if (erro instanceof SessaoInvalidaException) {
+        new RedirecionadorService().RedirecionaPorCaminho("/login", navigate);
+        return;
+      }
+
+      throw erro;
+    }
+  }
+
   useEffect(() => {
     let componenteAtivo = true;
 
@@ -177,6 +191,7 @@ function useGerenciamentoAlunos() {
     filtros,
     estadoVazio,
     pagamentosFiltrados,
+    ativarContrato,
     setTentativa,
   };
 }

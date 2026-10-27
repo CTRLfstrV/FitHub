@@ -78,20 +78,29 @@ export class ContratoService {
     return resposta.json();
   }
 
-  async AtualizarStatusContrato(idContrato: number): Promise<string> {
+  async AtualizarStatusContrato(
+    idContrato: number,
+    novoStatus: number,
+  ): Promise<string> {
     const url: string = this.urlBase + `atualizar?idContrato=${idContrato}`;
 
     const resposta = await fetch(url, {
       method: "PUT",
-      credentials: "include"
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(novoStatus),
     });
 
     if (resposta.status === 401) throw new SessaoInvalidaException();
-    if (resposta.status === 500) return resposta.text();
+    if (resposta.status === 500) {
+      const mensagem = await resposta.text();
+      throw Error(mensagem);
+    }
 
-    if (!resposta.ok)
-      throw Error("Não foi possível atualizar o contrato");
+    if (!resposta.ok) throw Error("Não foi possível atualizar o contrato");
 
-    return "Contrato atulizado";
+    return "Contrato atualizado";
   }
 }

@@ -5,6 +5,7 @@ interface ListaContratosPendentesProps {
   carregando: boolean;
   mensagemErro: string | null;
   contratos: ContratoPendenteResponseDTO[] | null;
+  onAtivarContrato: (idContrato: number) => Promise<void>;
   onTentarNovamente: () => void;
 }
 
@@ -12,6 +13,7 @@ function ListaContratosPendentes({
   carregando,
   mensagemErro,
   contratos,
+  onAtivarContrato,
   onTentarNovamente,
 }: ListaContratosPendentesProps) {
   const quantidade = contratos?.length ?? 0;
@@ -70,7 +72,10 @@ function ListaContratosPendentes({
           Nenhum contrato pendente de ativação.
         </p>
       ) : (
-        <TabelaContratosPendentes contratos={contratos ?? []} />
+        <TabelaContratosPendentes
+          contratos={contratos ?? []}
+          onAtivarContrato={onAtivarContrato}
+        />
       )}
 
       <div className="flex flex-col gap-2 border-t border-[#e7ebe3] bg-[#fbfcfa] px-4 py-3 text-sm text-[#747c70] sm:flex-row sm:items-center sm:justify-between sm:px-6 sm:text-xs">
