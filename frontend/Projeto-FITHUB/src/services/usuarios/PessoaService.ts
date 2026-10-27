@@ -5,7 +5,7 @@ import type { SexoPessoaResponseDTO } from "../../types/usuarios/SexoPessoaRespo
 import type { LoginValidation } from "../../validations/loginValidation";
 
 export class PessoaService {
-  private readonly urlBase: string = "http://192.168.2.110:63367/api/pessoa";
+  private readonly urlBase: string = "http://localhost:63367/api/pessoa";
 
   private validacaoLogin?: LoginValidation;
 

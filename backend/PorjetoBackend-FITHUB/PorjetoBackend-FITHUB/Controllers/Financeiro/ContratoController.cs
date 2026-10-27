@@ -104,14 +104,14 @@ namespace PorjetoBackend_FITHUB.Controllers.Financeiro
             }
         }
 
-        [HttpGet("atualizar")]
+        [HttpPut("atualizar")]
         public async Task<IActionResult> AtualizarStatusContrato([FromQuery] int idContrato)
         {
             if (HttpContext.Session.GetInt32("IdPessoa") == null)
                 return Unauthorized();
             try
             {
-                await _contratoService.AtualizarStatusContrato(idAluno);
+                await _contratoService.AtualizarStatusContrato(idContrato);
                 return Ok();
             }
             catch (ContratoNaoEncontradoException ex)

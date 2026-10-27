@@ -3,7 +3,7 @@ import type { ContratoPendenteResponseDTO } from "../../types/financeiro/Contrat
 import type { ContratoProximoVencimentoResponseDTO } from "../../types/financeiro/ContratoProximoVencimentoResponseDTO";
 
 export class ContratoService {
-  private readonly urlBase: string = "http://192.168.2.110:63367/api/contrato/";
+  private readonly urlBase: string = "http://localhost:63367/api/contrato/";
 
   async ContratosProximosVencimento(): Promise<
     ContratoProximoVencimentoResponseDTO[]
@@ -70,11 +70,28 @@ export class ContratoService {
     });
 
     if (resposta.status === 401) throw new SessaoInvalidaException();
-     if (resposta.status === 500) return resposta.text();
+    if (resposta.status === 500) return resposta.text();
 
     if (!resposta.ok)
       throw Error("Não foi possível ler os contratos pendentes");
 
     return resposta.json();
+  }
+
+  async AtualizarStatusContrato(idContrato: number): Promise<string> {
+    const url: string = this.urlBase + `atualizar?idContrato=${idContrato}`;
+
+    const resposta = await fetch(url, {
+      method: "PUT",
+      credentials: "include"
+    });
+
+    if (resposta.status === 401) throw new SessaoInvalidaException();
+    if (resposta.status === 500) return resposta.text();
+
+    if (!resposta.ok)
+      throw Error("Não foi possível atualizar o contrato");
+
+    return "Contrato atulizado";
   }
 }

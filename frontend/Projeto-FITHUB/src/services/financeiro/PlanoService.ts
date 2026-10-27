@@ -2,7 +2,7 @@ import { SessaoInvalidaException } from "../../exceptions/SessaoInvalidaExceptio
 import type { PlanoResponseDTO } from "../../types/financeiro/PlanoResponseDTO";
 
 export class PlanoService {
-  private readonly urlBase: string = "http://192.168.2.110:63367/api/plano";
+  private readonly urlBase: string = "http://localhost:63367/api/plano";
 
   async ListarPlanos(): Promise<PlanoResponseDTO[]> {
     const resposta = await fetch(this.urlBase, {
