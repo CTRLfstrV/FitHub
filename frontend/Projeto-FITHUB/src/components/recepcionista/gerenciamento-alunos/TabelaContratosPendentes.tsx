@@ -86,22 +86,29 @@ function TabelaContratosPendentes({
   return (
     <>
       <div className="hidden overflow-x-auto md:block">
-        <table className="w-full min-w-[760px] border-separate border-spacing-0 text-left text-sm">
+        <table className="w-full min-w-[900px] table-fixed border-separate border-spacing-0 text-left text-sm">
+          <colgroup>
+            <col className="w-[31%]" />
+            <col className="w-[14%]" />
+            <col className="w-[19%]" />
+            <col className="w-[16%]" />
+            <col className="w-[20%]" />
+          </colgroup>
           <thead className="bg-[#f3f8ed] text-[10px] font-bold uppercase tracking-[0.13em] text-[#59634f] sm:text-xs">
             <tr>
-              <th scope="col" className="border-y border-[#e4eadf] px-5 py-4">
+              <th scope="col" className="border-y border-[#e4eadf] px-4 py-3">
                 Aluno
               </th>
-              <th scope="col" className="border-y border-[#e4eadf] px-4 py-4">
+              <th scope="col" className="border-y border-[#e4eadf] px-3 py-3">
                 Plano
               </th>
-              <th scope="col" className="border-y border-[#e4eadf] px-4 py-4">
+              <th scope="col" className="border-y border-[#e4eadf] px-3 py-3">
                 Início do contrato
               </th>
-              <th scope="col" className="border-y border-[#e4eadf] px-4 py-4">
+              <th scope="col" className="border-y border-[#e4eadf] px-3 py-3">
                 Status do contrato
               </th>
-              <th scope="col" className="border-y border-[#e4eadf] px-4 py-4 text-center">
+              <th scope="col" className="border-y border-[#e4eadf] px-3 py-3 text-center">
                 Ações
               </th>
             </tr>
@@ -112,20 +119,22 @@ function TabelaContratosPendentes({
                 key={contrato.idContrato}
                 className="transition-colors hover:bg-[#f7fbf3]"
               >
-                <td className="border-b border-[#edf0e9] px-5 py-4">
+                <td className="border-b border-[#edf0e9] px-4 py-4">
                   <Pessoa nome={contrato.nomeAluno} email={contrato.emailAluno} />
                 </td>
-                <td className="border-b border-[#edf0e9] px-4 py-4 text-[#424a3d]">
-                  {contrato.nomePlano}
+                <td className="border-b border-[#edf0e9] px-3 py-4 text-[#424a3d]">
+                  <span className="block truncate" title={contrato.nomePlano}>
+                    {contrato.nomePlano}
+                  </span>
                 </td>
-                <td className="border-b border-[#edf0e9] px-4 py-4 text-[#424a3d]">
+                <td className="whitespace-nowrap border-b border-[#edf0e9] px-3 py-4 text-[#424a3d]">
                   {formatarData(contrato.dataInicio)}
                 </td>
-                <td className="border-b border-[#edf0e9] px-4 py-4">
+                <td className="border-b border-[#edf0e9] px-3 py-4">
                   <BadgeContratoPendente />
                 </td>
-                <td className="border-b border-[#edf0e9] px-4 py-4 text-center">
-                  <div className="flex items-center justify-center gap-2">
+                <td className="border-b border-[#edf0e9] px-3 py-4 text-center">
+                  <div className="flex items-center justify-center gap-2 whitespace-nowrap">
                     <BotaoAtivarContrato
                       contrato={contrato}
                       onAtivarContrato={onAtivarContrato}
@@ -152,7 +161,7 @@ function TabelaContratosPendentes({
               email={contrato.emailAluno}
               compacto
             />
-            <div className="grid grid-cols-2 gap-x-3 gap-y-4 border-t border-[#edf0e9] pt-3">
+            <div className="grid grid-cols-2 gap-x-4 gap-y-3 border-t border-[#edf0e9] pt-3">
               <div>
                 <p className="text-[10px] font-semibold uppercase tracking-wide text-[#81897d] sm:text-xs">
                   Plano
@@ -169,7 +178,7 @@ function TabelaContratosPendentes({
                   <BadgeContratoPendente />
                 </div>
               </div>
-              <div className="col-span-2 flex items-end justify-between gap-3">
+              <div className="col-span-2">
                 <div>
                   <p className="text-[10px] font-semibold uppercase tracking-wide text-[#81897d] sm:text-xs">
                     Início do contrato
@@ -178,17 +187,17 @@ function TabelaContratosPendentes({
                     {formatarData(contrato.dataInicio)}
                   </p>
                 </div>
-                <div className="flex flex-col items-end gap-2">
-                  <BotaoAtivarContrato
-                    contrato={contrato}
-                    onAtivarContrato={onAtivarContrato}
-                  />
-                  <LinkVerDetalhes
-                    idAluno={contrato.idAluno}
-                    nomeAluno={contrato.nomeAluno}
-                  />
-                </div>
               </div>
+            </div>
+            <div className="flex items-center justify-end gap-2 border-t border-[#edf0e9] pt-3">
+              <BotaoAtivarContrato
+                contrato={contrato}
+                onAtivarContrato={onAtivarContrato}
+              />
+              <LinkVerDetalhes
+                idAluno={contrato.idAluno}
+                nomeAluno={contrato.nomeAluno}
+              />
             </div>
           </article>
         ))}

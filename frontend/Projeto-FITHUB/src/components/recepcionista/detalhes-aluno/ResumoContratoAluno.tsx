@@ -11,7 +11,7 @@ function ResumoContratoAluno({ contrato }: { contrato: DetalhesAlunoResponseDTO 
       aria-label="Resumo do contrato"
       className="mb-6 grid gap-3 sm:mb-8 sm:grid-cols-3 sm:gap-4"
     >
-      <article className="rounded-2xl border border-[#dcebd0] bg-gradient-to-br from-[#f3f9ed] to-white p-5 shadow-[0_8px_24px_rgba(65,104,32,0.04)] sm:p-6">
+      <article className="rounded-2xl border border-[#dcebd0] border-t-4 border-t-green-600 bg-gradient-to-br from-[#f3f9ed] to-white p-5 shadow-[0_10px_28px_rgba(65,104,32,0.08)] transition duration-200 hover:-translate-y-1 hover:shadow-[0_16px_32px_rgba(65,104,32,0.12)] sm:p-6">
         <div className="flex items-start justify-between gap-3">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#788270]">
@@ -40,21 +40,21 @@ function ResumoContratoAluno({ contrato }: { contrato: DetalhesAlunoResponseDTO 
         <p className="mt-2 text-sm text-[#66705e]">Modalidade do contrato</p>
       </article>
 
-      <article className="rounded-2xl border border-[#e6e9e2] bg-white p-5 shadow-[0_8px_24px_rgba(34,44,27,0.035)] sm:p-6">
+      <article className="relative overflow-hidden rounded-2xl border border-[#dcebd0] border-t-4 border-t-[#7eaf45] bg-gradient-to-br from-white to-[#f6faef] p-5 shadow-[0_10px_28px_rgba(65,104,32,0.07)] transition duration-200 hover:-translate-y-1 hover:shadow-[0_16px_32px_rgba(65,104,32,0.11)] sm:p-6">
         <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#788270]">
           Valor do contrato
         </p>
-        <p className="mt-3 text-2xl font-bold tracking-tight text-[#20251e]">
+        <p className="mt-3 text-2xl font-extrabold tracking-tight text-[#2f6f31] sm:text-3xl">
           {moeda.format(contrato.valorContrato)}
         </p>
         <p className="mt-2 text-sm text-[#66705e]">Valor total contratado</p>
       </article>
 
-      <article className="rounded-2xl border border-[#e6e9e2] bg-white p-5 shadow-[0_8px_24px_rgba(34,44,27,0.035)] sm:p-6">
+      <article className="relative overflow-hidden rounded-2xl border border-[#dcebd0] border-t-4 border-t-[#b2cf73] bg-gradient-to-br from-white to-[#f8faef] p-5 shadow-[0_10px_28px_rgba(65,104,32,0.07)] transition duration-200 hover:-translate-y-1 hover:shadow-[0_16px_32px_rgba(65,104,32,0.11)] sm:p-6">
         <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#788270]">
           Parcelas registradas
         </p>
-        <p className="mt-3 text-2xl font-bold tracking-tight text-[#20251e]">
+        <p className="mt-3 text-2xl font-extrabold tracking-tight text-[#2f6f31] sm:text-3xl">
           {String(contrato.pagamentos.length).padStart(2, "0")}
         </p>
         <p className="mt-2 text-sm text-[#66705e]">No histórico de pagamentos</p>

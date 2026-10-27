@@ -27,6 +27,15 @@ function DetalhesAlunoConteudo({ idAluno }: { idAluno: number | null }) {
   const pagamentosPagos = detalhes.pagamentos.filter(
     (pagamento) => pagamento.statusPagamento === 1,
   ).length;
+  const pagamentosPendentes = detalhes.pagamentos.filter(
+    (pagamento) => pagamento.statusPagamento === 0,
+  ).length;
+  const pagamentosAtrasados = detalhes.pagamentos.filter(
+    (pagamento) => pagamento.statusPagamento === 2,
+  ).length;
+  const percentualPagos = detalhes.pagamentos.length
+    ? Math.round((pagamentosPagos / detalhes.pagamentos.length) * 100)
+    : 0;
 
   return (
     <section className="min-w-0 flex-1 px-4 py-6 sm:px-7 sm:py-8 lg:px-10 lg:py-10">
@@ -39,40 +48,57 @@ function DetalhesAlunoConteudo({ idAluno }: { idAluno: number | null }) {
 
         <div className="grid gap-6 lg:grid-cols-[0.85fr_1.15fr] lg:gap-8">
           <InformacoesContratoAluno contrato={detalhes} />
-          <div className="rounded-2xl border border-[#dcebd0] bg-gradient-to-br from-[#f3f9ed] via-white to-[#f7fbf3] p-5 sm:p-6">
-            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-green-800">
+          <div className="relative isolate overflow-hidden rounded-2xl border border-[#2f7132] bg-gradient-to-br from-[#245a28] via-[#347b32] to-[#6a9e3e] p-5 text-white shadow-[0_16px_36px_rgba(44,100,42,0.2)] sm:p-6">
+            <div aria-hidden="true" className="absolute -right-10 -top-16 h-48 w-48 rounded-full border-[24px] border-white/10" />
+            <div aria-hidden="true" className="absolute -bottom-16 -left-10 h-40 w-40 rounded-full bg-white/5 blur-xl" />
+            <div className="relative z-10">
+            <p className="text-xs font-bold uppercase tracking-[0.14em] text-white/75">
               Acompanhamento
             </p>
-            <h2 className="mt-1 text-lg font-bold text-[#20251e] sm:text-xl">
+            <h2 className="mt-1 text-lg font-bold text-white sm:text-xl">
               Visão do contrato
             </h2>
-            <p className="mt-3 text-sm leading-6 text-[#66705e]">
+            <p className="mt-2 text-sm leading-6 text-white/80">
               Acompanhe o período contratado e a situação das parcelas de{" "}
               {detalhes.nomeAluno}.
             </p>
-            <div className="mt-5 flex items-center gap-3 rounded-xl border border-[#e4ebdc] bg-white/80 p-4">
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#e8f5d9] text-green-800">
-                <svg
-                  aria-hidden="true"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  className="h-5 w-5"
-                  stroke="currentColor"
-                  strokeWidth="1.8"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="m5 12.5 4.5 4L19 7" />
-                </svg>
-              </span>
-              <div>
-                <p className="text-sm font-semibold text-[#343b2e]">
-                  Pagamentos registrados
-                </p>
-                <p className="mt-0.5 text-xs text-[#788270]">
-                  {pagamentosPagos} de {detalhes.pagamentos.length} pagos
-                </p>
+            <div className="mt-5">
+              <div className="mb-2 flex items-center justify-between gap-3 text-sm">
+                <span className="font-medium text-white/85">
+                  {detalhes.pagamentos.length === 0
+                    ? "Nenhuma parcela registrada"
+                    : `${pagamentosPagos} de ${detalhes.pagamentos.length} parcelas pagas`}
+                </span>
+                <span className="font-extrabold tabular-nums">{percentualPagos}%</span>
               </div>
+              <div
+                className="h-2.5 overflow-hidden rounded-full bg-black/20 ring-1 ring-inset ring-white/15"
+                role="progressbar"
+                aria-label="Progresso dos pagamentos"
+                aria-valuemin={0}
+                aria-valuemax={100}
+                aria-valuenow={percentualPagos}
+              >
+                <div
+                  className="h-full rounded-full bg-[#d7f1a8] shadow-[0_0_12px_rgba(215,241,168,0.6)] transition-all"
+                  style={{ width: `${percentualPagos}%` }}
+                />
+              </div>
+            </div>
+            <div className="mt-5 grid grid-cols-3 gap-2 sm:gap-3">
+              <div className="rounded-xl border border-white/15 bg-white/10 p-3 backdrop-blur-sm">
+                <p className="text-xl font-extrabold tabular-nums text-white">{pagamentosPagos}</p>
+                <p className="mt-0.5 text-[11px] font-semibold text-white/75 sm:text-xs">Pagos</p>
+              </div>
+              <div className="rounded-xl border border-white/15 bg-white/10 p-3 backdrop-blur-sm">
+                <p className="text-xl font-extrabold tabular-nums text-white">{pagamentosPendentes}</p>
+                <p className="mt-0.5 text-[11px] font-semibold text-white/75 sm:text-xs">Pendentes</p>
+              </div>
+              <div className="rounded-xl border border-white/15 bg-white/10 p-3 backdrop-blur-sm">
+                <p className="text-xl font-extrabold tabular-nums text-white">{pagamentosAtrasados}</p>
+                <p className="mt-0.5 text-[11px] font-semibold text-white/75 sm:text-xs">Em atraso</p>
+              </div>
+            </div>
             </div>
           </div>
         </div>

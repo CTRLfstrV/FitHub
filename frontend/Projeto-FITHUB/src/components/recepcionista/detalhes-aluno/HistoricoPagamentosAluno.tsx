@@ -13,13 +13,13 @@ function HistoricoPagamentosAluno({
   pagamentos: PagamentoListagemResponseDTO[];
 }) {
   return (
-    <section className="mt-6 rounded-2xl border border-[#e4e9df] bg-white shadow-[0_8px_24px_rgba(34,44,27,0.035)] sm:mt-8">
-      <div className="flex flex-col justify-between gap-3 border-b border-[#edf0e9] px-5 py-5 sm:flex-row sm:items-center sm:px-6">
+    <section className="mt-6 overflow-hidden rounded-2xl border border-[#dcebd0] border-t-4 border-t-green-700 bg-white shadow-[0_12px_30px_rgba(34,72,30,0.07)] sm:mt-8">
+      <div className="flex flex-col justify-between gap-3 border-b border-[#e5eddc] bg-gradient-to-r from-[#f3f9ed] via-white to-white px-5 py-5 sm:flex-row sm:items-center sm:px-6">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.12em] text-green-800">
             Financeiro
           </p>
-          <h2 className="mt-1 text-lg font-bold text-[#20251e] sm:text-xl">
+          <h2 className="mt-1 text-lg font-extrabold text-[#20251e] sm:text-xl">
             Histórico de pagamentos
           </h2>
         </div>
@@ -49,7 +49,7 @@ function HistoricoPagamentosAluno({
                 {pagamentos.map((pagamento) => {
                   const status = getStatus(pagamento.statusPagamento);
                   return (
-                    <tr key={pagamento.id} className="text-[#424a3d]">
+                    <tr key={pagamento.id} className="text-[#424a3d] transition-colors hover:bg-[#f7fbf3]">
                       <td className="px-6 py-4 font-semibold text-[#343b2e]">
                         Parcela {pagamento.numeroParcela}
                         <span className="ml-2 text-xs font-normal text-[#81897d]">ID {pagamento.id}</span>
@@ -74,7 +74,7 @@ function HistoricoPagamentosAluno({
             {pagamentos.map((pagamento) => {
               const status = getStatus(pagamento.statusPagamento);
               return (
-                <article key={pagamento.id} className="space-y-4 px-5 py-5">
+                <article key={pagamento.id} className="space-y-4 px-5 py-5 transition-colors hover:bg-[#fbfdf8]">
                   <div className="flex items-start justify-between gap-3">
                     <div>
                       <p className="text-xs font-semibold uppercase tracking-wide text-[#81897d]">Parcela</p>

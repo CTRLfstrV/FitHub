@@ -44,7 +44,7 @@ function CabecalhoDetalhesAluno({
       <nav aria-label="Navegação estrutural" className="mb-5">
         <Link
           to="/recepcionista/gerenciamento-alunos"
-          className="inline-flex items-center gap-2 rounded-lg text-sm font-semibold text-[#64705b] transition-colors hover:text-green-800 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-green-700"
+          className="inline-flex min-h-10 items-center gap-2 rounded-full border border-[#dcebd0] bg-white px-4 py-2 text-sm font-semibold text-[#42642b] shadow-sm transition hover:-translate-x-0.5 hover:bg-[#f3f9ed] hover:text-green-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-700"
         >
           <svg
             aria-hidden="true"
@@ -63,8 +63,10 @@ function CabecalhoDetalhesAluno({
         </Link>
       </nav>
 
-      <header className="mb-6 flex flex-col justify-between gap-5 sm:mb-8 sm:flex-row sm:items-start">
-        <div className="flex min-w-0 flex-col items-start gap-3">
+      <header className="relative isolate mb-6 flex flex-col justify-between gap-5 overflow-hidden rounded-[1.75rem] border border-[#d5e8c4] bg-gradient-to-br from-[#e9f5dc] via-[#f8fcf4] to-white p-5 shadow-[0_14px_36px_rgba(65,104,32,0.09)] sm:mb-8 sm:flex-row sm:items-center sm:p-7 lg:p-8">
+        <div aria-hidden="true" className="absolute -right-14 -top-24 h-64 w-64 rounded-full bg-[#d9efc4]/70 blur-2xl" />
+        <div aria-hidden="true" className="absolute -bottom-24 right-1/3 h-44 w-44 rounded-full border-[24px] border-white/50" />
+        <div className="relative z-10 flex min-w-0 flex-col items-start gap-4">
           <span className="inline-flex items-center gap-2 rounded-full border border-[#d4e8c3] bg-white px-3 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-green-800 sm:text-xs">
             <span className="h-1.5 w-1.5 rounded-full bg-green-600" />
             Detalhes do aluno
@@ -72,12 +74,12 @@ function CabecalhoDetalhesAluno({
           <div className="flex min-w-0 items-center gap-4 sm:gap-5">
             <div
               aria-hidden="true"
-              className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-[#e8f5d9] text-xl font-bold text-green-800 ring-1 ring-inset ring-[#d4e8c3] sm:h-[76px] sm:w-[76px] sm:text-2xl"
+              className="flex h-16 w-16 shrink-0 items-center justify-center rounded-[1.35rem] bg-gradient-to-br from-[#2f7b36] to-[#7eaf45] text-xl font-bold text-white shadow-lg shadow-green-900/15 ring-4 ring-white/80 sm:h-[82px] sm:w-[82px] sm:text-2xl"
             >
               {iniciais}
             </div>
             <div className="min-w-0">
-              <h1 className="truncate text-2xl font-bold tracking-tight text-[#20251e] sm:text-3xl lg:text-4xl">
+              <h1 className="truncate text-2xl font-extrabold tracking-tight text-[#20251e] sm:text-3xl lg:text-4xl">
                 {nomeAluno}
               </h1>
               <p className="mt-1 text-sm leading-6 text-[#66705e] sm:text-base">
@@ -87,7 +89,7 @@ function CabecalhoDetalhesAluno({
           </div>
         </div>
 
-        <span className={`inline-flex w-fit items-center gap-2 rounded-full border px-3.5 py-2 text-sm font-semibold ${estadoContrato.estilo}`}>
+        <span className={`relative z-10 inline-flex w-fit items-center gap-2 rounded-full border px-4 py-2.5 text-sm font-bold shadow-sm ${estadoContrato.estilo}`}>
           <span className={`h-2 w-2 rounded-full ${estadoContrato.ponto}`} />
           {estadoContrato.rotulo}
         </span>
