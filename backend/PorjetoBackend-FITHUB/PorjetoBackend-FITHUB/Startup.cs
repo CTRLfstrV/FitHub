@@ -33,6 +33,7 @@ namespace PorjetoBackend_FITHUB
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<ILoginService, LoginService>();
+            services.AddScoped<IPessoaService, PessoaService>();
             services.AddScoped<IAlunoService, AlunoService>();
             services.AddScoped<IContratoService, ContratoService>();
             services.AddScoped<IPagamentoService, PagamentoService>();

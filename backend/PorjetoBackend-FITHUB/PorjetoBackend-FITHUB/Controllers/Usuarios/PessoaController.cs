@@ -7,6 +7,7 @@ using PorjetoBackend_FITHUB.Services.Interfaces;
 using System;
 using System.Threading.Tasks;
 using PorjetoBackend_FITHUB.Models.Enums;
+using PorjetoBackend_FITHUB.Services.Interfaces.Usuarios;
 
 namespace PorjetoBackend_FITHUB.Controllers.Usuarios
 {
@@ -15,9 +16,11 @@ namespace PorjetoBackend_FITHUB.Controllers.Usuarios
     public class PessoaController : ControllerBase
     {
         private readonly ILoginService _loginService;
-        public PessoaController(ILoginService loginService)
+        private readonly IPessoaService _pessoaService;
+        public PessoaController(ILoginService loginService, IPessoaService pessoaService)
         {
             _loginService = loginService;
+            _pessoaService = pessoaService;
         }
 
         [HttpPost("login")]
@@ -35,11 +38,11 @@ namespace PorjetoBackend_FITHUB.Controllers.Usuarios
             }
             catch (PessoaNaoEncontradaException ex)
             {
-                return StatusCode(404, new { message = ex.Message });
+                return BadRequest(ex.Message);
             }
             catch (SenhaInvalidaException ex)
             {
-                return StatusCode(400, new { message = ex.Message });
+                return BadRequest(ex.Message);
             }
             catch (SqlException)
             {
@@ -109,9 +112,28 @@ namespace PorjetoBackend_FITHUB.Controllers.Usuarios
         }
 
         [HttpGet("dados")]
-        public Task<IActionResult> RetornaDadosPessoa()
+        public async Task<IActionResult> RetornaDadosPessoa()
         {
-            return null;
+            int? idPessoa = HttpContext.Session.GetInt32("IdPessoa");
+            if (idPessoa == null)
+                return Unauthorized();
+
+            try
+            {
+                return Ok(await _pessoaService.RetornaDadosPessoa((int)idPessoa));
+            }
+            catch (PessoaNaoEncontradaException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (SqlException)
+            {
+                return StatusCode(500, "Ocorreu um erro no consultar banco de dados");
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Ocorreu um erro interno de servidor");
+            }
         }
     }
 }
