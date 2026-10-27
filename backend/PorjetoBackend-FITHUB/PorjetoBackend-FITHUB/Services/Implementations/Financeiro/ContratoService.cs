@@ -59,9 +59,9 @@ namespace PorjetoBackend_FITHUB.Services.Implementations.Financeiro
             return _fitHub.TbContrato.Count(c => c.StatusContrato == StatusContrato.PENDENTE);  
         }
 
-        public async Task AtualizarStatusContrato(int idAluno)
+        public async Task AtualizarStatusContrato(int idContrato)
         {
-            Contrato contrato = await _fitHub.TbContrato.FirstOrDefaultAsync<Contrato>(c => c.Aluno.Id == idAluno);
+            Contrato contrato = await _fitHub.TbContrato.FirstOrDefaultAsync<Contrato>(c => c.Id == idContrato);
             if (contrato == null)
                 throw new ContratoNaoEncontradoException("Esse aluno não foi encontrado");
 
