@@ -16,15 +16,16 @@ namespace PorjetoBackend_FITHUB.Services.Implementations.Usuarios
         {
             _fitHub = fitHub;
         }
-        
+
         public async Task<PessoaDadosResponse> RetornaDadosPessoa(int idPessoa)
         {
-            PessoaDadosResponse dadosPessoa = await _fitHub.TbPessoa.Select(p => new PessoaDadosResponse(p))
-                .FirstOrDefaultAsync<PessoaDadosResponse>(p => p.Id == idPessoa);
+            PessoaDadosResponse dadosPessoa = await _fitHub.TbPessoa.Where(p => p.Id == idPessoa)
+                .Select(p => new PessoaDadosResponse(p))
+                .FirstOrDefaultAsync<PessoaDadosResponse>();
 
             if (dadosPessoa == null)
                 throw new PessoaNaoEncontradaException("Não foi possível pegar os dados dessa pessoa");
-            
+
             return dadosPessoa;
         }
     }
