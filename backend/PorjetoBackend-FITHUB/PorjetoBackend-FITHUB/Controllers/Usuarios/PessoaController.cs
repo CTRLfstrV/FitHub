@@ -135,5 +135,11 @@ namespace PorjetoBackend_FITHUB.Controllers.Usuarios
                 return StatusCode(500, "Ocorreu um erro interno de servidor");
             }
         }
+
+        [HttpPut("alterar-senha")]
+        public async Task<IActionResult> AlterarSenha([FromBody] AlteracaoSenhaDTO  alteracaoSenha)
+        {
+            return null;
+        }
     }
 }
