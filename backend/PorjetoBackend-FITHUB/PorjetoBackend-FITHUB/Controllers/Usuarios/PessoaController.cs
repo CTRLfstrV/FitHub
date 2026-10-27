@@ -5,6 +5,7 @@ using PorjetoBackend_FITHUB.Exceptions;
 using PorjetoBackend_FITHUB.Models.DTO_s.Usuarios;
 using PorjetoBackend_FITHUB.Services.Interfaces;
 using System;
+using System.Threading.Tasks;
 using PorjetoBackend_FITHUB.Models.Enums;
 
 namespace PorjetoBackend_FITHUB.Controllers.Usuarios
@@ -105,6 +106,12 @@ namespace PorjetoBackend_FITHUB.Controllers.Usuarios
             {
                 return StatusCode(500, "Ocorreu um erro interno de servidor");
             }
+        }
+
+        [HttpGet("dados")]
+        public Task<IActionResult> RetornaDadosPessoa()
+        {
+            return null;
         }
     }
 }
