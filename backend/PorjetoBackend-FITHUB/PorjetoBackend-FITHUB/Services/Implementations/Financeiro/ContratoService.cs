@@ -7,6 +7,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using PorjetoBackend_FITHUB.Models.Enums;
+using PorjetoBackend_FITHUB.Models.Entities.Usuarios;
+using PorjetoBackend_FITHUB.Exceptions;
+using PorjetoBackend_FITHUB.Models.Entities.Financeiro;
 
 namespace PorjetoBackend_FITHUB.Services.Implementations.Financeiro
 {
@@ -54,6 +57,17 @@ namespace PorjetoBackend_FITHUB.Services.Implementations.Financeiro
         public int QuantidadeContratosPendentes()
         {
             return _fitHub.TbContrato.Count(c => c.StatusContrato == StatusContrato.PENDENTE);  
+        }
+
+        public async Task AtualizarStatusContrato(int idAluno)
+        {
+            Contrato contrato = await _fitHub.TbContrato.FirstOrDefaultAsync<Contrato>(c => c.Aluno.Id == idAluno);
+            if (contrato == null)
+                throw new ContratoNaoEncontradoException("Esse aluno não foi encontrado");
+
+            contrato.StatusContrato = StatusContrato.ATIVO;
+
+            await _fitHub.SaveChangesAsync();
         }
     }
 }

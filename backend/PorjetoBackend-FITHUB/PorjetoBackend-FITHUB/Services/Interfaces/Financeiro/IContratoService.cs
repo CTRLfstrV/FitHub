@@ -8,6 +8,7 @@ namespace PorjetoBackend_FITHUB.Services.Interfaces.Financeiro
     {
         Task<List<ContratoProximoFimDTO>> ContratosProximosFim();
         Task<List<ContratoPendenteDTO>> ContratosPendentes();
+        Task AtualizarStatusContrato(int idAluno);
         int QuantidadeContratosAtivos();
         int QuantidadeContratosPendentes();
 
