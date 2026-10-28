@@ -1,7 +1,8 @@
 import CampoConfiguracoesUsuario, {
-  classesInputConfiguracoes,
+  classesInputConfiguracoesSemMargem,
 } from "./CampoConfiguracoesUsuario";
 import CabecalhoSecaoConfiguracoes from "./CabecalhoSecaoConfiguracoes";
+import CampoSenha from "../CampoSenha";
 
 function RedefinicaoSenhaConfiguracoes() {
   return (
@@ -21,11 +22,11 @@ function RedefinicaoSenhaConfiguracoes() {
           rotulo="Senha atual"
           className="sm:col-span-2"
         >
-          <input
-            className={classesInputConfiguracoes}
+          <CampoSenha
+            className={classesInputConfiguracoesSemMargem}
+            classNameContainer="mt-3"
             id="senhaAtual"
             name="senhaAtual"
-            type="password"
             autoComplete="current-password"
             placeholder="Digite sua senha atual"
             required
@@ -33,11 +34,11 @@ function RedefinicaoSenhaConfiguracoes() {
         </CampoConfiguracoesUsuario>
 
         <CampoConfiguracoesUsuario id="novaSenha" rotulo="Nova senha">
-          <input
-            className={classesInputConfiguracoes}
+          <CampoSenha
+            className={classesInputConfiguracoesSemMargem}
+            classNameContainer="mt-3"
             id="novaSenha"
             name="novaSenha"
-            type="password"
             autoComplete="new-password"
             minLength={8}
             maxLength={255}
@@ -59,11 +60,11 @@ function RedefinicaoSenhaConfiguracoes() {
           id="confirmarSenha"
           rotulo="Confirmar nova senha"
         >
-          <input
-            className={classesInputConfiguracoes}
+          <CampoSenha
+            className={classesInputConfiguracoesSemMargem}
+            classNameContainer="mt-3"
             id="confirmarSenha"
             name="confirmarSenha"
-            type="password"
             autoComplete="new-password"
             minLength={8}
             maxLength={255}

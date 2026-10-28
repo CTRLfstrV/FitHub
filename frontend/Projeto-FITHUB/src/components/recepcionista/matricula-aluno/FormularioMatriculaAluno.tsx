@@ -2,6 +2,7 @@ import { useState, type FormEvent } from "react";
 import { Link } from "react-router-dom";
 import CampoFormularioMatricula, {
   classesCampoMatricula,
+  classesCampoMatriculaSemMargem,
 } from "./CampoFormularioMatricula";
 import OpcoesPlanoMatricula from "./OpcoesPlanoMatricula";
 import SecaoFormularioMatricula from "./SecaoFormularioMatricula";
@@ -9,6 +10,7 @@ import useOpcoesMatricula from "./useOpcoesMatricula";
 import { MatriculaService } from "../../../services/matricula/MatriculaService";
 import type { MatriculaDTO } from "../../../types/matricula/MatriculaDTO";
 import { GlobalValidation } from "../../../validations/globalValidation";
+import CampoSenha from "../../CampoSenha";
 
 const matriculaService = new MatriculaService(new GlobalValidation());
 
@@ -485,11 +487,11 @@ function FormularioMatriculaAluno() {
           dica="Use no mínimo 8 caracteres, incluindo letra, número e caractere especial."
           className="sm:col-span-2"
         >
-          <input
-            className={classesCampoMatricula}
+          <CampoSenha
+            className={classesCampoMatriculaSemMargem}
+            classNameContainer="mt-3"
             id="senha"
             name="senha"
-            type="password"
             autoComplete="new-password"
             minLength={8}
             maxLength={255}

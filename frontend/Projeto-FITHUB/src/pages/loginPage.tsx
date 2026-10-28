@@ -7,6 +7,7 @@ import { PessoaService } from "../services/usuarios/PessoaService";
 import { LoginValidation } from "../validations/loginValidation";
 import type { PessoaResponseLoginDTO } from "../types/usuarios/PessoaResponseLoginDTO";
 import { GlobalValidation } from "../validations/globalValidation";
+import CampoSenha from "../components/CampoSenha";
 
 const eyebrow =
   "inline-flex items-center gap-2 text-[11px] font-bold tracking-[.16em] text-[#598c1c]";
@@ -107,15 +108,15 @@ function LoginPage() {
             />
             <label
               className="mb-[9px] text-sm font-semibold text-[#30372d]"
-              htmlFor="cpf"
+              htmlFor="password"
             >
               Senha
             </label>
-            <input
-              className="mb-[22px] h-12 w-full rounded-[7px] border border-[#d9dfd5] bg-white px-[14px] text-sm text-[#20251e] outline-none transition placeholder:text-[#8a9185] focus:border-[#83b943] focus:ring-[3px] focus:ring-[#79b82d]/20"
+            <CampoSenha
+              className="h-12 w-full rounded-[7px] border border-[#d9dfd5] bg-white px-[14px] text-sm text-[#20251e] outline-none transition placeholder:text-[#8a9185] focus:border-[#83b943] focus:ring-[3px] focus:ring-[#79b82d]/20"
+              classNameContainer="mb-[22px]"
               id="password"
               name="password"
-              type="password"
               title="Digite sua senha"
               autoComplete="current-password"
               required
