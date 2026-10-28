@@ -1,9 +1,12 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PorjetoBackend_FITHUB.Data;
 using PorjetoBackend_FITHUB.Exceptions;
+using PorjetoBackend_FITHUB.Helpers;
 using PorjetoBackend_FITHUB.Models.DTO_s.Usuarios;
+using PorjetoBackend_FITHUB.Models.Entities.Usuarios;
 using PorjetoBackend_FITHUB.Services.Interfaces.Usuarios;
 
 namespace PorjetoBackend_FITHUB.Services.Implementations.Usuarios
@@ -27,6 +30,16 @@ namespace PorjetoBackend_FITHUB.Services.Implementations.Usuarios
                 throw new PessoaNaoEncontradaException("Não foi possível pegar os dados dessa pessoa");
 
             return dadosPessoa;
+        }
+
+        public async Task AlterarSenha(int idPessoa, AlteracaoSenhaDTO alteracaoSenha)
+        {
+            Pessoa pessoa = await _fitHub.TbPessoa.FirstOrDefaultAsync<Pessoa>(p => p.Id == idPessoa);
+            if (!PasswordHelper.VerificarHash(pessoa.Senha, alteracaoSenha.Antiga))
+                throw new SenhaInvalidaException("A senha digitada não é compátivel com a senha antiga");
+
+            pessoa.Senha = alteracaoSenha.Antiga;
+            await _fitHub.SaveChangesAsync();
         }
     }
 }

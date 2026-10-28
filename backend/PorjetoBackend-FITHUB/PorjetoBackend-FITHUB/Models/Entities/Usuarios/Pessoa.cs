@@ -15,7 +15,18 @@ namespace PorjetoBackend_FITHUB.Models.Entities.Usuarios
     {
         public int Id { get; private set; }
         public string Nome { get; set; }
-        public string Senha { get; set; }
+
+        private string _senha;
+        public string Senha
+        {
+            get { return _senha; }
+            set
+            {
+                VerificaSenha(value);
+                _senha = PasswordHelper.GerarHash(value);
+            }
+        }
+        
         public string Cpf { get; set; }
         public DateTime DataNascimento { get; private set; }
         public string Cep { get; set; }

@@ -6,5 +6,6 @@ namespace PorjetoBackend_FITHUB.Services.Interfaces.Usuarios
     public interface IPessoaService
     {
         Task<PessoaDadosResponse>  RetornaDadosPessoa(int idPessoa);
+        Task AlterarSenha(int idPessoa, AlteracaoSenhaDTO alteracaoSenha);
     }
 }
