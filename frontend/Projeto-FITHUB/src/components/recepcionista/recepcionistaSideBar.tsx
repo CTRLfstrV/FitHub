@@ -26,9 +26,14 @@ function RecepcionistaSideBar() {
               Gerenciar alunos
             </Link>
             <Link
-            to={"/recepcionista/matricular-aluno"}
-            className="shrink-0 cursor-pointer rounded-lg px-2 py-2 text-left text-base text-[#20251e]/85 transition-colors hover:bg-green-500 hover:text-white focus:bg-green-500 focus:text-white sm:text-lg md:px-3 md:py-2 md:text-lg">
+              to={"/recepcionista/matricular-aluno"}
+              className="shrink-0 cursor-pointer rounded-lg px-2 py-2 text-left text-base text-[#20251e]/85 transition-colors hover:bg-green-500 hover:text-white focus:bg-green-500 focus:text-white sm:text-lg md:px-3 md:py-2 md:text-lg">
               Matricular alunos
+            </Link>
+            <Link
+              to={"/recepcionista/configuracoes"}
+              className="shrink-0 cursor-pointer rounded-lg px-2 py-2 text-left text-base text-[#20251e]/85 transition-colors hover:bg-green-500 hover:text-white focus:bg-green-500 focus:text-white sm:text-lg md:px-3 md:py-2 md:text-lg">
+              Configurações
             </Link>
           </nav>
         </div>
