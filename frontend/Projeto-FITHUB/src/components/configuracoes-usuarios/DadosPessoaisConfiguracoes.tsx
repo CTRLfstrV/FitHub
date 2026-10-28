@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { SessaoInvalidaException } from "../../exceptions/SessaoInvalidaException";
 import { RedirecionadorService } from "../../services/RedirecionadorService";
 import { PessoaService } from "../../services/usuarios/PessoaService";
+import type { PessoaDadosResponseDTO } from "../../types/usuarios/PessoaDadosResponseDTO";
 import type { SexoPessoaResponseDTO } from "../../types/usuarios/SexoPessoaResponseDTO";
 import CampoConfiguracoesUsuario, {
   classesInputConfiguracoes,
@@ -11,13 +12,73 @@ import CabecalhoSecaoConfiguracoes from "./CabecalhoSecaoConfiguracoes";
 
 const pessoaService = new PessoaService();
 
+function normalizarDataNascimento(dataNascimento: string) {
+  const dataISO = dataNascimento.slice(0, 10);
+  return /^\d{4}-\d{2}-\d{2}$/.test(dataISO) ? dataISO : "";
+}
+
 function DadosPessoaisConfiguracoes() {
   const navigate = useNavigate();
+  const [dadosPessoais, setDadosPessoais] =
+    useState<PessoaDadosResponseDTO | null>(null);
+  const [carregandoDadosPessoais, setCarregandoDadosPessoais] = useState(true);
+  const [erroDadosPessoais, setErroDadosPessoais] = useState("");
+  const [tentativaDadosPessoais, setTentativaDadosPessoais] = useState(0);
   const [sexos, setSexos] = useState<SexoPessoaResponseDTO[]>([]);
   const [carregandoSexos, setCarregandoSexos] = useState(true);
   const [erroSexos, setErroSexos] = useState("");
   const [tentativa, setTentativa] = useState(0);
   const [edicaoAtiva, setEdicaoAtiva] = useState(false);
+
+  useEffect(() => {
+    let componenteAtivo = true;
+
+    const carregarDadosPessoais = async () => {
+      setCarregandoDadosPessoais(true);
+      setErroDadosPessoais("");
+
+      try {
+        const resposta = await pessoaService.DadosPessoais();
+        if (!componenteAtivo) return;
+
+        if (typeof resposta === "string") {
+          setErroDadosPessoais(
+            resposta || "NÃ£o foi possÃ­vel carregar seus dados pessoais.",
+          );
+          return;
+        }
+
+        setDadosPessoais({
+          ...resposta,
+          dataNascimento: normalizarDataNascimento(resposta.dataNascimento),
+        });
+      } catch (erro: unknown) {
+        if (!componenteAtivo) return;
+
+        if (erro instanceof SessaoInvalidaException) {
+          new RedirecionadorService().RedirecionaPorCaminho(
+            "/login",
+            navigate,
+          );
+          return;
+        }
+
+        setErroDadosPessoais(
+          erro instanceof Error
+            ? erro.message
+            : "NÃ£o foi possÃ­vel carregar seus dados pessoais.",
+        );
+      } finally {
+        if (componenteAtivo) setCarregandoDadosPessoais(false);
+      }
+    };
+
+    void carregarDadosPessoais();
+
+    return () => {
+      componenteAtivo = false;
+    };
+  }, [tentativaDadosPessoais, navigate]);
 
   useEffect(() => {
     let componenteAtivo = true;
@@ -67,8 +128,9 @@ function DadosPessoaisConfiguracoes() {
           <button
             type="button"
             aria-pressed={edicaoAtiva}
+            disabled={!dadosPessoais || carregandoDadosPessoais}
             onClick={() => setEdicaoAtiva((ativa) => !ativa)}
-            className="inline-flex min-h-10 shrink-0 items-center justify-center gap-2 rounded-xl border border-[#cfe4bd] bg-[#f3f9ed] px-4 py-2 text-sm font-semibold text-green-800 transition-colors hover:bg-[#e8f5d9] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-700"
+            className="inline-flex min-h-10 shrink-0 items-center justify-center gap-2 rounded-xl border border-[#cfe4bd] bg-[#f3f9ed] px-4 py-2 text-sm font-semibold text-green-800 transition-colors hover:bg-[#e8f5d9] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-700 disabled:cursor-not-allowed disabled:opacity-50"
           >
             {edicaoAtiva ? (
               <svg
@@ -103,6 +165,27 @@ function DadosPessoaisConfiguracoes() {
         }
       />
 
+      {carregandoDadosPessoais && (
+        <p className="mb-5 text-sm text-[#687064]" role="status">
+          Carregando seus dados pessoais...
+        </p>
+      )}
+      {erroDadosPessoais && (
+        <div
+          className="mb-5 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-[#a33b2e]"
+          role="alert"
+        >
+          <span>{erroDadosPessoais}</span>
+          <button
+            type="button"
+            className="font-bold underline underline-offset-2"
+            onClick={() => setTentativaDadosPessoais((valor) => valor + 1)}
+          >
+            Tentar novamente
+          </button>
+        </div>
+      )}
+
       <form
         className="grid gap-x-7 gap-y-7 sm:grid-cols-2 sm:gap-x-8 sm:gap-y-8"
         onSubmit={(event) => event.preventDefault()}
@@ -113,7 +196,7 @@ function DadosPessoaisConfiguracoes() {
             id="id"
             name="id"
             type="text"
-            value=""
+            value={dadosPessoais?.id ?? ""}
             placeholder="—"
             disabled
           />
@@ -128,7 +211,15 @@ function DadosPessoaisConfiguracoes() {
             autoComplete="name"
             maxLength={100}
             placeholder="Seu nome completo"
-            disabled={!edicaoAtiva}
+            value={dadosPessoais?.nome ?? ""}
+            onChange={(evento) =>
+              setDadosPessoais((dadosAtuais) =>
+                dadosAtuais
+                  ? { ...dadosAtuais, nome: evento.target.value }
+                  : dadosAtuais,
+              )
+            }
+            disabled={!edicaoAtiva || !dadosPessoais}
           />
         </CampoConfiguracoesUsuario>
 
@@ -141,7 +232,15 @@ function DadosPessoaisConfiguracoes() {
             autoComplete="email"
             maxLength={100}
             placeholder="voce@email.com"
-            disabled={!edicaoAtiva}
+            value={dadosPessoais?.email ?? ""}
+            onChange={(evento) =>
+              setDadosPessoais((dadosAtuais) =>
+                dadosAtuais
+                  ? { ...dadosAtuais, email: evento.target.value }
+                  : dadosAtuais,
+              )
+            }
+            disabled={!edicaoAtiva || !dadosPessoais}
           />
         </CampoConfiguracoesUsuario>
 
@@ -154,7 +253,15 @@ function DadosPessoaisConfiguracoes() {
             autoComplete="tel"
             inputMode="tel"
             placeholder="(00) 00000-0000"
-            disabled={!edicaoAtiva}
+            value={dadosPessoais?.telefone ?? ""}
+            onChange={(evento) =>
+              setDadosPessoais((dadosAtuais) =>
+                dadosAtuais
+                  ? { ...dadosAtuais, telefone: evento.target.value }
+                  : dadosAtuais,
+              )
+            }
+            disabled={!edicaoAtiva || !dadosPessoais}
           />
         </CampoConfiguracoesUsuario>
 
@@ -168,7 +275,15 @@ function DadosPessoaisConfiguracoes() {
             name="dataNascimento"
             type="date"
             autoComplete="bday"
-            disabled={!edicaoAtiva}
+            value={dadosPessoais?.dataNascimento ?? ""}
+            onChange={(evento) =>
+              setDadosPessoais((dadosAtuais) =>
+                dadosAtuais
+                  ? { ...dadosAtuais, dataNascimento: evento.target.value }
+                  : dadosAtuais,
+              )
+            }
+            disabled={!edicaoAtiva || !dadosPessoais}
           />
         </CampoConfiguracoesUsuario>
 
@@ -177,8 +292,15 @@ function DadosPessoaisConfiguracoes() {
             className={`${classesInputConfiguracoes} matricula-combobox`}
             id="sexo"
             name="sexo"
-            defaultValue=""
-            disabled={!edicaoAtiva}
+            value={dadosPessoais ? String(dadosPessoais.sexo) : ""}
+            onChange={(evento) =>
+              setDadosPessoais((dadosAtuais) =>
+                dadosAtuais
+                  ? { ...dadosAtuais, sexo: Number(evento.target.value) }
+                  : dadosAtuais,
+              )
+            }
+            disabled={!edicaoAtiva || !dadosPessoais}
           >
             <option value="" disabled>
               {carregandoSexos

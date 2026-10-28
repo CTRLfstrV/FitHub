@@ -6,7 +6,7 @@ function HomeHeader() {
     `hidden text-base text-white/90 transition hover:text-white md:block ${isActive ? "font-bold text-white" : ""}`;
 
   return (
-    <header className="relative z-10 border-b border-black/10 bg-green-600">
+    <header className="relative z-10 border-b border-black/10 bg-green-700">
       <div className="mx-auto flex min-h-[82px] max-w-[1240px] items-center justify-between px-[22px] md:px-10">
         <Link to="/home" className="inline-flex items-center" aria-label="FitHub, página inicial">
           <img className="block h-auto w-28 md:w-32" src={logo} alt="FitHub" />

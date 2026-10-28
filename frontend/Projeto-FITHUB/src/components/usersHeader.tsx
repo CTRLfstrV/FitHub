@@ -7,7 +7,7 @@ type UsersHeaderProps = { nomeUsuario: string };
 function UsersHeader({ nomeUsuario }: UsersHeaderProps) {
   const { isOpen, toggleMenu } = useRecepcionistaMenu();
   return (
-    <header className="relative z-10 border-b border-black/10 bg-green-600 font-mono">
+    <header className="relative z-10 border-b border-black/10 bg-green-700 font-mono">
       <div className="mx-auto flex min-h-[82px] max-w-[1240px] items-center justify-between gap-3 px-4 sm:px-[22px] md:px-10">
         <button
           type="button"
