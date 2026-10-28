@@ -32,6 +32,14 @@ namespace PorjetoBackend_FITHUB.Services.Implementations.Usuarios
             return dadosPessoa;
         }
 
+        public async Task AlterarDados(int idPessoa, AlteracaoDadosResponseDTO alteracaoDados)
+        {
+            Pessoa pessoa = await _fitHub.TbPessoa.FirstOrDefaultAsync<Pessoa>(p => p.Id == idPessoa);
+            if (pessoa == null)
+                throw new PessoaNaoEncontradaException("Não foi possível encontrar esse usuário");
+            
+        }
+
         public async Task AlterarSenha(int idPessoa, AlteracaoSenhaDTO alteracaoSenha)
         {
             Pessoa pessoa = await _fitHub.TbPessoa.FirstOrDefaultAsync<Pessoa>(p => p.Id == idPessoa);
