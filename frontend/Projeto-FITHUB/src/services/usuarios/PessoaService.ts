@@ -1,4 +1,5 @@
 import { SessaoInvalidaException } from "../../exceptions/SessaoInvalidaException";
+import type { AlteracaoSenhaDTO } from "../../types/usuarios/AlteracaoSenhaDTO";
 import type { PessoaDadosResponseDTO } from "../../types/usuarios/PessoaDadosResponseDTO";
 import type { PessoaLoginDTO } from "../../types/usuarios/PessoaLoginDTO";
 import type { PessoaResponseLoginDTO } from "../../types/usuarios/PessoaResponseLoginDTO";
@@ -115,6 +116,31 @@ export class PessoaService {
     if (!resposta.ok) throw Error("Falha ao ler os registros");
 
     return resposta.json();
+  }
+  //#endregion
+
+  //#region
+  async AlterarSenha(alteracaoSenha: AlteracaoSenhaDTO): Promise<string> {
+    const url: string = this.urlBase + "alterar-senha";
+
+    const resposta = await fetch(url, {
+      method: "PUT",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        antiga: alteracaoSenha.antiga,
+        nova: alteracaoSenha.nova,
+      }),
+    });
+
+    if (resposta.status === 401) throw new SessaoInvalidaException();
+    if (resposta.status === 400 || resposta.status === 500)
+      return resposta.text();
+    if (!resposta.ok) throw Error("Não foi possível alterar a senha");
+
+    return "Senha alterada com sucesso";
   }
   //#endregion
 }
