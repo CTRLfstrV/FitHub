@@ -17,6 +17,7 @@ namespace PorjetoBackend_FITHUB.Controllers.Usuarios
     {
         private readonly ILoginService _loginService;
         private readonly IPessoaService _pessoaService;
+
         public PessoaController(ILoginService loginService, IPessoaService pessoaService)
         {
             _loginService = loginService;
@@ -79,7 +80,7 @@ namespace PorjetoBackend_FITHUB.Controllers.Usuarios
         [HttpGet("sexo")]
         public IActionResult ListarSexo()
         {
-            if(HttpContext.Session.GetInt32("IdPessoa") == null)
+            if (HttpContext.Session.GetInt32("IdPessoa") == null)
                 return Unauthorized();
             try
             {
@@ -137,9 +138,28 @@ namespace PorjetoBackend_FITHUB.Controllers.Usuarios
         }
 
         [HttpPut("alterar-senha")]
-        public async Task<IActionResult> AlterarSenha([FromBody] AlteracaoSenhaDTO  alteracaoSenha)
+        public async Task<IActionResult> AlterarSenha([FromBody] AlteracaoSenhaDTO alteracaoSenha)
         {
-            return null;
+            int? idPessoa = HttpContext.Session.GetInt32("IdPessoa");
+            if (idPessoa == null)
+                return Unauthorized();
+            try
+            {
+                await _pessoaService.AlterarSenha((int)idPessoa, alteracaoSenha);
+                return Ok();
+            }
+            catch (SenhaInvalidaException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (SqlException)
+            {
+                return StatusCode(500, "Ocorreu um erro no consultar banco de dados");
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Ocorreu um erro interno de servidor");
+            }
         }
     }
 }
