@@ -155,11 +155,17 @@ namespace PorjetoBackend_FITHUB.Controllers.Usuarios
             catch (SqlException)
             {
                 return StatusCode(500, "Ocorreu um erro no consultar banco de dados");
-            }/*
+            }
             catch (Exception)
             {
                 return StatusCode(500, "Ocorreu um erro interno de servidor");
-            }*/
+            }
+        }
+
+        [HttpPut("alterar-dados")]
+        public async Task<IActionResult> AlterarDadosPessoa()
+        {
+            return null
         }
     }
 }
