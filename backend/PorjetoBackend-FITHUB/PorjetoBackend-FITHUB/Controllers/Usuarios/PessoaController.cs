@@ -163,9 +163,9 @@ namespace PorjetoBackend_FITHUB.Controllers.Usuarios
         }
 
         [HttpPut("alterar-dados")]
-        public async Task<IActionResult> AlterarDadosPessoa()
+        public async Task<IActionResult> AlterarDadosPessoa([FromBody] AlteracaoDadosResponseDTO  alteracaoDados)
         {
-            return null
+            return null;
         }
     }
 }
