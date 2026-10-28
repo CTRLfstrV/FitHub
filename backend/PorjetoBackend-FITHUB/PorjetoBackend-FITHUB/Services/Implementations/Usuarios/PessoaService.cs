@@ -35,10 +35,10 @@ namespace PorjetoBackend_FITHUB.Services.Implementations.Usuarios
         public async Task AlterarSenha(int idPessoa, AlteracaoSenhaDTO alteracaoSenha)
         {
             Pessoa pessoa = await _fitHub.TbPessoa.FirstOrDefaultAsync<Pessoa>(p => p.Id == idPessoa);
-            if (!PasswordHelper.VerificarHash(pessoa.Senha, alteracaoSenha.Antiga))
+            if (!PasswordHelper.VerificarHash(alteracaoSenha.Antiga, pessoa.Senha))
                 throw new SenhaInvalidaException("A senha digitada não é compátivel com a senha antiga");
 
-            pessoa.Senha = alteracaoSenha.Antiga;
+            pessoa.Senha = alteracaoSenha.Nova;
             await _fitHub.SaveChangesAsync();
         }
     }
