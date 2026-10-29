@@ -25,11 +25,11 @@ namespace PorjetoBackend_FITHUB.Models.Entities.Usuarios
             }
             set
             {
-                if (!string.IsNullOrEmpty(value))
-                {
-                    if (_nome != value)
-                        _nome = value;
-                }
+                if (string.IsNullOrEmpty(value))
+                    throw new NomeInvalidoException("O nome informado está inválido");
+
+                if (_nome != value)
+                    _nome = value;
             }
         }
 
@@ -43,7 +43,7 @@ namespace PorjetoBackend_FITHUB.Models.Entities.Usuarios
                 _senha = PasswordHelper.GerarHash(value);
             }
         }
-        
+
         public string Cpf { get; set; }
         public DateTime DataNascimento { get; private set; }
         public string Cep { get; set; }
@@ -65,7 +65,7 @@ namespace PorjetoBackend_FITHUB.Models.Entities.Usuarios
                 }
             }
         }
-        
+
         public string TelefoneEmergencia { get; set; }
         public SexoPessoa Sexo { get; private set; }
         public TipoPessoa TipoPessoa { get; private set; }
@@ -85,7 +85,7 @@ namespace PorjetoBackend_FITHUB.Models.Entities.Usuarios
                     _email = value;
                 }
             }
-            
+
         }
 
         public Pessoa()

@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState, type FormEvent } from "react";
+import { useNavigate, useOutletContext } from "react-router-dom";
 import { SessaoInvalidaException } from "../../exceptions/SessaoInvalidaException";
 import { RedirecionadorService } from "../../services/RedirecionadorService";
 import { PessoaService } from "../../services/usuarios/PessoaService";
+import type { AlteracaoDadosDTO } from "../../types/usuarios/AlteracaoDadosDTO";
 import type { PessoaDadosResponseDTO } from "../../types/usuarios/PessoaDadosResponseDTO";
 import type { SexoPessoaResponseDTO } from "../../types/usuarios/SexoPessoaResponseDTO";
 import CampoConfiguracoesUsuario, {
@@ -12,6 +13,15 @@ import CabecalhoSecaoConfiguracoes from "./CabecalhoSecaoConfiguracoes";
 
 const pessoaService = new PessoaService();
 
+type MensagemFormulario = {
+  tipo: "sucesso" | "erro";
+  texto: string;
+};
+
+type ContextoLayoutRecepcionista = {
+  atualizarNomeUsuario: (nome: string) => void;
+};
+
 function normalizarDataNascimento(dataNascimento: string) {
   const dataISO = dataNascimento.slice(0, 10);
   return /^\d{4}-\d{2}-\d{2}$/.test(dataISO) ? dataISO : "";
@@ -19,6 +29,8 @@ function normalizarDataNascimento(dataNascimento: string) {
 
 function DadosPessoaisConfiguracoes() {
   const navigate = useNavigate();
+  const { atualizarNomeUsuario } =
+    useOutletContext<ContextoLayoutRecepcionista>();
   const [dadosPessoais, setDadosPessoais] =
     useState<PessoaDadosResponseDTO | null>(null);
   const [carregandoDadosPessoais, setCarregandoDadosPessoais] = useState(true);
@@ -29,6 +41,65 @@ function DadosPessoaisConfiguracoes() {
   const [erroSexos, setErroSexos] = useState("");
   const [tentativa, setTentativa] = useState(0);
   const [edicaoAtiva, setEdicaoAtiva] = useState(false);
+  const [mensagem, setMensagem] = useState<MensagemFormulario | null>(null);
+  const [enviando, setEnviando] = useState(false);
+
+  async function alterarDados(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setMensagem(null);
+
+    if (!dadosPessoais) return;
+
+    const novosDados: AlteracaoDadosDTO = {
+      novoNome: dadosPessoais.nome.trim(),
+      novoEmail: dadosPessoais.email.trim(),
+      novoTelefone: dadosPessoais.telefone.trim(),
+    };
+
+    setEnviando(true);
+    try {
+      const resposta = await pessoaService.AlterarDados(novosDados);
+      const sucesso = resposta === "Dados salvos com sucesso";
+
+      setMensagem({
+        tipo: sucesso ? "sucesso" : "erro",
+        texto: resposta || "Não foi possível alterar seus dados.",
+      });
+
+      if (sucesso) {
+        atualizarNomeUsuario(novosDados.novoNome);
+        setDadosPessoais((dadosAtuais) =>
+          dadosAtuais
+            ? {
+                ...dadosAtuais,
+                nome: novosDados.novoNome,
+                email: novosDados.novoEmail,
+                telefone: novosDados.novoTelefone,
+              }
+            : dadosAtuais,
+        );
+        setEdicaoAtiva(false);
+      }
+    } catch (erro: unknown) {
+      if (erro instanceof SessaoInvalidaException) {
+        new RedirecionadorService().RedirecionaPorCaminho(
+          "/login",
+          navigate,
+        );
+        return;
+      }
+
+      setMensagem({
+        tipo: "erro",
+        texto:
+          erro instanceof Error
+            ? erro.message
+            : "Não foi possível alterar seus dados.",
+      });
+    } finally {
+      setEnviando(false);
+    }
+  }
 
   useEffect(() => {
     let componenteAtivo = true;
@@ -128,7 +199,7 @@ function DadosPessoaisConfiguracoes() {
           <button
             type="button"
             aria-pressed={edicaoAtiva}
-            disabled={!dadosPessoais || carregandoDadosPessoais}
+            disabled={!dadosPessoais || carregandoDadosPessoais || enviando}
             onClick={() => setEdicaoAtiva((ativa) => !ativa)}
             className="inline-flex min-h-10 shrink-0 items-center justify-center gap-2 rounded-xl border border-[#cfe4bd] bg-[#f3f9ed] px-4 py-2 text-sm font-semibold text-green-800 transition-colors hover:bg-[#e8f5d9] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-700 disabled:cursor-not-allowed disabled:opacity-50"
           >
@@ -188,7 +259,8 @@ function DadosPessoaisConfiguracoes() {
 
       <form
         className="grid gap-x-7 gap-y-7 sm:grid-cols-2 sm:gap-x-8 sm:gap-y-8"
-        onSubmit={(event) => event.preventDefault()}
+        onSubmit={alterarDados}
+        noValidate
       >
         <CampoConfiguracoesUsuario id="id" rotulo="ID do usuário">
           <input
@@ -209,16 +281,19 @@ function DadosPessoaisConfiguracoes() {
             name="nome"
             type="text"
             autoComplete="name"
+            minLength={2}
             maxLength={100}
+            required
             placeholder="Seu nome completo"
             value={dadosPessoais?.nome ?? ""}
-            onChange={(evento) =>
+            onChange={(evento) => {
+              setMensagem(null);
               setDadosPessoais((dadosAtuais) =>
                 dadosAtuais
                   ? { ...dadosAtuais, nome: evento.target.value }
                   : dadosAtuais,
-              )
-            }
+              );
+            }}
             disabled={!edicaoAtiva || !dadosPessoais}
           />
         </CampoConfiguracoesUsuario>
@@ -231,15 +306,17 @@ function DadosPessoaisConfiguracoes() {
             type="email"
             autoComplete="email"
             maxLength={100}
+            required
             placeholder="voce@email.com"
             value={dadosPessoais?.email ?? ""}
-            onChange={(evento) =>
+            onChange={(evento) => {
+              setMensagem(null);
               setDadosPessoais((dadosAtuais) =>
                 dadosAtuais
                   ? { ...dadosAtuais, email: evento.target.value }
                   : dadosAtuais,
-              )
-            }
+              );
+            }}
             disabled={!edicaoAtiva || !dadosPessoais}
           />
         </CampoConfiguracoesUsuario>
@@ -252,15 +329,18 @@ function DadosPessoaisConfiguracoes() {
             type="tel"
             autoComplete="tel"
             inputMode="tel"
+            maxLength={20}
+            required
             placeholder="(00) 00000-0000"
             value={dadosPessoais?.telefone ?? ""}
-            onChange={(evento) =>
+            onChange={(evento) => {
+              setMensagem(null);
               setDadosPessoais((dadosAtuais) =>
                 dadosAtuais
                   ? { ...dadosAtuais, telefone: evento.target.value }
                   : dadosAtuais,
-              )
-            }
+              );
+            }}
             disabled={!edicaoAtiva || !dadosPessoais}
           />
         </CampoConfiguracoesUsuario>
@@ -318,13 +398,27 @@ function DadosPessoaisConfiguracoes() {
           )}
         </CampoConfiguracoesUsuario>
 
+        {mensagem && (
+          <div
+            className={`rounded-xl border px-4 py-3 text-sm leading-6 sm:col-span-2 ${
+              mensagem.tipo === "erro"
+                ? "border-red-200 bg-red-50 text-red-800"
+                : "border-[#dcebd0] bg-[#f3f9ed] text-[#486b2d]"
+            }`}
+            role={mensagem.tipo === "erro" ? "alert" : "status"}
+          >
+            {mensagem.texto}
+          </div>
+        )}
+
         {edicaoAtiva && (
           <div className="flex flex-col justify-end sm:col-span-2 sm:flex-row">
             <button
-              className="inline-flex min-h-12 cursor-pointer items-center justify-center rounded-xl bg-green-700 px-6 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-green-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-700"
+              className="inline-flex min-h-12 cursor-pointer items-center justify-center rounded-xl bg-green-700 px-6 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-green-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-700 disabled:cursor-not-allowed disabled:opacity-60"
               type="submit"
+              disabled={enviando}
             >
-              Salvar alterações
+              {enviando ? "Salvando alterações..." : "Salvar alterações"}
             </button>
           </div>
         )}

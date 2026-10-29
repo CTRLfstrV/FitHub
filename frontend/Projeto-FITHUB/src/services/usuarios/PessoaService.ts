@@ -5,6 +5,7 @@ import type { PessoaDadosResponseDTO } from "../../types/usuarios/PessoaDadosRes
 import type { PessoaLoginDTO } from "../../types/usuarios/PessoaLoginDTO";
 import type { PessoaResponseLoginDTO } from "../../types/usuarios/PessoaResponseLoginDTO";
 import type { SexoPessoaResponseDTO } from "../../types/usuarios/SexoPessoaResponseDTO";
+import { AlteracaoDadosValidation } from "../../validations/alteracaoDadosValidation";
 import type { LoginValidation } from "../../validations/loginValidation";
 
 export class PessoaService {
@@ -147,6 +148,8 @@ export class PessoaService {
 
   //#region 
   async AlterarDados(novosDados: AlteracaoDadosDTO): Promise<string> {
+    new AlteracaoDadosValidation().validacaoAlteracaoDados(novosDados);
+
     const url: string = this.urlBase + "alterar-dados";
 
     const resposta = await fetch(url, {

@@ -8,6 +8,7 @@ using System;
 using System.Threading.Tasks;
 using PorjetoBackend_FITHUB.Models.Enums;
 using PorjetoBackend_FITHUB.Services.Interfaces.Usuarios;
+using PorjetoBackend_FITHUB.Exceptions.MatriculaExceptions;
 
 namespace PorjetoBackend_FITHUB.Controllers.Usuarios
 {
@@ -163,9 +164,41 @@ namespace PorjetoBackend_FITHUB.Controllers.Usuarios
         }
 
         [HttpPut("alterar-dados")]
-        public async Task<IActionResult> AlterarDadosPessoa([FromBody] AlteracaoDadosResponseDTO  alteracaoDados)
+        public async Task<IActionResult> AlterarDadosPessoa([FromBody] AlteracaoDadosResponseDTO alteracaoDados)
         {
-            return null;
+            int? idPessoa = HttpContext.Session.GetInt32("IdPessoa");
+            if (idPessoa == null)
+                return Unauthorized();
+
+            try
+            {
+                await _pessoaService.AlterarDados((int)idPessoa, alteracaoDados);
+                return Ok();
+            }
+            catch (EmailInvalidoException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (NumeroCelularException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (NomeInvalidoException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (PessoaNaoEncontradaException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (SqlException)
+            {
+                return StatusCode(500, "Ocorreu um erro no consultar banco de dados");
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Ocorreu um erro interno de servidor");
+            }
         }
     }
 }
