@@ -191,7 +191,11 @@ export class GlobalValidation {
 
   //#region Validação dos dados do pagamento
   validacaoFormaPagamento(formaPagamento: number): void {
-    if (!Number.isInteger(formaPagamento) || formaPagamento <= 0) {
+    if (
+      !Number.isInteger(formaPagamento) ||
+      formaPagamento < 0 ||
+      formaPagamento > 3
+    ) {
       throw new Error("A forma de pagamento deve possuir um código válido.");
     }
   }
