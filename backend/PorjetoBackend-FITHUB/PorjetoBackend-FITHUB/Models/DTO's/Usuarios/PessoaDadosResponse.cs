@@ -16,6 +16,7 @@ namespace PorjetoBackend_FITHUB.Models.DTO_s.Usuarios
 
         public PessoaDadosResponse(Pessoa pessoa)
         {
+            Id = pessoa.Id;
             Nome = pessoa.Nome;
             Email = pessoa.Email;
             Telefone = pessoa.Telefone;
