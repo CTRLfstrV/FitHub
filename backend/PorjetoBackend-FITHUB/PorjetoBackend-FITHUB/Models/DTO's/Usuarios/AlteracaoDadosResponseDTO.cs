@@ -5,7 +5,5 @@
         public string NovoNome { get; set; }
         public string NovoEmail { get; set; }
         public string NovoTelefone { get; set; }
-        public string NovaDataNascimento { get; set; }
-        public int NovoSexo { get; set; }
     }
 }

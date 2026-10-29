@@ -276,14 +276,7 @@ function DadosPessoaisConfiguracoes() {
             type="date"
             autoComplete="bday"
             value={dadosPessoais?.dataNascimento ?? ""}
-            onChange={(evento) =>
-              setDadosPessoais((dadosAtuais) =>
-                dadosAtuais
-                  ? { ...dadosAtuais, dataNascimento: evento.target.value }
-                  : dadosAtuais,
-              )
-            }
-            disabled={!edicaoAtiva || !dadosPessoais}
+            disabled
           />
         </CampoConfiguracoesUsuario>
 
@@ -293,14 +286,7 @@ function DadosPessoaisConfiguracoes() {
             id="sexo"
             name="sexo"
             value={dadosPessoais ? String(dadosPessoais.sexo) : ""}
-            onChange={(evento) =>
-              setDadosPessoais((dadosAtuais) =>
-                dadosAtuais
-                  ? { ...dadosAtuais, sexo: Number(evento.target.value) }
-                  : dadosAtuais,
-              )
-            }
-            disabled={!edicaoAtiva || !dadosPessoais}
+            disabled
           >
             <option value="" disabled>
               {carregandoSexos
