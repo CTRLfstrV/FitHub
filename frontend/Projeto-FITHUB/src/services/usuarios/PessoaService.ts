@@ -1,4 +1,5 @@
 import { SessaoInvalidaException } from "../../exceptions/SessaoInvalidaException";
+import type { AlteracaoDadosDTO } from "../../types/usuarios/AlteracaoDadosDTO";
 import type { AlteracaoSenhaDTO } from "../../types/usuarios/AlteracaoSenhaDTO";
 import type { PessoaDadosResponseDTO } from "../../types/usuarios/PessoaDadosResponseDTO";
 import type { PessoaLoginDTO } from "../../types/usuarios/PessoaLoginDTO";
@@ -41,7 +42,7 @@ export class PessoaService {
 
       try {
         mensagem = await resposta.text();
-      } catch {}
+      } catch { }
       throw new Error(mensagem);
     }
 
@@ -141,6 +142,31 @@ export class PessoaService {
     if (!resposta.ok) throw Error("Não foi possível alterar a senha");
 
     return "Senha alterada com sucesso";
+  }
+  //#endregion
+
+  //#region 
+  async AlterarDados(novosDados: AlteracaoDadosDTO): Promise<string> {
+    const url: string = this.urlBase + "alterar-dados";
+
+    const resposta = await fetch(url, {
+      method: "PUT",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        novoNome: novosDados.novoNome,
+        novoEmail: novosDados.novoEmail,
+        novoTelefone: novosDados.novoTelefone
+      })
+    });
+
+    if (resposta.status === 401) throw new SessaoInvalidaException();
+    if (resposta.status === 400 || resposta.status === 500) return resposta.text();
+    if (!resposta.ok) throw new Error("Não foi possível alterar os dados");
+
+    return "Dados salvos com sucesso";
   }
   //#endregion
 }
