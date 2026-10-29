@@ -9,9 +9,11 @@ using Microsoft.OpenApi.Models;
 using PorjetoBackend_FITHUB.Data;
 using PorjetoBackend_FITHUB.Services.Implementations;
 using PorjetoBackend_FITHUB.Services.Implementations.Financeiro;
+using PorjetoBackend_FITHUB.Services.Implementations.Agenda;
 using PorjetoBackend_FITHUB.Services.Implementations.Usuarios;
 using PorjetoBackend_FITHUB.Services.Interfaces;
 using PorjetoBackend_FITHUB.Services.Interfaces.Financeiro;
+using PorjetoBackend_FITHUB.Services.Interfaces.Agenda;
 using PorjetoBackend_FITHUB.Services.Interfaces.Usuarios;
 using System;
 using System.Linq;
@@ -37,6 +39,7 @@ namespace PorjetoBackend_FITHUB
             services.AddScoped<IContratoService, ContratoService>();
             services.AddScoped<IPagamentoService, PagamentoService>();
             services.AddScoped<IPlanoService, PlanoService>();
+            services.AddScoped<IAgendamentoProfessorService, AgendamentoProfessorService>();
             services.AddScoped<IMatriculaService, MatriculaService>();
 
             services.AddDbContext<FitHubDbContext>(option =>

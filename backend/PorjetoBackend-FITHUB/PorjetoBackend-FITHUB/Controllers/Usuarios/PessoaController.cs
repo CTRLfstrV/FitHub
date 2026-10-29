@@ -61,6 +61,17 @@ namespace PorjetoBackend_FITHUB.Controllers.Usuarios
             return Ok();
         }
 
+        [HttpGet("sessao/tipo")]
+        public IActionResult RetornaTipoPessoa()
+        {
+            int? tipoPessoa = HttpContext.Session.GetInt32("TipoPessoa");
+
+            if (tipoPessoa == null)
+                return Unauthorized();
+
+            return Ok(tipoPessoa.Value);
+        }
+
         [HttpGet("sessao/nome")]
         public IActionResult RetornaNomePessoa()
         {

@@ -1,5 +1,6 @@
 import HomeLayout from "./layouts/homeLayout.tsx";
 import RecepcionistaLayout from "./layouts/recepcionistaLayout.tsx";
+import ProfessorLayout from "./layouts/professorLayout.tsx";
 import LoginPage from "./pages/loginPage.tsx";
 import HomePage from "./pages/homePage.tsx";
 import RecepcionistaDashBoardPage from "./pages/recepcionista/recepcionistaDashboardPage.tsx";
@@ -7,6 +8,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import RecepcionistaGerenciamentoAlunoPage from "./pages/recepcionista/recepcionistaGerenciamentoAlunoPage.tsx";
 import RecepcionistaDetalhesAluno from "./pages/recepcionista/recepcionistaDetalhesAluno.tsx";
 import RecepcionistaMatriculaPage from "./pages/recepcionista/recepcionistaMatriculaPage.tsx";
+import ProfessorInicioPage from "./pages/professorInicioPage.tsx";
 
 //http://localhost:4173/
 
@@ -37,6 +39,9 @@ function App() {
             path="/recepcionista/matricular-aluno"
             element={<RecepcionistaMatriculaPage />}
           />
+        </Route>
+        <Route element={<ProfessorLayout />}>
+          <Route path="/professor/dashboard" element={<ProfessorInicioPage />} />
         </Route>
         <Route path="/" element={<Navigate to="/home" />} />
         <Route path="*" element={<Navigate to={"/"} />} />

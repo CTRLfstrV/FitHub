@@ -75,6 +75,21 @@ export class PessoaService {
     return true;
   }
 
+  async TipoPessoaSessao(): Promise<number> {
+    const url = this.urlBase + "/sessao/tipo";
+    const resposta = await fetch(url, {
+      method: "GET",
+      credentials: "include",
+    });
+
+    if (resposta.status === 401) throw new SessaoInvalidaException();
+    if (!resposta.ok) throw new Error("NÃ£o foi possÃ­vel verificar o tipo de usuÃ¡rio");
+
+    const tipoPessoa: unknown = await resposta.json();
+    if (typeof tipoPessoa !== "number") throw new Error("Tipo de usuÃ¡rio invÃ¡lido");
+    return tipoPessoa;
+  }
+
   async NomeUsuario(): Promise<string> {
     const url = this.urlBase + "/sessao/nome";
 

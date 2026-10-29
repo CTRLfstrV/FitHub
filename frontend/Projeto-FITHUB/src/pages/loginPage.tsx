@@ -36,6 +36,9 @@ function LoginPage() {
 
       if (resposta.tipoPessoa === 0)
         navigate("/recepcionista/dashboard", { replace: true });
+      else if (resposta.tipoPessoa === 1)
+        navigate("/professor/dashboard", { replace: true });
+      else setMensagemErro("Este tipo de conta nÃ£o possui acesso ao sistema.");
 
     } catch (erro: unknown) {
       if (erro instanceof TypeError) {
