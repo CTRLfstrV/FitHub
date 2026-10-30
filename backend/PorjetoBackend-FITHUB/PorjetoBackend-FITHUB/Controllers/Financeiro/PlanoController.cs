@@ -60,7 +60,7 @@ namespace PorjetoBackend_FITHUB.Controllers.Financeiro
             }
         }
 
-        [HttpPut]
+        [HttpPost]
         public async Task<IActionResult> AdicionarPlano([FromBody] PlanoResponseDTO plano)
         {
             if (HttpContext.Session.GetInt32("IdPessoa") == null)
@@ -90,14 +90,14 @@ namespace PorjetoBackend_FITHUB.Controllers.Financeiro
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeletarPlano([FromRoute] int idPlano)
+        public async Task<IActionResult> DeletarPlano([FromRoute] int id)
         {
             if (HttpContext.Session.GetInt32("IdPessoa") == null)
                 return Unauthorized();
 
             try
             {
-                await _planoService.DeletarPlano(idPlano);
+                await _planoService.DeletarPlano(id);
                 
                 return Ok();
             }
@@ -112,14 +112,14 @@ namespace PorjetoBackend_FITHUB.Controllers.Financeiro
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> AtualizarPlano([FromRoute] int idPlano, [FromBody] PlanoResponseDTO plano)
+        public async Task<IActionResult> AtualizarPlano([FromRoute] int id, [FromBody] PlanoResponseDTO plano)
         {
             if (HttpContext.Session.GetInt32("IdPessoa") == null)
                 return Unauthorized();
 
             try
             {
-                await _planoService.AtualizarPlano(idPlano, plano);
+                await _planoService.AtualizarPlano(id, plano);
                 
                 return Ok();
             }
