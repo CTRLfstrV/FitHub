@@ -34,7 +34,7 @@ namespace PorjetoBackend_FITHUB.Models.Entities.Financeiro
             }
             set
             {
-                if (value < 0)
+                if (value <= 0)
                     throw new ValorPlanoInvalidoException("O valor deve ser maior que 0");
                 
                 if (_valor != value)

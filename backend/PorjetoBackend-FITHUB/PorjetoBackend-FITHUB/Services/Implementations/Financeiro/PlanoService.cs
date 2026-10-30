@@ -44,6 +44,8 @@ namespace PorjetoBackend_FITHUB.Services.Implementations.Financeiro
         {
             Plano plano = await _fitHub.TbPlano.FirstOrDefaultAsync(p => p.Id == idPlano); 
             _fitHub.TbPlano.Remove(plano);
+            
+            await _fitHub.SaveChangesAsync();
         }
 
         public async Task AtualizarPlano(int idPlano, PlanoResponseDTO planoAtualizado)
