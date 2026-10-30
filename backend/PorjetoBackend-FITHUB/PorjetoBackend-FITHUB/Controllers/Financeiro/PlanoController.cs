@@ -3,7 +3,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
-using PorjetoBackend_FITHUB.Models.Entities.Financeiro;
+using PorjetoBackend_FITHUB.Exceptions.PlanoExceptions;
+using PorjetoBackend_FITHUB.Models.DTO_s.Financeiro;
 using PorjetoBackend_FITHUB.Services.Interfaces.Financeiro;
 
 namespace PorjetoBackend_FITHUB.Controllers.Financeiro
@@ -70,6 +71,36 @@ namespace PorjetoBackend_FITHUB.Controllers.Financeiro
                 await _planoService.DeletarPlano(idPlano);
                 
                 return Ok();
+            }
+            catch (SqlException)
+            {
+                return StatusCode(500, "Ocorreu um erro no consultar banco de dados");
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Ocorreu um erro interno de servidor");
+            }
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> AtualizarPlano([FromRoute] int idPlano, [FromBody] PlanoAtualizarResponseDTO plano)
+        {
+            if (HttpContext.Session.GetInt32("IdPessoa") == null)
+                return Unauthorized();
+
+            try
+            {
+                await _planoService.AtualizarPlano(idPlano, plano);
+                
+                return Ok();
+            }
+            catch (NomePlanoInvalidoException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (ValorPlanoInvalidoException ex)
+            {
+                return BadRequest(ex.Message);
             }
             catch (SqlException)
             {
