@@ -8,5 +8,6 @@ namespace PorjetoBackend_FITHUB.Services.Interfaces.Financeiro
     {
         Task<List<PlanoResponseDTO>> ListarPlanos();
         Task<int> QuntidadePlanos();
+        Task DeletarPlano(int idPlano);
     }
 }

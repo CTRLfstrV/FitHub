@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using PorjetoBackend_FITHUB.Data;
 using PorjetoBackend_FITHUB.Models.DTO_s.Financeiro;
+using PorjetoBackend_FITHUB.Models.Entities.Financeiro;
 using PorjetoBackend_FITHUB.Services.Interfaces.Financeiro;
 
 namespace PorjetoBackend_FITHUB.Services.Implementations.Financeiro
@@ -29,6 +30,12 @@ namespace PorjetoBackend_FITHUB.Services.Implementations.Financeiro
             int quantidadePlanos = await _fitHub.TbPlano.CountAsync();
             
             return quantidadePlanos;
+        }
+
+        public async Task DeletarPlano(int idPlano)
+        {
+            Plano plano = await _fitHub.TbPlano.FirstOrDefaultAsync(p => p.Id == idPlano); 
+            _fitHub.TbPlano.Remove(plano);
         }
     }
 }

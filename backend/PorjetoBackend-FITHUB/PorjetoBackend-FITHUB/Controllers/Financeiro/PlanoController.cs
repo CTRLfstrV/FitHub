@@ -58,5 +58,27 @@ namespace PorjetoBackend_FITHUB.Controllers.Financeiro
                 return StatusCode(500, "Ocorreu um erro interno de servidor");
             }
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeletarPlano([FromRoute] int idPlano)
+        {
+            if (HttpContext.Session.GetInt32("IdPessoa") == null)
+                return Unauthorized();
+
+            try
+            {
+                await _planoService.DeletarPlano(idPlano);
+                
+                return Ok();
+            }
+            catch (SqlException)
+            {
+                return StatusCode(500, "Ocorreu um erro no consultar banco de dados");
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Ocorreu um erro interno de servidor");
+            }
+        }
     }
 }
