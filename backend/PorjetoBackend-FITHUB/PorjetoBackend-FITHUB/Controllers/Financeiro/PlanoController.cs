@@ -60,7 +60,7 @@ namespace PorjetoBackend_FITHUB.Controllers.Financeiro
             }
         }
 
-        [HttpGet]
+        [HttpPut]
         public async Task<IActionResult> AdicionarPlano([FromBody] PlanoResponseDTO plano)
         {
             if (HttpContext.Session.GetInt32("IdPessoa") == null)
