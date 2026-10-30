@@ -31,7 +31,7 @@ function ListaContratosPendentes({
             id="titulo-contratos-pendentes"
             className="text-base font-semibold text-[#20251e] sm:text-lg"
           >
-            Contratos pendentes de ativação
+            Contratos que estão aguardando ativação
           </h2>
           <p className="mt-1 text-sm text-[#81897d]" aria-live="polite">
             {carregando

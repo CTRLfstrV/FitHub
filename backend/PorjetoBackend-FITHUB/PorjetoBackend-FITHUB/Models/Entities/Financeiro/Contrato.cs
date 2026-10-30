@@ -30,6 +30,7 @@ namespace PorjetoBackend_FITHUB.Models.Entities.Financeiro
             if (!DateTime.TryParse(contratoMatricula.Termino, CultureInfo.InvariantCulture,
                     DateTimeStyles.None, out DateTime terminoContrato))
                 throw new DatasException("Data de nascimento inválida");
+            VerificaDataTerminoContrato(terminoContrato);
             Aluno = aluno;
             Plano = plano;
             Inicio = DateTime.Today;
@@ -37,6 +38,12 @@ namespace PorjetoBackend_FITHUB.Models.Entities.Financeiro
             StatusContrato = StatusContrato.PENDENTE;
             Valor = plano.Valor;
             QuantidadeParcelas = contratoMatricula.QuantidadeParcelas;
+        }
+
+        private void VerificaDataTerminoContrato(DateTime terminoContrato)
+        {
+            if (terminoContrato <= DateTime.Today)
+                throw new DatasException("A data de termino do contrato deve ser maior que a data de hoje");
         }
     }
 }
