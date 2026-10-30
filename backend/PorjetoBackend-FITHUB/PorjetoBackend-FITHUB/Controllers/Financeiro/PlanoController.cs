@@ -38,5 +38,25 @@ namespace PorjetoBackend_FITHUB.Controllers.Financeiro
                 return StatusCode(500, "Ocorreu um erro interno de servidor");
             }
         }
+
+        [HttpGet("quantidade")]
+        public async Task<IActionResult> ListarQuantidadePlanos()
+        {
+            if(HttpContext.Session.GetInt32("IdPessoa") == null)
+                return Unauthorized();
+
+            try
+            {
+                return Ok(await _planoService.QuntidadePlanos());
+            }
+            catch (SqlException)
+            {
+                return StatusCode(500, "Ocorreu um erro no consultar banco de dados");
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Ocorreu um erro interno de servidor");
+            }
+        }
     }
 }

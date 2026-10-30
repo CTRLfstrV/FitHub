@@ -23,5 +23,12 @@ namespace PorjetoBackend_FITHUB.Services.Implementations.Financeiro
 
             return planos;
         }
+
+        public async Task<int> QuntidadePlanos()
+        {
+            int quantidadePlanos = await _fitHub.TbPlano.CountAsync();
+            
+            return quantidadePlanos;
+        }
     }
 }
