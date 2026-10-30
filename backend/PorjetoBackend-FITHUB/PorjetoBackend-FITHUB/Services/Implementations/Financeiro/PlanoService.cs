@@ -18,9 +18,9 @@ namespace PorjetoBackend_FITHUB.Services.Implementations.Financeiro
             _fitHub = fitHub;
         }
         
-        public async Task<List<PlanoResponseDTO>> ListarPlanos()
+        public async Task<List<PlanoDTO>> ListarPlanos()
         {
-            List<PlanoResponseDTO> planos= await _fitHub.TbPlano.Select(p => new PlanoResponseDTO(p)).ToListAsync<PlanoResponseDTO>();
+            List<PlanoDTO> planos= await _fitHub.TbPlano.Select(p => new PlanoDTO(p)).ToListAsync<PlanoDTO>();
 
             return planos;
         }
@@ -32,13 +32,21 @@ namespace PorjetoBackend_FITHUB.Services.Implementations.Financeiro
             return quantidadePlanos;
         }
 
+        public async Task AdicionarPlano(PlanoResponseDTO planoNovo)
+        {
+            Plano plano = new Plano(planoNovo);
+            await _fitHub.TbPlano.AddAsync(plano);
+            
+            await _fitHub.SaveChangesAsync();
+        }
+
         public async Task DeletarPlano(int idPlano)
         {
             Plano plano = await _fitHub.TbPlano.FirstOrDefaultAsync(p => p.Id == idPlano); 
             _fitHub.TbPlano.Remove(plano);
         }
 
-        public async Task AtualizarPlano(int idPlano, PlanoAtualizarResponseDTO planoAtualizado)
+        public async Task AtualizarPlano(int idPlano, PlanoResponseDTO planoAtualizado)
         {
             Plano plano = await _fitHub.TbPlano.FirstOrDefaultAsync(p => p.Id == idPlano);
             plano.Nome = planoAtualizado.Nome;

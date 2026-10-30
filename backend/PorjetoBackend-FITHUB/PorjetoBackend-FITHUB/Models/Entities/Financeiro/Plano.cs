@@ -1,4 +1,5 @@
 ﻿using PorjetoBackend_FITHUB.Exceptions.PlanoExceptions;
+using PorjetoBackend_FITHUB.Models.DTO_s.Financeiro;
 
 namespace PorjetoBackend_FITHUB.Models.Entities.Financeiro
 {
@@ -43,5 +44,11 @@ namespace PorjetoBackend_FITHUB.Models.Entities.Financeiro
         }
 
         public Plano() { }
+
+        public Plano(PlanoResponseDTO plano)
+        {
+            Nome = plano.Nome;
+            Valor = plano.Valor;
+        }
     }
 }

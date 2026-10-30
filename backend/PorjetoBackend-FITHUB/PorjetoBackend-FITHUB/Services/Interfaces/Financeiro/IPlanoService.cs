@@ -6,9 +6,10 @@ namespace PorjetoBackend_FITHUB.Services.Interfaces.Financeiro
 {
     public interface IPlanoService
     {
-        Task<List<PlanoResponseDTO>> ListarPlanos();
+        Task<List<PlanoDTO>> ListarPlanos();
         Task<int> QuntidadePlanos();
+        Task AdicionarPlano(PlanoResponseDTO plano);
         Task DeletarPlano(int idPlano);
-        Task AtualizarPlano(int idPlano, PlanoAtualizarResponseDTO plano);
+        Task AtualizarPlano(int idPlano, PlanoResponseDTO plano);
     }
 }

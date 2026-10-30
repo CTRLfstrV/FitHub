@@ -60,6 +60,35 @@ namespace PorjetoBackend_FITHUB.Controllers.Financeiro
             }
         }
 
+        [HttpGet]
+        public async Task<IActionResult> AdicionarPlano([FromBody] PlanoResponseDTO plano)
+        {
+            if (HttpContext.Session.GetInt32("IdPessoa") == null)
+                return Unauthorized();
+            
+            try
+            {
+                await _planoService.AdicionarPlano(plano);
+                return Ok();
+            }
+            catch (NomePlanoInvalidoException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (ValorPlanoInvalidoException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (SqlException)
+            {
+                return StatusCode(500, "Ocorreu um erro no consultar banco de dados");
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Ocorreu um erro interno de servidor");
+            }
+        }
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeletarPlano([FromRoute] int idPlano)
         {
@@ -83,7 +112,7 @@ namespace PorjetoBackend_FITHUB.Controllers.Financeiro
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> AtualizarPlano([FromRoute] int idPlano, [FromBody] PlanoAtualizarResponseDTO plano)
+        public async Task<IActionResult> AtualizarPlano([FromRoute] int idPlano, [FromBody] PlanoResponseDTO plano)
         {
             if (HttpContext.Session.GetInt32("IdPessoa") == null)
                 return Unauthorized();
