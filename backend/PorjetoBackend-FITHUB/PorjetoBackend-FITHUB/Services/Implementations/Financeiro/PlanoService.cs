@@ -19,10 +19,10 @@ namespace PorjetoBackend_FITHUB.Services.Implementations.Financeiro
         {
             _fitHub = fitHub;
         }
-        
+
         public async Task<List<PlanoDTO>> ListarPlanos()
         {
-            List<PlanoDTO> planos= await _fitHub.TbPlano.Select(p => new PlanoDTO(p)).ToListAsync<PlanoDTO>();
+            List<PlanoDTO> planos = await _fitHub.TbPlano.Select(p => new PlanoDTO(p)).ToListAsync<PlanoDTO>();
 
             return planos;
         }
@@ -30,29 +30,45 @@ namespace PorjetoBackend_FITHUB.Services.Implementations.Financeiro
         public async Task<int> QuntidadePlanos()
         {
             int quantidadePlanos = await _fitHub.TbPlano.CountAsync();
-            
+
             return quantidadePlanos;
         }
 
         public async Task<PlanoDetalhesDTO> DetalhesPlano(int id)
         {
-            return null;
+            if (id <= 0)
+                throw new IdPlanoInvalidoException("O id do plano está inválido");
+
+            PlanoDetalhesDTO planoDetalhes = await _fitHub.TbPlano.Where(p => p.Id == id)
+                .Select(p =>
+                    new PlanoDetalhesDTO(p.Nome, p.Valor,
+                        p.Contratos.Select(c =>
+                                new ContratoDetalhesPlanoDTO(c.Inicio, c.Termino,
+                                    new AlunoDetalhesPlanoDTO(c.Aluno.Nome, c.Aluno.Email)))
+                            .ToList()
+                    ))
+                .FirstOrDefaultAsync<PlanoDetalhesDTO>();
+            
+            if (planoDetalhes == null)
+                throw new PlanoNaoEncontradoException("Não foi possível encontrar os detalhes desse plano");
+            
+            return planoDetalhes;
         }
 
         public async Task AdicionarPlano(PlanoResponseDTO planoNovo)
         {
             Plano plano = new Plano(planoNovo);
             await _fitHub.TbPlano.AddAsync(plano);
-            
+
             await _fitHub.SaveChangesAsync();
         }
 
         public async Task DeletarPlano(int idPlano)
         {
-            Plano plano = await _fitHub.TbPlano.FirstOrDefaultAsync(p => p.Id == idPlano); 
+            Plano plano = await _fitHub.TbPlano.FirstOrDefaultAsync(p => p.Id == idPlano);
             _fitHub.TbPlano.Remove(plano);
-            
-            await _fitHub.SaveChangesAsync(); 
+
+            await _fitHub.SaveChangesAsync();
         }
 
         public async Task AtualizarPlano(int idPlano, PlanoResponseDTO planoAtualizado)
@@ -60,7 +76,7 @@ namespace PorjetoBackend_FITHUB.Services.Implementations.Financeiro
             Plano plano = await _fitHub.TbPlano.FirstOrDefaultAsync(p => p.Id == idPlano);
             plano.Nome = planoAtualizado.Nome;
             plano.Valor = planoAtualizado.Valor;
-            
+
             await _fitHub.SaveChangesAsync();
         }
     }

@@ -1,4 +1,5 @@
-﻿using PorjetoBackend_FITHUB.Exceptions.PlanoExceptions;
+﻿using System.Collections.Generic;
+using PorjetoBackend_FITHUB.Exceptions.PlanoExceptions;
 using PorjetoBackend_FITHUB.Models.DTO_s.Financeiro.Plano;
 
 namespace PorjetoBackend_FITHUB.Models.Entities.Financeiro
@@ -42,6 +43,8 @@ namespace PorjetoBackend_FITHUB.Models.Entities.Financeiro
             }
             
         }
+
+        public List<Contrato> Contratos { get; set; }
 
         public Plano() { }
 
