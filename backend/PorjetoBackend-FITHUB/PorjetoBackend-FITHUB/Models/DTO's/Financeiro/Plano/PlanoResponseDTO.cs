@@ -1,4 +1,4 @@
-﻿namespace PorjetoBackend_FITHUB.Models.DTO_s.Financeiro
+﻿namespace PorjetoBackend_FITHUB.Models.DTO_s.Financeiro.Plano
 {
     public record PlanoResponseDTO
     {

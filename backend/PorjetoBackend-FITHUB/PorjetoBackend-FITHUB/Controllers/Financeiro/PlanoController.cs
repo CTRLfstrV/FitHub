@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using PorjetoBackend_FITHUB.Exceptions.PlanoExceptions;
 using PorjetoBackend_FITHUB.Models.DTO_s.Financeiro;
+using PorjetoBackend_FITHUB.Models.DTO_s.Financeiro.Plano;
 using PorjetoBackend_FITHUB.Services.Interfaces.Financeiro;
 
 namespace PorjetoBackend_FITHUB.Controllers.Financeiro
@@ -58,6 +59,12 @@ namespace PorjetoBackend_FITHUB.Controllers.Financeiro
             {
                 return StatusCode(500, "Ocorreu um erro interno de servidor");
             }
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> DetalhesPlano([FromRoute] int id)
+        {
+            return null;
         }
 
         [HttpPost]

@@ -1,5 +1,5 @@
 ﻿using PorjetoBackend_FITHUB.Exceptions.PlanoExceptions;
-using PorjetoBackend_FITHUB.Models.DTO_s.Financeiro;
+using PorjetoBackend_FITHUB.Models.DTO_s.Financeiro.Plano;
 
 namespace PorjetoBackend_FITHUB.Models.Entities.Financeiro
 {

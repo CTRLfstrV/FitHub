@@ -3,7 +3,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using PorjetoBackend_FITHUB.Data;
+using PorjetoBackend_FITHUB.Exceptions.PlanoExceptions;
 using PorjetoBackend_FITHUB.Models.DTO_s.Financeiro;
+using PorjetoBackend_FITHUB.Models.DTO_s.Financeiro.Plano;
 using PorjetoBackend_FITHUB.Models.Entities.Financeiro;
 using PorjetoBackend_FITHUB.Services.Interfaces.Financeiro;
 
@@ -32,6 +34,11 @@ namespace PorjetoBackend_FITHUB.Services.Implementations.Financeiro
             return quantidadePlanos;
         }
 
+        public async Task<PlanoDetalhesDTO> DetalhesPlano(int id)
+        {
+            return null;
+        }
+
         public async Task AdicionarPlano(PlanoResponseDTO planoNovo)
         {
             Plano plano = new Plano(planoNovo);
@@ -45,7 +52,7 @@ namespace PorjetoBackend_FITHUB.Services.Implementations.Financeiro
             Plano plano = await _fitHub.TbPlano.FirstOrDefaultAsync(p => p.Id == idPlano); 
             _fitHub.TbPlano.Remove(plano);
             
-            await _fitHub.SaveChangesAsync();
+            await _fitHub.SaveChangesAsync(); 
         }
 
         public async Task AtualizarPlano(int idPlano, PlanoResponseDTO planoAtualizado)

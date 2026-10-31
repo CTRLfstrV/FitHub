@@ -1,6 +1,4 @@
-﻿using PorjetoBackend_FITHUB.Models.Entities.Financeiro;
-
-namespace PorjetoBackend_FITHUB.Models.DTO_s.Financeiro
+﻿namespace PorjetoBackend_FITHUB.Models.DTO_s.Financeiro.Plano
 {
     public record PlanoDTO
     {
@@ -8,7 +6,7 @@ namespace PorjetoBackend_FITHUB.Models.DTO_s.Financeiro
         public string Nome { get; set; }
         public decimal Valor { get; set; }
 
-        public PlanoDTO(Plano plano)
+        public PlanoDTO(Entities.Financeiro.Plano plano)
         {
             Id = plano.Id;
             Nome = plano.Nome;
