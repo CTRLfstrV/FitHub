@@ -14,7 +14,7 @@ namespace PorjetoBackend_FITHUB.Data.Configurations.FinanceiroConfiguration
             builder.Property(p => p.Id).HasColumnName("pk_id_plano").ValueGeneratedOnAdd();
             builder.HasMany(c => c.Contratos)
                 .WithOne(c => c.Plano)
-                .HasForeignKey("fk_id_contrato");
+                .HasForeignKey("fk_id_plano");
 
 
             builder.Property(p => p.Nome).HasColumnName("nome_plano");

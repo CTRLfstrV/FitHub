@@ -64,7 +64,28 @@ namespace PorjetoBackend_FITHUB.Controllers.Financeiro
         [HttpGet("{id}")]
         public async Task<IActionResult> DetalhesPlano([FromRoute] int id)
         {
-            return null;
+            if (HttpContext.Session.GetInt32("IdPessoa") == null)
+                return Unauthorized();
+            try
+            {
+                return Ok(await _planoService.DetalhesPlano(id));
+            }
+            catch (IdPlanoInvalidoException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (PlanoNaoEncontradoException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (SqlException)
+            {
+                return StatusCode(500, "Ocorreu um erro no consultar banco de dados");
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Ocorreu um erro interno de servidor");
+            }
         }
 
         [HttpPost]
