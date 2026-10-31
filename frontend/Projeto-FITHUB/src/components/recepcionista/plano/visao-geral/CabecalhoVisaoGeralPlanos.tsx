@@ -1,4 +1,10 @@
-function CabecalhoVisaoGeralPlanos() {
+type CabecalhoVisaoGeralPlanosProps = {
+  onAdicionarPlano: () => void;
+};
+
+function CabecalhoVisaoGeralPlanos({
+  onAdicionarPlano,
+}: CabecalhoVisaoGeralPlanosProps) {
   return (
     <header className="mb-7 rounded-2xl border border-[#dcebd0] bg-gradient-to-br from-[#f3f9ed] via-white to-[#e8f5d9] px-5 py-6 shadow-[0_8px_28px_rgba(65,104,32,0.06)] sm:mb-8 sm:px-8 sm:py-8 lg:px-10 lg:py-9">
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center">
@@ -17,6 +23,7 @@ function CabecalhoVisaoGeralPlanos() {
 
         <button
           type="button"
+          onClick={onAdicionarPlano}
           className="inline-flex min-h-11 w-full cursor-pointer items-center justify-center gap-2 rounded-xl border border-green-700 bg-green-700 px-5 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:border-green-800 hover:bg-green-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-700 sm:w-auto"
         >
           <svg

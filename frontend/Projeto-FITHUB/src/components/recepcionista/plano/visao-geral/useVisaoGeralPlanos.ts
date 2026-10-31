@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { PlanoService } from "../../../../services/financeiro/PlanoService";
+import type { PlanoCadastroDTO } from "../../../../types/financeiro/PlanoCadastroDTO";
 import type { PlanoResponseDTO } from "../../../../types/financeiro/PlanoResponseDTO";
 
 const planoService = new PlanoService();
@@ -8,6 +9,13 @@ function useVisaoGeralPlanos() {
   const [planos, setPlanos] = useState<PlanoResponseDTO[]>([]);
   const [carregando, setCarregando] = useState(true);
   const [mensagemErro, setMensagemErro] = useState<string | null>(null);
+
+  async function cadastrarPlano(plano: PlanoCadastroDTO) {
+    await planoService.CadastrarPlano(plano);
+    const planosAtualizados = await planoService.ListarPlanos();
+    setPlanos(planosAtualizados);
+    setMensagemErro(null);
+  }
 
   useEffect(() => {
     let componenteAtivo = true;
@@ -32,7 +40,7 @@ function useVisaoGeralPlanos() {
     };
   }, []);
 
-  return { planos, carregando, mensagemErro };
+  return { planos, carregando, mensagemErro, cadastrarPlano };
 }
 
 export default useVisaoGeralPlanos;

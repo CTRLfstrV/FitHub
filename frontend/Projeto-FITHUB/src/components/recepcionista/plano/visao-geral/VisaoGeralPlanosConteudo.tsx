@@ -1,16 +1,22 @@
+import { useState } from "react";
+import ModalCadastroPlano from "../cadastro/ModalCadastroPlano";
 import CabecalhoVisaoGeralPlanos from "./CabecalhoVisaoGeralPlanos";
 import EstadoListaPlanos from "./EstadoListaPlanos";
 import ListaPlanos from "./ListaPlanos";
 import useVisaoGeralPlanos from "./useVisaoGeralPlanos";
 
 function VisaoGeralPlanosConteudo() {
-  const { planos, carregando, mensagemErro } = useVisaoGeralPlanos();
+  const { planos, carregando, mensagemErro, cadastrarPlano } =
+    useVisaoGeralPlanos();
+  const [modalCadastroAberto, setModalCadastroAberto] = useState(false);
   const mostrarEstado = carregando || Boolean(mensagemErro) || planos.length === 0;
 
   return (
     <section className="min-w-0 flex-1 px-4 py-6 sm:px-7 sm:py-8 lg:px-10 lg:py-10">
       <div className="mx-auto w-full max-w-[1160px]">
-        <CabecalhoVisaoGeralPlanos />
+        <CabecalhoVisaoGeralPlanos
+          onAdicionarPlano={() => setModalCadastroAberto(true)}
+        />
 
         <div className="mb-4 flex items-end justify-between gap-4 sm:mb-5">
           <div>
@@ -38,6 +44,12 @@ function VisaoGeralPlanosConteudo() {
           <ListaPlanos planos={planos} />
         )}
       </div>
+      {modalCadastroAberto && (
+        <ModalCadastroPlano
+          onFechar={() => setModalCadastroAberto(false)}
+          onSalvar={cadastrarPlano}
+        />
+      )}
     </section>
   );
 }
