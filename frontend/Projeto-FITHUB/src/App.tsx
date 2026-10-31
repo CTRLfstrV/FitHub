@@ -8,6 +8,7 @@ import RecepcionistaGerenciamentoAlunoPage from "./pages/recepcionista/recepcion
 import RecepcionistaDetalhesAluno from "./pages/recepcionista/recepcionistaDetalhesAluno.tsx";
 import RecepcionistaMatriculaPage from "./pages/recepcionista/recepcionistaMatriculaPage.tsx";
 import ConfiguracoesPage from "./pages/configuracoesPage.tsx";
+import RecepcionistaGerenciamentoPlano from "./pages/recepcionista/recepcionistaGerenciamentoPlano.tsx";
 
 //http://localhost:4173/
 
@@ -37,6 +38,10 @@ function App() {
           <Route
             path="/recepcionista/matricular-aluno"
             element={<RecepcionistaMatriculaPage />}
+          />
+          <Route
+            path="/recepcionista/planos"
+            element={<RecepcionistaGerenciamentoPlano />}
           />
           <Route
             path="/recepcionista/configuracoes"
