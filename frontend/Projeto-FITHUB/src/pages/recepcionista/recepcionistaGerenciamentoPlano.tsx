@@ -1,5 +1,7 @@
+import VisaoGeralPlanosConteudo from "../../components/recepcionista/plano/visao-geral/VisaoGeralPlanosConteudo";
+
 function RecepcionistaGerenciamentoPlano() {
-  return <h1>Olá</h1>;
+  return <VisaoGeralPlanosConteudo />;
 }
 
 export default RecepcionistaGerenciamentoPlano;
