@@ -22,7 +22,7 @@ namespace PorjetoBackend_FITHUB.Services.Implementations.Financeiro
 
         public async Task<List<PlanoDTO>> ListarPlanos()
         {
-            List<PlanoDTO> planos = await _fitHub.TbPlano.Select(p => new PlanoDTO(p)).ToListAsync<PlanoDTO>();
+            List<PlanoDTO> planos = await _fitHub.TbPlano.OrderBy(p => p.Valor).Select(p => new PlanoDTO(p)).ToListAsync<PlanoDTO>();
 
             return planos;
         }
