@@ -13,7 +13,7 @@ function EstadoListaPlanos({
     return (
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 xl:grid-cols-3 xl:gap-6" aria-label="Carregando planos" aria-busy="true">
         {[0, 1, 2].map((item) => (
-          <div key={item} className="min-h-[280px] animate-pulse rounded-2xl border border-[#e5ecdf] bg-white p-5 sm:p-6">
+          <div key={item} className="fithub-card min-h-[304px] animate-pulse p-4 sm:p-5">
             <div className="h-12 w-12 rounded-2xl bg-[#edf2e9]" />
             <div className="mt-6 h-5 w-2/3 rounded bg-[#edf2e9]" />
             <div className="mt-3 h-4 w-1/3 rounded bg-[#f1f4ee]" />

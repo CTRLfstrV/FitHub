@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 
 const eyebrow =
-  "inline-flex items-center gap-2 text-[11px] font-bold tracking-[.16em] text-[#598c1c]";
+  "inline-flex items-center gap-2 text-[11px] font-bold tracking-[.16em] text-fithub-brand";
 const primaryButton =
-  "inline-flex min-h-[50px] items-center justify-center gap-6 rounded-lg bg-[#c5ff62] px-[21px] text-[15px] font-bold text-[#17200f] transition hover:-translate-y-0.5 hover:bg-[#b3ee4f]";
+  "inline-flex min-h-[50px] items-center justify-center gap-6 rounded-lg bg-fithub-lime px-[21px] text-[15px] font-bold text-fithub-ink transition hover:-translate-y-0.5 hover:bg-fithub-lime-hover";
 
 function HomePage() {
   return (
@@ -11,14 +11,14 @@ function HomePage() {
       <section className="grid items-center gap-10 py-[54px] md:grid-cols-2 md:gap-[clamp(40px,8vw,110px)] md:py-[78px]">
         <div className="max-w-[520px]">
           <span className={eyebrow}>
-            <span className="h-[7px] w-[7px] rounded-full bg-[#79b82d]" />{" "}
+            <span className="h-[7px] w-[7px] rounded-full bg-fithub-brand" />{" "}
             MOVIMENTO QUE TRANSFORMA
           </span>
           <h1 className="my-6 text-[42px] font-extrabold leading-[1.04] tracking-[-.06em] sm:text-5xl md:text-[clamp(44px,5.5vw,72px)]">
             Seu próximo nível{" "}
-            <span className="text-[#598c1c]">começa aqui.</span>
+            <span className="text-fithub-brand">começa aqui.</span>
           </h1>
-          <p className="max-w-[430px] text-[17px] leading-[1.8] text-[#687064]">
+          <p className="max-w-[430px] text-[17px] leading-[1.8] text-fithub-muted">
             Treine com propósito, acompanhe sua evolução e encontre uma rotina
             que combina com você.
           </p>
@@ -27,7 +27,7 @@ function HomePage() {
               Começar agora <span>↗</span>
             </Link>
             <a className="text-[13px] text-[#485044]" href="#beneficios">
-              Conheça o FitHub <span className="ml-1 text-[#598c1c]">↓</span>
+              Conheça o FitHub <span className="ml-1 text-fithub-brand">↓</span>
             </a>
           </div>
           <div className="mt-[34px] flex items-center gap-[13px] text-[13px] leading-relaxed text-[#737b6e] md:mt-[54px]">
@@ -45,16 +45,16 @@ function HomePage() {
         </div>
         <div className="relative min-w-0">
           <div
-            className="home-visual-pulse relative grid h-[min(68vw,390px)] min-h-[280px] place-items-center overflow-hidden rounded-md border border-[#d6e8c4] bg-[#f1f6eb] md:h-[clamp(340px,38vw,450px)]"
+            className="home-visual-pulse relative grid h-[min(68vw,390px)] min-h-[280px] place-items-center overflow-hidden rounded-[10px] border border-[#d6e8c4] bg-fithub-surface md:h-[clamp(340px,38vw,450px)]"
             aria-label="Movimento, foco e evolução"
           >
             <div className="absolute h-[34%] w-[72%] rotate-[-28deg] rounded-[50%] border-[1.5px] border-[#78b936]/75 shadow-[0_0_18px_rgba(101,163,13,0.16)]" />
             <div className="absolute h-[54%] w-[58%] rotate-[32deg] rounded-[50%] border-[1.5px] border-[#9acb62]/80" />
-            <span className="relative z-[1] text-[clamp(180px,25vw,320px)] font-extrabold leading-[.8] tracking-[-.12em] text-[#76b82a] drop-shadow-[0_8px_18px_rgba(87,145,25,0.2)]">
+            <span className="relative z-[1] text-[clamp(180px,25vw,320px)] font-extrabold leading-[.8] tracking-[-.12em] text-fithub-brand drop-shadow-[0_8px_18px_rgba(87,145,25,0.2)]">
               F
             </span>
           </div>
-          <div className="absolute -top-2 right-[-9px] flex h-[78px] w-[78px] rotate-[9deg] flex-col items-center justify-center gap-1 rounded-full bg-[#c5ff62] text-[11px] font-extrabold leading-tight text-[#17200f] md:-top-1 md:right-[-22px] md:h-[94px] md:w-[94px] md:text-[13px]">
+          <div className="absolute -top-2 right-[-9px] flex h-[78px] w-[78px] rotate-[9deg] flex-col items-center justify-center gap-1 rounded-full bg-fithub-lime text-[11px] font-extrabold leading-tight text-fithub-ink md:-top-1 md:right-[-22px] md:h-[94px] md:w-[94px] md:text-[13px]">
             <span>
               SEU
               <br />
@@ -76,52 +76,52 @@ function HomePage() {
           <span className={eyebrow}>FEITO PARA VOCÊ</span>
           <h2 className="mt-3 text-[28px] font-bold leading-tight tracking-[-.045em] sm:text-4xl">
             Um jeito mais leve de{" "}
-            <span className="text-[#598c1c]">evoluir.</span>
+            <span className="text-fithub-brand">evoluir.</span>
           </h2>
         </div>
         <div className="grid gap-[14px] md:grid-cols-3">
-          <article className="relative rounded-[10px] border border-[#e2e7de] bg-white p-[22px] md:min-h-[205px] md:p-6">
+          <article className="fithub-card relative p-[22px] md:min-h-[205px] md:p-6">
             <span className="text-xs tracking-[.12em] text-[#828a7d]">01</span>
-            <span className="absolute top-5 right-[22px] text-xl text-[#598c1c]">
+            <span className="absolute top-5 right-[22px] text-xl text-fithub-brand">
               ↗
             </span>
             <h3 className="mt-6 mb-2 text-[18px] font-bold md:mt-8">
               Seu objetivo, seu plano
             </h3>
-            <p className="text-sm leading-[1.7] text-[#687064]">
+            <p className="text-sm leading-[1.7] text-fithub-muted">
               Encontre uma jornada que respeita seu momento e ajuda você a
               seguir em frente.
             </p>
           </article>
-          <article className="relative rounded-[10px] border border-[#e2e7de] bg-white p-[22px] md:min-h-[205px] md:p-6">
+          <article className="fithub-card relative p-[22px] md:min-h-[205px] md:p-6">
             <span className="text-xs tracking-[.12em] text-[#828a7d]">02</span>
-            <span className="absolute top-5 right-[22px] text-xl text-[#598c1c]">
+            <span className="absolute top-5 right-[22px] text-xl text-fithub-brand">
               ◷
             </span>
             <h3 className="mt-6 mb-2 text-[18px] font-bold md:mt-8">
               Constância que cabe na rotina
             </h3>
-            <p className="text-sm leading-[1.7] text-[#687064]">
+            <p className="text-sm leading-[1.7] text-fithub-muted">
               Transforme pequenos passos em hábitos que fazem diferença no dia a
               dia.
             </p>
           </article>
-          <article className="relative rounded-[10px] border border-[#e2e7de] bg-white p-[22px] md:min-h-[205px] md:p-6">
+          <article className="fithub-card relative p-[22px] md:min-h-[205px] md:p-6">
             <span className="text-xs tracking-[.12em] text-[#828a7d]">03</span>
-            <span className="absolute top-5 right-[22px] text-xl text-[#598c1c]">
+            <span className="absolute top-5 right-[22px] text-xl text-fithub-brand">
               ✳
             </span>
             <h3 className="mt-6 mb-2 text-[18px] font-bold md:mt-8">
               Progresso de verdade
             </h3>
-            <p className="text-sm leading-[1.7] text-[#687064]">
+            <p className="text-sm leading-[1.7] text-fithub-muted">
               Acompanhe sua evolução e celebre cada conquista ao longo do
               caminho.
             </p>
           </article>
         </div>
       </section>
-      <section className="flex flex-col items-start gap-6 rounded-[10px] bg-[#f1f6eb] px-[23px] py-7 md:flex-row md:items-center md:justify-between md:px-10 md:py-[35px]">
+      <section className="flex flex-col items-start gap-6 rounded-[10px] bg-fithub-surface px-[23px] py-7 md:flex-row md:items-center md:justify-between md:px-10 md:py-[35px]">
         <div>
           <span className={eyebrow}>O SEU MOMENTO É AGORA</span>
           <h2 className="mt-3 text-[23px] font-bold tracking-[-.045em] sm:text-[32px]">

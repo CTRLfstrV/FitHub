@@ -10,7 +10,7 @@ import { GlobalValidation } from "../validations/globalValidation";
 import CampoSenha from "../components/CampoSenha";
 
 const eyebrow =
-  "inline-flex items-center gap-2 text-[11px] font-bold tracking-[.16em] text-[#598c1c]";
+  "inline-flex items-center gap-2 text-[11px] font-bold tracking-[.16em] text-fithub-brand";
 
 const pessoaService: PessoaService = new PessoaService(
   new LoginValidation(new GlobalValidation()),
@@ -49,8 +49,8 @@ function LoginPage() {
 
   return (
     <section className="mx-auto grid min-h-[calc(100vh_-_150px)] max-w-[1040px] place-items-center px-5 py-8 md:px-10 md:py-[54px]">
-      <div className="grid min-h-[510px] w-full max-w-[930px] overflow-hidden rounded-[14px] border border-[#e2e7de] bg-white shadow-[0_24px_70px_#1c2b1012] md:grid-cols-[0.95fr_1.05fr]">
-        <div className="flex min-h-[235px] flex-col justify-between bg-linear-to-r from-amber-50 to-white p-[25px] md:p-[38px]">
+      <div className="grid min-h-[510px] w-full max-w-[930px] overflow-hidden rounded-2xl border border-fithub-border bg-white shadow-[0_24px_70px_#1c2b1012] md:grid-cols-[0.95fr_1.05fr]">
+        <div className="flex min-h-[235px] flex-col justify-between bg-linear-to-r from-fithub-surface to-white p-[25px] md:p-[38px]">
           <Link
             to="/home"
             className="inline-flex"
@@ -62,9 +62,9 @@ function LoginPage() {
             <span className={eyebrow}>SUA JORNADA COMEÇA AQUI</span>
             <h1 className="my-3 max-w-[340px] text-[34px] font-extrabold leading-[1.04] tracking-[-.055em] md:text-[clamp(34px,4vw,48px)]">
               O seu melhor está em{" "}
-              <span className="text-[#598c1c]">movimento.</span>
+              <span className="text-fithub-brand">movimento.</span>
             </h1>
-            <p className="max-w-[320px] text-sm leading-[1.8] text-[#687064] md:text-base">
+            <p className="max-w-[320px] text-sm leading-[1.8] text-fithub-muted md:text-base">
               Entre para acompanhar sua evolução e continuar construindo uma
               rotina que faz bem.
             </p>
@@ -79,7 +79,7 @@ function LoginPage() {
             <h2 className="mt-3 mb-1 text-[30px] font-bold tracking-[-.04em]">
               Acesse sua conta
             </h2>
-            <p className="text-base text-[#687064]">
+            <p className="text-base text-fithub-muted">
               Que bom ter você por aqui.
             </p>
           </div>
@@ -94,7 +94,7 @@ function LoginPage() {
               CPF
             </label>
             <input
-              className="mb-[22px] h-12 w-full rounded-[7px] border border-[#d9dfd5] bg-white px-[14px] text-sm text-[#20251e] outline-none transition placeholder:text-[#8a9185] focus:border-[#83b943] focus:ring-[3px] focus:ring-[#79b82d]/20"
+              className="mb-[22px] h-12 w-full rounded-xl border border-[#d9dfd5] bg-white px-[14px] text-sm text-fithub-ink outline-none transition placeholder:text-[#8a9185] focus:border-[#83b943] focus:ring-[3px] focus:ring-[#79b82d]/20"
               id="cpf"
               name="cpf"
               type="text"
@@ -113,7 +113,7 @@ function LoginPage() {
               Senha
             </label>
             <CampoSenha
-              className="h-12 w-full rounded-[7px] border border-[#d9dfd5] bg-white px-[14px] text-sm text-[#20251e] outline-none transition placeholder:text-[#8a9185] focus:border-[#83b943] focus:ring-[3px] focus:ring-[#79b82d]/20"
+              className="h-12 w-full rounded-xl border border-[#d9dfd5] bg-white px-[14px] text-sm text-fithub-ink outline-none transition placeholder:text-[#8a9185] focus:border-[#83b943] focus:ring-[3px] focus:ring-[#79b82d]/20"
               classNameContainer="mb-[22px]"
               id="password"
               name="password"
@@ -128,15 +128,15 @@ function LoginPage() {
               {mensagemErro}
             </p>
             <button
-              className="inline-flex min-h-[50px] cursor-pointer w-full items-center justify-center gap-6 rounded-lg bg-[#c5ff62] px-[21px] text-[15px] font-bold text-[#17200f] transition hover:-translate-y-0.5 hover:bg-[#b3ee4f]"
+              className="inline-flex min-h-[50px] w-full cursor-pointer items-center justify-center gap-6 rounded-lg bg-fithub-lime px-[21px] text-[15px] font-bold text-fithub-ink transition hover:-translate-y-0.5 hover:bg-fithub-lime-hover"
               type="submit"
             >
               Entrar na conta <span>↗</span>
             </button>
           </form>
-          <p className="mt-[25px] text-center text-sm text-[#687064]">
+          <p className="mt-[25px] text-center text-sm text-fithub-muted">
             Ainda não tem uma conta?{" "}
-            <Link className="font-bold text-[#598c1c]" to="/home">
+            <Link className="font-bold text-fithub-brand" to="/home">
               Conheça o FitHub
             </Link>
           </p>

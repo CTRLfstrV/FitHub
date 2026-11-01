@@ -16,7 +16,7 @@ function SecaoFormularioMatricula({
   resumo,
 }: SecaoFormularioMatriculaProps) {
   return (
-    <section className="rounded-2xl border border-[#e4e9df] bg-white p-6 shadow-[0_8px_24px_rgba(34,44,27,0.035)] sm:p-7 lg:p-8">
+    <section className="fithub-card p-4 sm:p-5">
       <div className="mb-7 flex flex-col gap-5 border-b border-[#edf0e9] pb-6 sm:mb-8 sm:flex-row sm:items-start sm:justify-between sm:gap-7 sm:pb-7">
         <div className="flex items-start gap-3 sm:gap-4">
           <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#e8f5d9] text-sm font-bold text-green-800">

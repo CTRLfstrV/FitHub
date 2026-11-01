@@ -9,14 +9,14 @@ function CartoesContratosProximoVencimento({
   contratos,
 }: CartoesContratosProximoVencimentoProps) {
   return (
-    <div className="divide-y divide-[#edf0e9] sm:hidden">
+    <div className="grid gap-3 p-3 sm:hidden">
       {contratos?.length === 0 ? (
         <p className="px-4 py-10 text-center text-sm text-[#747c70]">
           Nenhum contrato próximo do vencimento.
         </p>
       ) : (
         contratos?.map((contrato) => (
-          <article key={contrato.id} className="space-y-3 px-4 py-4">
+          <article key={contrato.id} className="fithub-card space-y-3 p-4">
             <div>
               <h3 className="text-sm font-semibold text-[#20251e]">
                 {contrato.nomeAluno}

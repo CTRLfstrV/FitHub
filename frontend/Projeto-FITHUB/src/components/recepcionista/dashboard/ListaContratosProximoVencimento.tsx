@@ -10,7 +10,7 @@ function ListaContratosProximoVencimento({
   contratos,
 }: ListaContratosProximoVencimentoProps) {
   return (
-    <section className="mt-6 overflow-hidden rounded-2xl border border-[#dfe5da] bg-white shadow-[0_8px_28px_rgba(32,37,30,0.05)] sm:mt-8">
+    <section className="fithub-card mt-6 overflow-hidden sm:mt-8">
       <div className="flex flex-col gap-1 border-b border-[#e7ebe3] px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6 sm:py-5">
         <div>
           <h2 className="text-base font-semibold text-[#20251e] sm:text-lg">

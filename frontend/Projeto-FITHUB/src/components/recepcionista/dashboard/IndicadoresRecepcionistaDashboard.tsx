@@ -19,7 +19,6 @@ function IndicadoresRecepcionistaDashboard({
         titulo="Total de alunos"
         valor={quantidadeAlunos ?? mensagemErro}
         legenda="Alunos cadastrados na unidade"
-        corFaixa="bg-green-600"
         corIcone="bg-[#edf7e5] text-green-800 ring-[#d7ebc8]"
         icone={
           <svg
@@ -40,7 +39,6 @@ function IndicadoresRecepcionistaDashboard({
         titulo="Alunos com contrato ativo"
         valor={quantidadeContratosAtivos ?? mensagemErro}
         legenda="Contratos vigentes"
-        corFaixa="bg-[#8acb58]"
         corIcone="bg-[#f2f8ec] text-[#5c9139] ring-[#dfead5]"
         icone={
           <svg
@@ -61,7 +59,6 @@ function IndicadoresRecepcionistaDashboard({
         titulo="Alunos ativos"
         valor={quantidadeAlunosAtivos ?? mensagemErro}
         legenda="Alunos ativos no sistema"
-        corFaixa="bg-[#b4dc8f]"
         corIcone="bg-[#f6faef] text-[#719d4d] ring-[#e3ecd8]"
         icone={
           <svg

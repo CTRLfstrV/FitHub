@@ -20,7 +20,7 @@ function InformacoesContratoAluno({
   contrato: DetalhesAlunoResponseDTO;
 }) {
   return (
-    <section className="rounded-2xl border border-[#dcebd0] border-l-4 border-l-green-600 bg-gradient-to-br from-white to-[#fbfdf8] p-5 shadow-[0_12px_30px_rgba(34,72,30,0.07)] sm:p-6">
+    <section className="fithub-card p-4 sm:p-5">
       <div className="mb-5 flex items-start justify-between gap-4">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.12em] text-green-800">
@@ -36,7 +36,7 @@ function InformacoesContratoAluno({
       </div>
 
       <dl className="grid gap-4 sm:grid-cols-2 sm:gap-x-8">
-        <div className="rounded-xl border border-[#edf0e9] bg-white p-4">
+        <div className="rounded-2xl bg-[#f6f8f4] p-4 ring-1 ring-inset ring-[#edf0ea]">
           <dt className="text-xs font-semibold uppercase tracking-wide text-[#81897d]">
             Início do contrato
           </dt>
@@ -44,7 +44,7 @@ function InformacoesContratoAluno({
             {formatarDataCompleta(contrato.dataInicioContrato)}
           </dd>
         </div>
-        <div className="rounded-xl border border-[#edf0e9] bg-white p-4">
+        <div className="rounded-2xl bg-[#f6f8f4] p-4 ring-1 ring-inset ring-[#edf0ea]">
           <dt className="text-xs font-semibold uppercase tracking-wide text-[#81897d]">
             Término do contrato
           </dt>
@@ -52,7 +52,7 @@ function InformacoesContratoAluno({
             {formatarDataCompleta(contrato.dataTerminoContrato)}
           </dd>
         </div>
-        <div className="rounded-xl border border-[#edf0e9] bg-white p-4 sm:col-span-2">
+        <div className="rounded-2xl bg-[#f6f8f4] p-4 ring-1 ring-inset ring-[#edf0ea] sm:col-span-2">
           <dt className="text-xs font-semibold uppercase tracking-wide text-[#81897d]">
             Valor contratado
           </dt>

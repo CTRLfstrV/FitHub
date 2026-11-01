@@ -7,7 +7,7 @@ type UsersHeaderProps = { nomeUsuario: string };
 function UsersHeader({ nomeUsuario }: UsersHeaderProps) {
   const { isOpen, toggleMenu } = useRecepcionistaMenu();
   return (
-    <header className="relative z-10 border-b border-black/10 bg-green-700 font-mono">
+    <header className="relative z-10 border-b border-black/10 bg-green-700 font-sans">
       <div className="mx-auto flex min-h-[82px] max-w-[1240px] items-center justify-between gap-3 px-4 sm:px-[22px] md:px-10">
         <button
           type="button"
@@ -42,7 +42,7 @@ function UsersHeader({ nomeUsuario }: UsersHeaderProps) {
           type="button"
           className="ml-auto cursor-pointer inline-flex w-auto shrink-0 items-center justify-center gap-2 rounded-lg border border-white bg-white px-3 py-2.5 text-xs font-semibold text-green-700 transition hover:bg-green-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:px-4 sm:text-sm md:px-[17px] md:py-3 md:text-base"
         >
-          <span className="text-[20px]">Sair</span>
+          <span>Sair</span>
           <span className="text-lg leading-none" aria-hidden="true">
             ⇥
           </span>

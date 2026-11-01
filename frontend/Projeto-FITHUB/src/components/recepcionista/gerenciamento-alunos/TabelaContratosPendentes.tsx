@@ -154,7 +154,7 @@ function TabelaContratosPendentes({
         {contratos.map((contrato) => (
           <article
             key={contrato.idContrato}
-            className="space-y-4 rounded-xl border border-[#e4eadf] bg-white p-4 shadow-[0_2px_8px_rgba(32,37,30,0.035)] transition-shadow hover:shadow-[0_6px_14px_rgba(32,37,30,0.06)]"
+            className="fithub-card fithub-card-interactive space-y-4 p-4"
           >
             <Pessoa
               nome={contrato.nomeAluno}

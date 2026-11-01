@@ -80,7 +80,7 @@ function RedefinicaoSenhaConfiguracoes() {
   }
 
   return (
-    <section className="rounded-2xl border border-[#e4e9df] bg-white p-6 shadow-[0_8px_24px_rgba(34,44,27,0.035)] sm:p-7 lg:p-8">
+    <section className="fithub-card p-4 sm:p-5">
       <CabecalhoSecaoConfiguracoes
         numero="02"
         titulo="Redefinição de senha"

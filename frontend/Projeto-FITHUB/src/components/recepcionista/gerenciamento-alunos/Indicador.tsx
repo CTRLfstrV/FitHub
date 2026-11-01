@@ -2,15 +2,12 @@ import type { ReactNode } from "react";
 
 const coresIndicador = {
   green: {
-    faixa: "bg-green-600",
     icone: "bg-[#edf7e5] text-green-800 ring-[#d7ebc8]",
   },
   amber: {
-    faixa: "bg-amber-400",
     icone: "bg-amber-50 text-amber-700 ring-amber-200",
   },
   rose: {
-    faixa: "bg-rose-400",
     icone: "bg-rose-50 text-rose-700 ring-rose-200",
   },
 };
@@ -32,8 +29,7 @@ function Indicador({
 }) {
   const cores = coresIndicador[cor];
   return (
-    <article className="relative overflow-hidden rounded-2xl border border-[#dfe5da] bg-white p-5 shadow-[0_5px_20px_rgba(32,37,30,0.045)] transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_12px_26px_rgba(32,37,30,0.08)] sm:p-6">
-      <div className={`absolute inset-x-0 top-0 h-1 ${cores.faixa}`} />
+    <article className="fithub-card fithub-card-interactive relative overflow-hidden p-4 sm:p-5">
       <div className="flex items-start justify-between gap-4">
         <div>
           <p className="text-sm font-medium text-[#66705e]">{titulo}</p>

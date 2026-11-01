@@ -12,7 +12,7 @@ const moeda = new Intl.NumberFormat("pt-BR", {
 
 function CardPlano({ plano }: CardPlanoProps) {
   return (
-    <article className="group relative flex h-full min-h-[304px] flex-col overflow-hidden rounded-[1.75rem] border border-[#dfe6dc] bg-white p-4 shadow-[0_2px_5px_rgba(30,49,32,0.035),0_10px_28px_rgba(30,49,32,0.045)] transition-[transform,box-shadow,border-color] duration-300 motion-safe:hover:-translate-y-1 hover:border-[#c8d9c0] hover:shadow-[0_5px_12px_rgba(30,49,32,0.05),0_20px_42px_rgba(30,70,42,0.11)] motion-reduce:transition-none sm:p-5">
+    <article className="fithub-card fithub-card-interactive group relative flex h-full min-h-[304px] flex-col overflow-hidden p-4 sm:p-5">
       <div className="relative flex items-center justify-between overflow-hidden rounded-[1.25rem] bg-[#eff5eb] px-4 py-3.5">
         <span
           className="pointer-events-none absolute -right-5 -top-10 h-28 w-28 rounded-full bg-[#dcebd3]/70 transition-transform duration-500 group-hover:scale-110 motion-reduce:transition-none"

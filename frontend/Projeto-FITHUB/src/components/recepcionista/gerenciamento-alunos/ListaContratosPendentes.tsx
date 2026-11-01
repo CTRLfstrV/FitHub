@@ -23,7 +23,7 @@ function ListaContratosPendentes({
       id="ativar-contratos"
       tabIndex={-1}
       aria-labelledby="titulo-contratos-pendentes"
-      className="mt-6 scroll-mt-6 overflow-hidden rounded-2xl border border-[#dfe5da] bg-white shadow-[0_8px_28px_rgba(32,37,30,0.05)] focus:outline-none sm:mt-8"
+      className="fithub-card mt-6 scroll-mt-6 overflow-hidden focus:outline-none sm:mt-8"
     >
       <div className="flex flex-col gap-1 border-b border-[#e7ebe3] bg-gradient-to-r from-[#fbfdf8] to-white p-4 sm:flex-row sm:items-center sm:justify-between sm:px-6 sm:py-5">
         <div>

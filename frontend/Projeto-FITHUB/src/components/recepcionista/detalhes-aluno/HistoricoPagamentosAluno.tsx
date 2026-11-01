@@ -13,7 +13,7 @@ function HistoricoPagamentosAluno({
   pagamentos: PagamentoListagemResponseDTO[];
 }) {
   return (
-    <section className="mt-6 overflow-hidden rounded-2xl border border-[#dcebd0] border-t-4 border-t-green-700 bg-white shadow-[0_12px_30px_rgba(34,72,30,0.07)] sm:mt-8">
+    <section className="fithub-card mt-6 overflow-hidden sm:mt-8">
       <div className="flex flex-col justify-between gap-3 border-b border-[#e5eddc] bg-gradient-to-r from-[#f3f9ed] via-white to-white px-5 py-5 sm:flex-row sm:items-center sm:px-6">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.12em] text-green-800">

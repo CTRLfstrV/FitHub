@@ -41,7 +41,7 @@ function ListaPagamentos({
       id="gerenciar-pagamentos"
       tabIndex={-1}
       aria-label="Lista de pagamentos dos alunos"
-      className="mt-6 scroll-mt-6 overflow-hidden rounded-2xl border border-[#dfe5da] bg-white shadow-[0_8px_28px_rgba(32,37,30,0.05)] focus:outline-none sm:mt-8"
+      className="fithub-card mt-6 scroll-mt-6 overflow-hidden focus:outline-none sm:mt-8"
     >
       <CabecalhoListaPagamentos
         carregando={carregando}
