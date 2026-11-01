@@ -1,10 +1,7 @@
+import DetalhesPlanoConteudo from "../../components/recepcionista/planos/detalhes/DetalhesPlanoConteudo";
+
 function RecepcionistaDetalhesPlano() {
-  return (
-    <div>
-      <h1>Detalhes do Plano</h1>
-      {/* Aqui você pode adicionar os detalhes do plano */}
-    </div>
-  );
+  return <DetalhesPlanoConteudo />;
 }
 
 export default RecepcionistaDetalhesPlano;
