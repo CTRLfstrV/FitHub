@@ -2,12 +2,14 @@ type EstadoListaPlanosProps = {
   carregando: boolean;
   mensagemErro: string | null;
   vazio: boolean;
+  onTentarNovamente: () => void;
 };
 
 function EstadoListaPlanos({
   carregando,
   mensagemErro,
   vazio,
+  onTentarNovamente,
 }: EstadoListaPlanosProps) {
   if (carregando) {
     return (
@@ -36,6 +38,13 @@ function EstadoListaPlanos({
         </span>
         <h2 className="mt-4 text-base font-bold text-[#49332f]">Não foi possível carregar os planos</h2>
         <p className="mx-auto mt-2 max-w-lg text-sm leading-6 text-[#826c67]">{mensagemErro}</p>
+        <button
+          type="button"
+          onClick={onTentarNovamente}
+          className="mt-5 inline-flex min-h-10 items-center justify-center rounded-full bg-[#245b37] px-5 text-sm font-bold text-white transition hover:bg-[#1e4d2e] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4d8052]"
+        >
+          Tentar novamente
+        </button>
       </div>
     );
   }

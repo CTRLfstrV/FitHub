@@ -4,62 +4,58 @@ import type { PlanoDetalhesResponseDTO } from "../../types/financeiro/plano/Plan
 import type { PlanoResponseDTO } from "../../types/financeiro/plano/PlanoResponseDTO";
 
 export class PlanoService {
-  private readonly urlBase: string = "http://localhost:63367/api/plano";
+  private readonly urlBase = "http://localhost:63367/api/plano";
 
-  //#region Listagem dos planos
+  private async validarResposta(resposta: Response, mensagemPadrao: string) {
+    if (resposta.status === 401) throw new SessaoInvalidaException();
+    if (resposta.ok) return;
+
+    const mensagemServidor = await resposta.text().catch(() => "");
+    throw new Error(mensagemServidor.trim() || mensagemPadrao);
+  }
+
   async ListarPlanos(): Promise<PlanoResponseDTO[]> {
     const resposta = await fetch(this.urlBase, {
       method: "GET",
       credentials: "include",
     });
 
-    if (resposta.status === 401) throw new SessaoInvalidaException();
-
-    if (!resposta.ok) throw Error("Não foi possível ler os registros");
-
+    await this.validarResposta(resposta, "Não foi possível carregar os planos.");
     return resposta.json();
   }
-  //#endregion
 
-  //#region Quantidade de planos cadastrados
-  async QuantidadePlano(): Promise<number | string> {
-    const url: string = this.urlBase + "/quantidade";
-
-    const resposta = await fetch(url, {
+  async QuantidadePlano(): Promise<number> {
+    const resposta = await fetch(`${this.urlBase}/quantidade`, {
       method: "GET",
       credentials: "include",
     });
 
-    if (resposta.status === 401) throw new SessaoInvalidaException();
-    if (resposta.status === 400 || resposta.status === 500)
-      return resposta.text();
-    if (!resposta.ok) throw Error("Não foi possível ler os registros");
+    await this.validarResposta(resposta, "Não foi possível consultar a quantidade de planos.");
 
-    return resposta.json();
+    const quantidade: unknown = await resposta.json();
+    const valor =
+      typeof quantidade === "number"
+        ? quantidade
+        : typeof quantidade === "string"
+          ? Number(quantidade)
+          : Number.NaN;
+    if (!Number.isFinite(valor) || valor < 0) {
+      throw new Error("A quantidade de planos retornada é inválida.");
+    }
+
+    return valor;
   }
-  //#endregion
 
-  // #region Detalhes do plano
-  async DetalhesPlano(
-    idPlano: number,
-  ): Promise<PlanoDetalhesResponseDTO | string> {
-    const url: string = this.urlBase + `/${idPlano}`;
-
-    const resposta = await fetch(url, {
+  async DetalhesPlano(idPlano: number): Promise<PlanoDetalhesResponseDTO> {
+    const resposta = await fetch(`${this.urlBase}/${idPlano}`, {
       method: "GET",
       credentials: "include",
     });
 
-    if (resposta.status === 401) throw new SessaoInvalidaException();
-    if (resposta.status === 400 || resposta.status === 500)
-      return resposta.text();
-    if (!resposta.ok) throw Error("Não foi possível ler os registros");
-
+    await this.validarResposta(resposta, "Não foi possível carregar os detalhes do plano.");
     return resposta.json();
   }
-  //#endregion
 
-  //#region Cadastro de planos
   async CadastrarPlano(plano: PlanoCadastroDTO): Promise<string> {
     const resposta = await fetch(this.urlBase, {
       method: "POST",
@@ -68,53 +64,32 @@ export class PlanoService {
       body: JSON.stringify(plano),
     });
 
-    if (resposta.status === 401) throw new SessaoInvalidaException();
-    if (resposta.status === 400 || resposta.status === 500)
-      return resposta.text();
-    if (!resposta.ok) throw Error("Não foi possível cadastrar o plano");
-
-    return "Plano cadastrado com êxito";
+    await this.validarResposta(resposta, "Não foi possível cadastrar o plano.");
+    return "Plano cadastrado com sucesso.";
   }
-  //#endregion
 
-  //#region Edição de planos
   async EdicaoPlano(
     idPlano: number,
     planoEdicao: PlanoCadastroDTO,
   ): Promise<string> {
-    const url = this.urlBase + `/${idPlano}`;
-
-    const resposta = await fetch(url, {
+    const resposta = await fetch(`${this.urlBase}/${idPlano}`, {
       method: "PUT",
       credentials: "include",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(planoEdicao),
     });
 
-    if (resposta.status === 401) throw new SessaoInvalidaException();
-    if (resposta.status === 400 || resposta.status === 500)
-      return resposta.text();
-    if (!resposta.ok) throw Error("Não foi possível ler os registros");
-
-    return "Edição concluida com êxito";
+    await this.validarResposta(resposta, "Não foi possível editar o plano.");
+    return "Plano atualizado com sucesso.";
   }
-  //#endregion
 
-  //#region Exclusão de planos
   async DeletarPlano(idPlano: number): Promise<string> {
-    const url: string = this.urlBase + `/${idPlano}`;
-
-    const resposta = await fetch(url, {
+    const resposta = await fetch(`${this.urlBase}/${idPlano}`, {
       method: "DELETE",
       credentials: "include",
     });
 
-    if (resposta.status === 401) throw new SessaoInvalidaException();
-    if (resposta.status === 400 || resposta.status === 500)
-      return resposta.text();
-    if (!resposta.ok) throw Error("Não foi possível ler os registros");
-
-    return "Exclusão concluida com êxito";
+    await this.validarResposta(resposta, "Não foi possível excluir o plano.");
+    return "Plano excluído com sucesso.";
   }
-  //#endregion
 }

@@ -1,11 +1,11 @@
-import type { DetalhesPlanoResponseDTO } from "../../../../types/financeiro/DetalhesPlanoResponseDTO";
+import type { PlanoDetalhesResponseDTO } from "../../../../types/financeiro/plano/PlanoDetalhesResponseDTO";
 
 const moeda = new Intl.NumberFormat("pt-BR", {
   style: "currency",
   currency: "BRL",
 });
 
-function ResumoDetalhesPlano({ plano }: { plano: DetalhesPlanoResponseDTO }) {
+function ResumoDetalhesPlano({ plano }: { plano: PlanoDetalhesResponseDTO }) {
   return (
     <section
       aria-label="Resumo do plano"

@@ -1,14 +1,17 @@
 import { useEffect, useRef } from "react";
 import type { PlanoCadastroDTO } from "../../../../types/financeiro/plano/PlanoCadastroDTO";
+import type { PlanoResponseDTO } from "../../../../types/financeiro/plano/PlanoResponseDTO";
 import FormularioCadastroPlano from "./FormularioCadastroPlano";
 
 type ModalCadastroPlanoProps = {
   onFechar: () => void;
   onSalvar: (plano: PlanoCadastroDTO) => Promise<void>;
+  plano?: PlanoResponseDTO;
 };
 
-function ModalCadastroPlano({ onFechar, onSalvar }: ModalCadastroPlanoProps) {
+function ModalCadastroPlano({ onFechar, onSalvar, plano }: ModalCadastroPlanoProps) {
   const dialogRef = useRef<HTMLDialogElement>(null);
+  const editando = Boolean(plano);
 
   useEffect(() => {
     const dialogo = dialogRef.current;
@@ -57,20 +60,22 @@ function ModalCadastroPlano({ onFechar, onSalvar }: ModalCadastroPlanoProps) {
                 id="titulo-cadastro-plano"
                 className="mt-1 text-2xl font-bold tracking-tight text-[#20291f]"
               >
-                Novo plano
+                {editando ? "Editar plano" : "Novo plano"}
               </h2>
               <p
                 id="descricao-cadastro-plano"
                 className="mt-1 max-w-sm text-sm leading-6 text-[#697565]"
               >
-                Preencha os dados essenciais para adicionar um plano.
+                {editando
+                  ? "Atualize o nome ou o valor deste plano."
+                  : "Preencha os dados essenciais para adicionar um plano."}
               </p>
             </div>
           </div>
           <button
             type="button"
             onClick={onFechar}
-            aria-label="Fechar cadastro de plano"
+            aria-label="Fechar formulário de plano"
             className="grid h-10 w-10 shrink-0 cursor-pointer place-items-center rounded-full border border-[#e1e8db] bg-white/80 text-[#667262] transition hover:border-[#cbd9c3] hover:bg-white hover:text-[#263c2b] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-700"
           >
             <svg
@@ -88,7 +93,11 @@ function ModalCadastroPlano({ onFechar, onSalvar }: ModalCadastroPlanoProps) {
         </div>
       </div>
 
-      <FormularioCadastroPlano onCancelar={onFechar} onSalvar={onSalvar} />
+      <FormularioCadastroPlano
+        onCancelar={onFechar}
+        onSalvar={onSalvar}
+        planoInicial={plano}
+      />
     </dialog>
   );
 }

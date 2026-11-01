@@ -1,17 +1,23 @@
 import { useState, type FormEvent } from "react";
 import type { PlanoCadastroDTO } from "../../../../types/financeiro/plano/PlanoCadastroDTO";
+import type { PlanoResponseDTO } from "../../../../types/financeiro/plano/PlanoResponseDTO";
 
 type FormularioCadastroPlanoProps = {
   onCancelar: () => void;
   onSalvar: (plano: PlanoCadastroDTO) => Promise<void>;
+  planoInicial?: PlanoResponseDTO;
 };
 
 function FormularioCadastroPlano({
   onCancelar,
   onSalvar,
+  planoInicial,
 }: FormularioCadastroPlanoProps) {
-  const [nome, setNome] = useState("");
-  const [valor, setValor] = useState("");
+  const editando = Boolean(planoInicial);
+  const [nome, setNome] = useState(planoInicial?.nome ?? "");
+  const [valor, setValor] = useState(
+    planoInicial ? String(planoInicial.valor) : "",
+  );
   const [mensagemErro, setMensagemErro] = useState("");
   const [salvando, setSalvando] = useState(false);
 
@@ -37,8 +43,14 @@ function FormularioCadastroPlano({
     try {
       await onSalvar({ nome: nomePlano, valor: valorPlano });
       onCancelar();
-    } catch {
-      setMensagemErro("Não foi possível cadastrar o plano. Tente novamente.");
+    } catch (erro: unknown) {
+      setMensagemErro(
+        erro instanceof Error
+          ? erro.message
+          : editando
+            ? "Não foi possível atualizar o plano. Tente novamente."
+            : "Não foi possível cadastrar o plano. Tente novamente.",
+      );
     } finally {
       setSalvando(false);
     }
@@ -142,7 +154,13 @@ function FormularioCadastroPlano({
           disabled={salvando}
           className="inline-flex min-h-12 cursor-pointer items-center justify-center gap-2 rounded-xl bg-[#245b37] px-5 text-sm font-bold text-white shadow-[0_7px_16px_rgba(36,91,55,0.18)] transition hover:bg-[#1e4d2e] hover:shadow-[0_9px_20px_rgba(36,91,55,0.24)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4d8052] disabled:cursor-wait disabled:opacity-70"
         >
-          {salvando ? "Cadastrando..." : "Cadastrar plano"}
+          {salvando
+            ? editando
+              ? "Salvando..."
+              : "Cadastrando..."
+            : editando
+              ? "Salvar alterações"
+              : "Cadastrar plano"}
           {!salvando && (
             <svg
               aria-hidden="true"

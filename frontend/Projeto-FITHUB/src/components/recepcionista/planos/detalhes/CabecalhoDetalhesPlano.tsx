@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
-import type { DetalhesPlanoResponseDTO } from "../../../../types/financeiro/DetalhesPlanoResponseDTO";
+import type { PlanoDetalhesResponseDTO } from "../../../../types/financeiro/plano/PlanoDetalhesResponseDTO";
 import IconePlano from "../../plano/visao-geral/IconePlano";
 
-function CabecalhoDetalhesPlano({ plano }: { plano: DetalhesPlanoResponseDTO }) {
+function CabecalhoDetalhesPlano({ plano }: { plano: PlanoDetalhesResponseDTO }) {
   return (
     <>
       <nav aria-label="Navegação estrutural" className="mb-5">
@@ -51,7 +51,7 @@ function CabecalhoDetalhesPlano({ plano }: { plano: DetalhesPlanoResponseDTO }) 
                 {plano.nome}
               </h1>
               <p className="mt-1 text-sm leading-6 text-[#66705e] sm:text-base">
-                Informações do plano e alunos com contratos vinculados.
+                Dados do plano e contratos vinculados.
               </p>
             </div>
           </div>

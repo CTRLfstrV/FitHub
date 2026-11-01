@@ -4,6 +4,9 @@ import IconePlano from "./IconePlano";
 
 type CardPlanoProps = {
   plano: PlanoResponseDTO;
+  onEditar: (plano: PlanoResponseDTO) => void;
+  onExcluir: (plano: PlanoResponseDTO) => void;
+  desabilitado?: boolean;
 };
 
 const moeda = new Intl.NumberFormat("pt-BR", {
@@ -11,7 +14,12 @@ const moeda = new Intl.NumberFormat("pt-BR", {
   currency: "BRL",
 });
 
-function CardPlano({ plano }: CardPlanoProps) {
+function CardPlano({
+  plano,
+  onEditar,
+  onExcluir,
+  desabilitado = false,
+}: CardPlanoProps) {
   return (
     <article className="fithub-card fithub-card-interactive group relative flex h-full min-h-[304px] flex-col overflow-hidden p-4 sm:p-5">
       <div className="relative flex items-center justify-between overflow-hidden rounded-[1.25rem] bg-[#eff5eb] px-4 py-3.5">
@@ -65,9 +73,11 @@ function CardPlano({ plano }: CardPlanoProps) {
         </Link>
         <button
           type="button"
+          onClick={() => onEditar(plano)}
+          disabled={desabilitado}
           aria-label={`Editar plano ${plano.nome}`}
           title="Editar plano"
-          className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-[#5e7561] transition-colors hover:bg-[#edf5e9] hover:text-[#326735] active:scale-[0.96] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#527d3e] motion-reduce:transition-none"
+          className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-[#5e7561] transition-colors hover:bg-[#edf5e9] hover:text-[#326735] active:scale-[0.96] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#527d3e] disabled:cursor-wait disabled:opacity-50 motion-reduce:transition-none"
         >
           <svg
             aria-hidden="true"
@@ -84,9 +94,11 @@ function CardPlano({ plano }: CardPlanoProps) {
         </button>
         <button
           type="button"
+          onClick={() => onExcluir(plano)}
+          disabled={desabilitado}
           aria-label={`Excluir plano ${plano.nome}`}
           title="Excluir plano"
-          className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-[#69776c] transition-colors hover:bg-[#fbefec] hover:text-[#9b5144] active:scale-[0.96] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#9b4437] motion-reduce:transition-none"
+          className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-[#69776c] transition-colors hover:bg-[#fbefec] hover:text-[#9b5144] active:scale-[0.96] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#9b4437] disabled:cursor-wait disabled:opacity-50 motion-reduce:transition-none"
         >
           <svg
             aria-hidden="true"

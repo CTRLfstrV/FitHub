@@ -1,4 +1,4 @@
-import type { ContratoPlanoResponseDTO } from "../../../../types/financeiro/DetalhesPlanoResponseDTO";
+import type { PlanoDetalhesResponseDTO } from "../../../../types/financeiro/plano/PlanoDetalhesResponseDTO";
 
 function formatarData(valor: string) {
   const partes = /^(\d{4})-(\d{2})-(\d{2})/.exec(valor);
@@ -26,11 +26,9 @@ function obterIniciais(nome: string) {
     .toUpperCase();
 }
 
-function ListaContratosPlano({
-  contratos,
-}: {
-  contratos: ContratoPlanoResponseDTO[];
-}) {
+function ListaContratosPlano({ plano }: { plano: PlanoDetalhesResponseDTO }) {
+  const contratos = plano.contratos ?? [];
+
   return (
     <section className="fithub-card mt-6 overflow-hidden sm:mt-8">
       <div className="flex flex-col justify-between gap-3 border-b border-[#e5eddc] bg-gradient-to-r from-[#f3f9ed] via-white to-white px-5 py-5 sm:flex-row sm:items-center sm:px-6">
@@ -64,9 +62,9 @@ function ListaContratosPlano({
                 </tr>
               </thead>
               <tbody className="divide-y divide-[#edf0e9]">
-                {contratos.map((contrato, indice) => (
+                {contratos.map((contrato) => (
                   <tr
-                    key={`${contrato.aluno.email}-${contrato.incio}-${indice}`}
+                    key={contrato.id}
                     className="text-[#424a3d] transition-colors hover:bg-[#f7fbf3]"
                   >
                     <td className="px-6 py-4">
@@ -80,7 +78,7 @@ function ListaContratosPlano({
                       </div>
                     </td>
                     <td className="px-4 py-4 text-[#66705e]">{contrato.aluno.email}</td>
-                    <td className="px-4 py-4">{formatarData(contrato.incio)}</td>
+                    <td className="px-4 py-4">{formatarData(contrato.inicio)}</td>
                     <td className="px-4 py-4">{formatarData(contrato.termino)}</td>
                   </tr>
                 ))}
@@ -89,9 +87,9 @@ function ListaContratosPlano({
           </div>
 
           <div className="divide-y divide-[#edf0e9] md:hidden">
-            {contratos.map((contrato, indice) => (
+            {contratos.map((contrato) => (
               <article
-                key={`${contrato.aluno.email}-${contrato.incio}-${indice}`}
+                key={contrato.id}
                 className="space-y-4 px-5 py-5 transition-colors hover:bg-[#fbfdf8]"
               >
                 <div className="flex min-w-0 items-center gap-3">
@@ -113,7 +111,7 @@ function ListaContratosPlano({
                       Início
                     </dt>
                     <dd className="mt-1 text-sm font-medium text-[#424a3d]">
-                      {formatarData(contrato.incio)}
+                      {formatarData(contrato.inicio)}
                     </dd>
                   </div>
                   <div>
