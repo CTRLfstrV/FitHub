@@ -9,6 +9,7 @@ import RecepcionistaDetalhesAluno from "./pages/recepcionista/recepcionistaDetal
 import RecepcionistaMatriculaPage from "./pages/recepcionista/recepcionistaMatriculaPage.tsx";
 import ConfiguracoesPage from "./pages/configuracoesPage.tsx";
 import RecepcionistaGerenciamentoPlano from "./pages/recepcionista/recepcionistaGerenciamentoPlano.tsx";
+import RecepcionistaDetalhesPlano from "./pages/recepcionista/recepcionistaDetalhesPlano.tsx";
 
 //http://localhost:4173/
 
@@ -46,6 +47,10 @@ function App() {
           <Route
             path="/recepcionista/configuracoes"
             element={<ConfiguracoesPage />}
+          />
+          <Route 
+            path="/recepcionista/planos/:id"
+            element={<RecepcionistaDetalhesPlano />}
           />
         </Route>
         <Route path="/" element={<Navigate to="/home" />} />

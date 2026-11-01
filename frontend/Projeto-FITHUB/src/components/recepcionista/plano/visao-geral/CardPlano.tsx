@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import type { PlanoResponseDTO } from "../../../../types/financeiro/PlanoResponseDTO";
 import IconePlano from "./IconePlano";
 
@@ -43,8 +44,8 @@ function CardPlano({ plano }: CardPlanoProps) {
       </div>
 
       <div className="mt-auto flex items-center gap-1 border-t border-[#edf0ea] pt-3.5">
-        <button
-          type="button"
+        <Link
+          to={`/recepcionista/planos/${plano.id}`}
           aria-label={`Ver detalhes do plano ${plano.nome}`}
           className="inline-flex min-h-11 min-w-0 flex-1 items-center justify-start gap-2 rounded-full px-3 text-sm font-bold text-[#356b3e] transition-colors hover:bg-[#edf5e9] active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#527d3e] motion-reduce:transition-none"
         >
@@ -61,7 +62,7 @@ function CardPlano({ plano }: CardPlanoProps) {
           >
             <path d="M5 12h14m-6-6 6 6-6 6" />
           </svg>
-        </button>
+        </Link>
         <button
           type="button"
           aria-label={`Editar plano ${plano.nome}`}
