@@ -6,7 +6,7 @@ import { PlanoService } from "../../../services/financeiro/PlanoService";
 import { RedirecionadorService } from "../../../services/RedirecionadorService";
 import { PessoaService } from "../../../services/usuarios/PessoaService";
 import type { FormaPagamentoResponseDTO } from "../../../types/financeiro/FormaPagamentoResponseDTO";
-import type { PlanoResponseDTO } from "../../../types/financeiro/PlanoResponseDTO";
+import type { PlanoResponseDTO } from "../../../types/financeiro/plano/PlanoResponseDTO";
 import type { SexoPessoaResponseDTO } from "../../../types/usuarios/SexoPessoaResponseDTO";
 
 const planoService = new PlanoService();

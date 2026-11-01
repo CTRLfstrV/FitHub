@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import type { PlanoCadastroDTO } from "../../../../types/financeiro/PlanoCadastroDTO";
+import type { PlanoCadastroDTO } from "../../../../types/financeiro/plano/PlanoCadastroDTO";
 import FormularioCadastroPlano from "./FormularioCadastroPlano";
 
 type ModalCadastroPlanoProps = {

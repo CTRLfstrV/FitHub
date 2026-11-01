@@ -4,12 +4,14 @@ namespace PorjetoBackend_FITHUB.Models.DTO_s.Financeiro.Plano
 {
     public record ContratoDetalhesPlanoDTO
     {
+        public int Id { get; set; }
         public DateTime Incio { get; set; }
         public DateTime Termino { get; set; }
         public AlunoDetalhesPlanoDTO Aluno { get; set; }
         
-        public ContratoDetalhesPlanoDTO(DateTime incio, DateTime termino, AlunoDetalhesPlanoDTO aluno)
+        public ContratoDetalhesPlanoDTO(int id, DateTime incio, DateTime termino, AlunoDetalhesPlanoDTO aluno)
         {
+            Id = id;
             Incio = incio;
             Termino = termino;
             Aluno = aluno;

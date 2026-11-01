@@ -1,4 +1,4 @@
-import type { PlanoResponseDTO } from "../../../../types/financeiro/PlanoResponseDTO";
+import type { PlanoResponseDTO } from "../../../../types/financeiro/plano/PlanoResponseDTO";
 import CardPlano from "./CardPlano";
 
 type ListaPlanosProps = {

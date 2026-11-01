@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from "react";
-import type { PlanoCadastroDTO } from "../../../../types/financeiro/PlanoCadastroDTO";
+import type { PlanoCadastroDTO } from "../../../../types/financeiro/plano/PlanoCadastroDTO";
 
 type FormularioCadastroPlanoProps = {
   onCancelar: () => void;

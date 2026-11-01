@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using PorjetoBackend_FITHUB.Exceptions.PlanoExceptions;
 using PorjetoBackend_FITHUB.Models.DTO_s.Financeiro;
 using PorjetoBackend_FITHUB.Models.DTO_s.Financeiro.Plano;
@@ -129,9 +130,12 @@ namespace PorjetoBackend_FITHUB.Controllers.Financeiro
                 
                 return Ok();
             }
-            catch (SqlException)
+            catch (DbUpdateException ex)
             {
-                return StatusCode(500, "Ocorreu um erro no consultar banco de dados");
+                if (ex.InnerException is SqlException sqlEx && sqlEx.Number == 547)
+                    return BadRequest("Há contratos vinculados com o plano");
+                
+                return StatusCode(500, "Ocorreu um erro interno de servidor");
             }
             catch (Exception)
             {
@@ -148,7 +152,7 @@ namespace PorjetoBackend_FITHUB.Controllers.Financeiro
             try
             {
                 await _planoService.AtualizarPlano(id, plano);
-                
+
                 return Ok();
             }
             catch (NomePlanoInvalidoException ex)
@@ -159,7 +163,7 @@ namespace PorjetoBackend_FITHUB.Controllers.Financeiro
             {
                 return BadRequest(ex.Message);
             }
-            catch (SqlException)
+            catch (DbUpdateException ex) when (ex.InnerException is SqlException)
             {
                 return StatusCode(500, "Ocorreu um erro no consultar banco de dados");
             }

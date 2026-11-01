@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import type { PlanoResponseDTO } from "../../../../types/financeiro/PlanoResponseDTO";
+import type { PlanoResponseDTO } from "../../../../types/financeiro/plano/PlanoResponseDTO";
 import IconePlano from "./IconePlano";
 
 type CardPlanoProps = {

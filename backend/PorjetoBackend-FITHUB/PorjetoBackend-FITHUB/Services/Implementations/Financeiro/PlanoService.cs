@@ -43,7 +43,7 @@ namespace PorjetoBackend_FITHUB.Services.Implementations.Financeiro
                 .Select(p =>
                     new PlanoDetalhesDTO(p.Nome, p.Valor,
                         p.Contratos.Select(c =>
-                                new ContratoDetalhesPlanoDTO(c.Inicio, c.Termino,
+                                new ContratoDetalhesPlanoDTO(c.Id,c.Inicio, c.Termino,
                                     new AlunoDetalhesPlanoDTO(c.Aluno.Nome, c.Aluno.Email)))
                             .ToList()
                     ))

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { PlanoService } from "../../../../services/financeiro/PlanoService";
-import type { PlanoCadastroDTO } from "../../../../types/financeiro/PlanoCadastroDTO";
-import type { PlanoResponseDTO } from "../../../../types/financeiro/PlanoResponseDTO";
+import type { PlanoCadastroDTO } from "../../../../types/financeiro/plano/PlanoCadastroDTO";
+import type { PlanoResponseDTO } from "../../../../types/financeiro/plano/PlanoResponseDTO";
 
 const planoService = new PlanoService();
 
