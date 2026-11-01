@@ -43,7 +43,7 @@ export class PessoaService {
 
       try {
         mensagem = await resposta.text();
-      } catch { }
+      } catch {}
       throw new Error(mensagem);
     }
 
@@ -83,6 +83,20 @@ export class PessoaService {
     if (!resposta.ok) throw new Error("Não foi possível ler a sessão");
 
     return resposta.text();
+  }
+  //#endregion
+
+  //#region LogOut
+  async Logout(): Promise<void> {
+    const url: string = this.urlBase + "logout";
+
+    const resposta = await fetch(url, {
+      method: "DELETE",
+      credentials: "include",
+    });
+
+    if (!resposta.ok)
+      throw Error("Não foi possível realizar o logout");
   }
   //#endregion
 
@@ -146,7 +160,7 @@ export class PessoaService {
   }
   //#endregion
 
-  //#region 
+  //#region
   async AlterarDados(novosDados: AlteracaoDadosDTO): Promise<string> {
     new AlteracaoDadosValidation().validacaoAlteracaoDados(novosDados);
 
@@ -161,12 +175,13 @@ export class PessoaService {
       body: JSON.stringify({
         novoNome: novosDados.novoNome,
         novoEmail: novosDados.novoEmail,
-        novoTelefone: novosDados.novoTelefone
-      })
+        novoTelefone: novosDados.novoTelefone,
+      }),
     });
 
     if (resposta.status === 401) throw new SessaoInvalidaException();
-    if (resposta.status === 400 || resposta.status === 500) return resposta.text();
+    if (resposta.status === 400 || resposta.status === 500)
+      return resposta.text();
     if (!resposta.ok) throw new Error("Não foi possível alterar os dados");
 
     return "Dados salvos com sucesso";

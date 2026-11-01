@@ -99,7 +99,7 @@ namespace PorjetoBackend_FITHUB.Controllers.Usuarios
             }
         }
 
-        [HttpDelete]
+        [HttpDelete("logout")]
         public IActionResult Logout()
         {
             try
