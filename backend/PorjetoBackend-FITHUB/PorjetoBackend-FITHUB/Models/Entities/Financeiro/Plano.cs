@@ -44,7 +44,20 @@ namespace PorjetoBackend_FITHUB.Models.Entities.Financeiro
             
         }
 
-        public int QuantidadeMeses { get; set; }
+        private int _quantidadeMeses;
+        public int QuantidadeMeses 
+        {
+            get
+            {
+                return _quantidadeMeses;
+            }
+            set
+            {
+                if (value > 0 && _quantidadeMeses != value)
+                    _quantidadeMeses = value;
+            }
+            
+        }
 
         public List<Contrato> Contratos { get; set; }
 
