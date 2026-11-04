@@ -121,6 +121,94 @@ function HomePage() {
           </article>
         </div>
       </section>
+      <section
+        className="border-t border-[#e5e9e1] py-12 md:py-[62px]"
+        id="sobre-nos"
+      >
+        <div className="mb-8">
+          <span className={eyebrow}>QUEM FAZ ACONTECER</span>
+          <h2 className="mt-3 text-[28px] font-bold leading-tight tracking-[-.045em] sm:text-4xl">
+            Sobre <span className="text-fithub-brand">nós.</span>
+          </h2>
+          <p className="mt-3 max-w-[560px] text-sm leading-[1.7] text-fithub-muted">
+            Conheça as pessoas que desenvolveram o FitHub.
+          </p>
+        </div>
+        <div className="grid gap-[14px] md:grid-cols-3">
+          <article className="fithub-card p-[22px] md:p-6">
+            <img
+              src="/joao-otavio.jpg"
+              alt="João Otávio"
+              className="h-16 w-16 rounded-full object-cover ring-2 ring-fithub-surface"
+            />
+            <h3 className="mt-5 text-[18px] font-bold">João Otávio</h3>
+            <p className="mt-1 text-sm leading-[1.7] text-fithub-muted">
+              Fullstack
+            </p>
+            <p className="mt-3 text-sm leading-[1.7] text-fithub-muted">
+              Desenvolveu funcionalidades da aplicação e integrou a interface
+              com os serviços do sistema.
+            </p>
+            <a
+              className="mt-4 inline-flex items-center gap-1 text-sm font-bold text-fithub-brand transition hover:underline"
+              href="https://github.com/joao-otavio-rosa"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Visitar o GitHub de João Otávio (abre em nova aba)"
+            >
+              GitHub <span aria-hidden="true">↗</span>
+            </a>
+          </article>
+          <article className="fithub-card p-[22px] md:p-6">
+            <img
+              src="/felipe-soterio.jpg"
+              alt="Felipe Sotério"
+              className="h-16 w-16 rounded-full object-cover ring-2 ring-fithub-surface"
+            />
+            <h3 className="mt-5 text-[18px] font-bold">Felipe Sotério</h3>
+            <p className="mt-1 text-sm leading-[1.7] text-fithub-muted">
+              Frontend
+            </p>
+            <p className="mt-3 text-sm leading-[1.7] text-fithub-muted">
+              Criou as telas e os componentes visuais para a experiência de uso
+              do FitHub.
+            </p>
+            <a
+              className="mt-4 inline-flex items-center gap-1 text-sm font-bold text-fithub-brand transition hover:underline"
+              href="https://github.com/CTRLfstrV"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Visitar o GitHub de Felipe Sotério (abre em nova aba)"
+            >
+              GitHub <span aria-hidden="true">↗</span>
+            </a>
+          </article>
+          <article className="fithub-card p-[22px] md:p-6">
+            <img
+              src="/giovana-helena.jpg"
+              alt="Giovana Helena"
+              className="h-16 w-16 rounded-full object-cover ring-2 ring-fithub-surface"
+            />
+            <h3 className="mt-5 text-[18px] font-bold">Giovana Helena</h3>
+            <p className="mt-1 text-sm leading-[1.7] text-fithub-muted">
+              DBA
+            </p>
+            <p className="mt-3 text-sm leading-[1.7] text-fithub-muted">
+              Modelou e organizou o banco de dados para armazenar as informações
+              do sistema.
+            </p>
+            <a
+              className="mt-4 inline-flex items-center gap-1 text-sm font-bold text-fithub-brand transition hover:underline"
+              href="https://github.com/giovanahelenapereira-cmd"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Visitar o GitHub de Giovana Helena (abre em nova aba)"
+            >
+              GitHub <span aria-hidden="true">↗</span>
+            </a>
+          </article>
+        </div>
+      </section>
       <section className="flex flex-col items-start gap-6 rounded-[10px] bg-fithub-surface px-[23px] py-7 md:flex-row md:items-center md:justify-between md:px-10 md:py-[35px]">
         <div>
           <span className={eyebrow}>O SEU MOMENTO É AGORA</span>

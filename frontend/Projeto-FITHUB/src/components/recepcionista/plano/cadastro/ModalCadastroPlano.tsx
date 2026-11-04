@@ -67,8 +67,8 @@ function ModalCadastroPlano({ onFechar, onSalvar, plano }: ModalCadastroPlanoPro
                 className="mt-1 max-w-sm text-sm leading-6 text-[#697565]"
               >
                 {editando
-                  ? "Atualize o nome ou o valor deste plano."
-                  : "Preencha os dados essenciais para adicionar um plano."}
+                  ? "Atualize o nome, o valor ou a duração deste plano."
+                  : "Preencha o nome, o valor e a duração do novo plano."}
               </p>
             </div>
           </div>

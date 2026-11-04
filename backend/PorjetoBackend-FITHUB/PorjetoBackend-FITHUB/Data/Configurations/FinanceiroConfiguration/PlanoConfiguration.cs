@@ -19,6 +19,7 @@ namespace PorjetoBackend_FITHUB.Data.Configurations.FinanceiroConfiguration
 
             builder.Property(p => p.Nome).HasColumnName("nome_plano");
             builder.Property(p => p.Valor).HasColumnName("vlr_plano");
+            builder.Property(p => p.QuantidadeMeses).HasColumnName("quantidade_meses_plano");
         }
     }
 }

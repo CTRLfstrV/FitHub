@@ -18,6 +18,9 @@ function FormularioCadastroPlano({
   const [valor, setValor] = useState(
     planoInicial ? String(planoInicial.valor) : "",
   );
+  const [quantidadeMeses, setQuantidadeMeses] = useState(
+    planoInicial ? String(planoInicial.quantidadeMeses) : "",
+  );
   const [mensagemErro, setMensagemErro] = useState("");
   const [salvando, setSalvando] = useState(false);
 
@@ -27,6 +30,7 @@ function FormularioCadastroPlano({
 
     const nomePlano = nome.trim();
     const valorPlano = Number(valor);
+    const mesesPlano = Number(quantidadeMeses);
 
     if (!nomePlano) {
       setMensagemErro("Informe o nome do plano.");
@@ -38,10 +42,19 @@ function FormularioCadastroPlano({
       return;
     }
 
+    if (!Number.isInteger(mesesPlano) || mesesPlano < 1) {
+      setMensagemErro("Informe uma quantidade de meses inteira maior que zero.");
+      return;
+    }
+
     setSalvando(true);
 
     try {
-      await onSalvar({ nome: nomePlano, valor: valorPlano });
+      await onSalvar({
+        nome: nomePlano,
+        valor: valorPlano,
+        quantidadeMeses: mesesPlano,
+      });
       onCancelar();
     } catch (erro: unknown) {
       setMensagemErro(
@@ -115,6 +128,31 @@ function FormularioCadastroPlano({
           </div>
           <span id="ajuda-valor-plano" className="mt-2 block text-xs text-[#7b8676]">
             Valor em reais para este plano.
+          </span>
+        </label>
+
+        <label className="block">
+          <span className="mb-2.5 block text-sm font-semibold text-[#30382c]">
+            Quantidade de meses <span className="text-red-600">*</span>
+          </span>
+          <input
+            required
+            min={1}
+            step={1}
+            name="quantidadeMeses"
+            type="number"
+            inputMode="numeric"
+            value={quantidadeMeses}
+            onChange={(event) => setQuantidadeMeses(event.target.value)}
+            placeholder="Ex.: 12"
+            aria-describedby="ajuda-quantidade-meses-plano"
+            className="min-h-14 w-full rounded-2xl border border-[#e0e7dc] bg-[#f9fbf7] px-4 text-sm text-[#252b21] outline-none transition placeholder:text-[#9aa393] hover:border-[#cbd9c3] focus:border-[#4d8052] focus:bg-white focus:ring-4 focus:ring-[#4d8052]/10"
+          />
+          <span
+            id="ajuda-quantidade-meses-plano"
+            className="mt-2 block text-xs text-[#7b8676]"
+          >
+            Duração do plano em meses.
           </span>
         </label>
       </div>

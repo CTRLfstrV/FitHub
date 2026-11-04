@@ -14,6 +14,7 @@ function HomeHeader() {
         <nav className="flex items-center gap-4 md:gap-9" aria-label="Navegação principal">
           <NavLink to="/home" className={navClass}>Início</NavLink>
           <a className="hidden text-base text-white/90 transition hover:text-white md:block" href="/home#beneficios">Benefícios</a>
+          <a className="hidden text-base text-white/90 transition hover:text-white md:block" href="/home#sobre-nos">Sobre nós</a>
           <Link className="rounded-lg border border-white bg-white px-3 py-2.5 text-sm font-semibold text-green-700 transition hover:bg-green-50 md:px-[17px] md:py-3 md:text-base" to="/login">
             Fazer login <span className="ml-2">↗</span>
           </Link>

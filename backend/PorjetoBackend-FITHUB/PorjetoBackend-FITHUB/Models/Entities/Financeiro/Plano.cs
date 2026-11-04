@@ -44,6 +44,8 @@ namespace PorjetoBackend_FITHUB.Models.Entities.Financeiro
             
         }
 
+        public int QuantidadeMeses { get; set; }
+
         public List<Contrato> Contratos { get; set; }
 
         public Plano() { }
@@ -52,6 +54,7 @@ namespace PorjetoBackend_FITHUB.Models.Entities.Financeiro
         {
             Nome = plano.Nome;
             Valor = plano.Valor;
+            QuantidadeMeses = plano.QuantidadeMeses;
         }
     }
 }

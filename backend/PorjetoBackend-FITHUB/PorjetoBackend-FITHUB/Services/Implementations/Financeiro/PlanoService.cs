@@ -76,6 +76,7 @@ namespace PorjetoBackend_FITHUB.Services.Implementations.Financeiro
             Plano plano = await _fitHub.TbPlano.FirstOrDefaultAsync(p => p.Id == idPlano);
             plano.Nome = planoAtualizado.Nome;
             plano.Valor = planoAtualizado.Valor;
+            plano.QuantidadeMeses =  planoAtualizado.QuantidadeMeses;
 
             await _fitHub.SaveChangesAsync();
         }

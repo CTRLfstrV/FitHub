@@ -46,11 +46,16 @@ function adicionarMeses(data: Date, meses: number) {
   );
 }
 
-function calcularDataTermino(quantidadeParcelas: string) {
-  const meses = Number(quantidadeParcelas);
-  if (!Number.isInteger(meses) || meses < 1 || meses > 6) return "";
+function calcularDataTermino(quantidadeMeses: number | undefined) {
+  if (
+    quantidadeMeses === undefined ||
+    !Number.isInteger(quantidadeMeses) ||
+    quantidadeMeses < 1
+  ) {
+    return "";
+  }
 
-  return formatarDataISO(adicionarMeses(new Date(), meses));
+  return formatarDataISO(adicionarMeses(new Date(), quantidadeMeses));
 }
 
 function calcularPrimeiroVencimento(diaPagamento: string) {
@@ -88,7 +93,9 @@ function FormularioMatriculaAluno() {
 
   const planoSelecionado =
     planos.find((plano) => plano.id === codigoPlano) ?? null;
-  const dataFimContrato = calcularDataTermino(quantidadeParcelas);
+  const dataFimContrato = calcularDataTermino(
+    planoSelecionado?.quantidadeMeses,
+  );
   const vencimentoPrimeiraParcela = calcularPrimeiroVencimento(diaPagamento);
   function selecionarPlano(novoCodigo: number) {
     const novoPlano = planos.find((plano) => plano.id === novoCodigo);
@@ -438,7 +445,7 @@ function FormularioMatriculaAluno() {
         <CampoFormularioMatricula
           id="fim-contrato"
           rotulo="Término do contrato"
-          dica="Calculado a partir de hoje, somando um mês por parcela."
+          dica="Calculado a partir de hoje conforme a duração do plano selecionado."
         >
           <input
             className={classesCampoMatricula}
@@ -454,7 +461,7 @@ function FormularioMatriculaAluno() {
         <CampoFormularioMatricula
           id="quantidade-parcelas"
           rotulo="Quantidade de parcelas"
-          dica="Informe de 1 a 6 parcelas."
+          dica="Informe de 1 a 12 parcelas."
         >
           <input
             className={classesCampoMatricula}
@@ -462,7 +469,7 @@ function FormularioMatriculaAluno() {
             name="quantidadeParcelas"
             type="number"
             min={1}
-            max={6}
+            max={12}
             step={1}
             inputMode="numeric"
             value={quantidadeParcelas}

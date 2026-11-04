@@ -182,9 +182,9 @@ export class GlobalValidation {
     if (
       !Number.isInteger(quantidadeParcelas) ||
       quantidadeParcelas < 1 ||
-      quantidadeParcelas > 6
+      quantidadeParcelas > 12
     ) {
-      throw new Error("A quantidade de parcelas deve ser um inteiro entre 1 e 6.");
+      throw new Error("A quantidade de parcelas deve ser um inteiro entre 1 e 12.");
     }
   }
   //#endregion
